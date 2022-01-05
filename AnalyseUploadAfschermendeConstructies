@@ -1,0 +1,41 @@
+Python 3
+ArcGIS Pro libraries
+
+* Input
+  - Wegendatabank
+  - FeatureServer
+  - FileGeoDB (uit csv file van feature server of WDB) ==> voorkeur vanwege testmogelijkheden
+  * veldnamen zijn in de databanken verschillend
+
+  - GRB (downloadbare databank)
+
+  ==> objecten EventDataAC
+
+* Verwerking
+  - objecten met locaties
+  - geometrie afleiden uit het routesysteem
+  - WDB bevat evt. WKT string
+  1) die geometrie gebruiken als geometrie voor de constructie (midden op de baan)
+     - geen validatie
+  2) geometrie met vaste offset aanpassen (2 kanten, links en rechts)
+     - sommige constructies gaan validatiefouten geven (staan over elkaar)
+  3) geometrie met variabele offset aanpassen (rekening houden afstand rijbaan en zijde van de rijbaan)
+     - gaan normaal niet over elkaar staan
+     - rand van de rijbaan moet benaderd worden
+  4) geometrie mappen op GRB
+     - data zal niet 100% mappen, bv onnauwkeurig of onvolledig
+
+  ==> FeatureAC objecten
+
+* Output
+  - ArcGIS features omzetten naar OTL conforme assets
+  - gebeurt via OTLCLassPython project
+  - enkel nog mapping te maken of toe te passen
+    - waarschijnlijk for loop die de mapping manueel toepast
+
+  ==> via OTL conforme objecten naar json voor import
+
+
+
+notities:
+https://gis.stackexchange.com/questions/32762/accessing-feature-classes-in-file-geodatabases-using-python-and-gdal
