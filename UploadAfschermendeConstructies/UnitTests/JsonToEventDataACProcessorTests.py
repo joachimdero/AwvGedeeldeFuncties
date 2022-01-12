@@ -48,13 +48,14 @@ class JsonToEventDataACProcessorTests(TestCase):
         listEventDataAC = processor.processJson(JsonTestData.problemJsonObject)
         self.assertEqual("N0740002", listEventDataAC[0].ident8)
 
+
     def test_assert_processJson_results_in_EventDataAC_wkt_values(self):
         processor = JsonToEventDataACProcessor()
         listEventDataAC = processor.processJson(JsonTestData.jsonLines)
         self.assertEqual(
             "LINESTRING ZM (161468.378768416 160252.040726318 0 12.054, 161473.488399997 160248.7412 0 12.0601500000048, 161485.656400003 160239.505199999 0 12.0755499999941, 161497.47762291 160231.46343517 0 12.09)",
             listEventDataAC[0].wktLineStringZM)
-        # self.assertEqual("N0180001", listEventDataAC[1].wktLineStringZM)  # TODO joachim
+        # self.assertEqual("wkt string in te vullen", listEventDataAC[1].wktLineStringZM)  # TODO joachim
 
     def test_assert_FSInputToWktLineStringZM_returns_valid_LinestringZM(self):
         processor = JsonToEventDataACProcessor()
