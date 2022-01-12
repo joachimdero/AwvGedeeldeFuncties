@@ -3,13 +3,17 @@ ArcGIS Pro libraries
 
 * Input
   - Wegendatabank
-  - FeatureServer
+  - FeatureServer *
   - FileGeoDB (uit csv file van feature server of WDB) ==> voorkeur vanwege testmogelijkheden
   * veldnamen zijn in de databanken verschillend
 
   - GRB (downloadbare databank)
 
   ==> objecten EventDataAC
+  * ident8
+  * geometry
+  * beginpositie
+  * eindpositie
 
 * Verwerking
   - objecten met locaties
