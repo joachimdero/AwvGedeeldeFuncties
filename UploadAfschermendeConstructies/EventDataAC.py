@@ -8,3 +8,4 @@ class EventDataAC:
     ident8: str = ''
     wktLineStringZM: str = ''
     begin: WegLocatieData = None
+    ##eind: WegLocatieData = None

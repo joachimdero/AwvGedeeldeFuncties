@@ -55,7 +55,9 @@ class JsonToEventDataACProcessorTests(TestCase):
         self.assertEqual(
             "LINESTRING ZM (161468.378768416 160252.040726318 0 12.054, 161473.488399997 160248.7412 0 12.0601500000048, 161485.656400003 160239.505199999 0 12.0755499999941, 161497.47762291 160231.46343517 0 12.09)",
             listEventDataAC[0].wktLineStringZM)
-        # self.assertEqual("wkt string in te vullen", listEventDataAC[1].wktLineStringZM)  # TODO joachim
+        self.assertEqual(
+            "LINESTRING ZM (204687.014412866 207284.945373632 0 23.331, 204687.998785856 207284.800409002 0 23.332)",
+            listEventDataAC[1].wktLineStringZM)  # TODO joachim
 
     def test_assert_FSInputToWktLineStringZM_returns_valid_LinestringZM(self):
         processor = JsonToEventDataACProcessor()
@@ -75,6 +77,15 @@ class JsonToEventDataACProcessorTests(TestCase):
         # TODO joachim : zelfde voor eind
 
     def test_assert_FSInputToWktPoint_returns_valid_Point(self):
-        self.assertTrue(False)
+        processor = JsonToEventDataACProcessor()
+        listEventDataAC = processor.processJson(JsonTestData.jsonLines)
+        self.assertTrue(isinstance(listEventDataAC[0].eind, WegLocatieData))
+        print (listEventDataAC[0].eind.positie)
+        self.assertEqual(12.09, listEventDataAC[0].eind.positie)
+        self.assertEqual('gps', listEventDataAC[0].eind.bron)
+        self.assertEqual('POINT (161496.99027397216 160230.19308630042)', listEventDataAC[0].eind.wktPoint)
+        print (listEventDataAC[0].eind)
+        ## eventdataac was niet nodig ?
+        ##self.assertTrue(False)
         # TODO test nog aan te maken
 
