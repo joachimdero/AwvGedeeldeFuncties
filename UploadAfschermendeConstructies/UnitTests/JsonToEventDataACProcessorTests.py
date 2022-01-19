@@ -74,7 +74,6 @@ class JsonToEventDataACProcessorTests(TestCase):
         self.assertEqual(12.054, listEventDataAC[0].begin.positie)
         self.assertEqual('gps', listEventDataAC[0].begin.bron)
         self.assertEqual('POINT (161466.73643835858 160249.5952780808)', listEventDataAC[0].begin.wktPoint)
-        # TODO joachim : zelfde voor eind
 
     def test_assert_processJson_results_in_EventDataAC_eind_values(self):
         processor = JsonToEventDataACProcessor()
@@ -86,8 +85,9 @@ class JsonToEventDataACProcessorTests(TestCase):
         self.assertEqual('POINT (161496.99027397216 160230.19308630042)', listEventDataAC[0].eind.wktPoint)
         print (listEventDataAC[0].eind)
 
-        ac = EventDataAC()
-        ## eventdataac was niet nodig ?
-        ##self.assertTrue(False)
-        # TODO test nog aan te maken
+    def test_assert_FSInputToWktPoint_returns_valid_Point(self):
+        processor = JsonToEventDataACProcessor()
+        result = processor.FSInputToWktPoint([151938.95276640623, 177948.05493700944])
+        expected = "POINT (151938.95276640623 177948.05493700944)"
+        self.assertEqual(expected, result)
 
