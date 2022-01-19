@@ -7,5 +7,5 @@ from UploadAfschermendeConstructies.WegLocatieData import WegLocatieData
 class EventDataAC:
     ident8: str = ''
     wktLineStringZM: str = ''
-    begin: WegLocatieData = None
-    eind: WegLocatieData = None
+    begin: WegLocatieData = WegLocatieData()
+    eind: WegLocatieData = WegLocatieData()
