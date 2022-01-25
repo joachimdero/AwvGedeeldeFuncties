@@ -12,100 +12,101 @@ from UploadAfschermendeConstructies.UnitTests.OffsetLineTestData import OffsetLi
 
 
 class GeometryHelperTest(unittest.TestCase):
-    def test_0_0_uitkomst_0(self):
-        # arrange = klaarzetten voorbereiden
-        a = 0.0
-        b = 0.0
+    def test_bereken_hoek(self):
+        with self.subTest('0_0_uitkomst_0'):
+            # arrange = klaarzetten voorbereiden
+            a = 0.0
+            b = 0.0
 
-        # act: effectief uitvoeren
-        resultaat = GeometryHelper.bereken_hoek(a, b)
-
-        # assert: controle tussen resultaat en verwacht
-        verwacht = 0.0
-        self.assertEqual(verwacht, resultaat)
-
-    def test_0_1_uitkomst_1(self):
-        # arrange = klaarzetten voorbereiden
-        a = 0.0
-        b = 1.0
-
-        # act: effectief uitvoeren
-        resultaat = GeometryHelper.bereken_hoek(a, b)
-
-        # assert: controle tussen resultaat en verwacht
-        verwacht = 1.0
-        self.assertEqual(verwacht, resultaat)
-
-    def test_1_1_uitkomst_0(self):
-        # arrange = klaarzetten voorbereiden
-        a = 1.0
-        b = 1.0
-
-        # act: effectief uitvoeren
-        resultaat = GeometryHelper.bereken_hoek(a, b)
-
-        # assert: controle tussen resultaat en verwacht
-        verwacht = 0.0
-        self.assertEqual(verwacht, resultaat)
-
-    def test_0_181_uitkomst_min179(self):
-        # arrange = klaarzetten voorbereiden
-        a = 0
-        b = 181
-
-        # act: effectief uitvoeren
-        resultaat = GeometryHelper.bereken_hoek(a, b)
-
-        # assert: controle tussen resultaat en verwacht
-        verwacht = -179
-        self.assertEqual(verwacht, resultaat)
-
-    def test_0_800_uitkomst_80(self):
-        # arrange = klaarzetten voorbereiden
-        a = 0
-        b = 800
-
-        # act: effectief uitvoeren
-        resultaat = GeometryHelper.bereken_hoek(a, b)
-
-        # assert: controle tussen resultaat en verwacht
-        verwacht = 80
-        self.assertEqual(verwacht, resultaat)
-
-    def test_0_min800_uitkomst_min80(self):
-        # arrange = klaarzetten voorbereiden
-        a = 0
-        b = -800
-
-        # act: effectief uitvoeren
-        resultaat = GeometryHelper.bereken_hoek(a, b)
-
-        # assert: controle tussen resultaat en verwacht
-        verwacht = -80
-        self.assertEqual(verwacht, resultaat)
-
-    def test_0_str180_uitkomst_typeError(self):
-        # arrange = klaarzetten voorbereiden
-        a = 0
-        b = "180"
-
-        # act: effectief uitvoeren
-
-        # assert: controle tussen resultaat en verwacht
-        with self.assertRaises(TypeError):
+            # act: effectief uitvoeren
             resultaat = GeometryHelper.bereken_hoek(a, b)
 
-    def test_0_None_uitkomst_valueError(self):
-        # arrange = klaarzetten voorbereiden
-        a = 0
-        b = None
+            # assert: controle tussen resultaat en verwacht
+            verwacht = 0.0
+            self.assertEqual(verwacht, resultaat)
 
-        # act: effectief uitvoeren
+        with self.subTest('0_1_uitkomst_1'):
+            # arrange = klaarzetten voorbereiden
+            a = 0.0
+            b = 1.0
 
-        # assert: controle tussen resultaat en verwacht
-        with self.assertRaises(ValueError) as NoneValueError:
+            # act: effectief uitvoeren
             resultaat = GeometryHelper.bereken_hoek(a, b)
-        self.assertEqual(str(NoneValueError.exception), "None is geen geldige waarde")
+
+            # assert: controle tussen resultaat en verwacht
+            verwacht = 1.0
+            self.assertEqual(verwacht, resultaat)
+
+        with self.subTest('1_1_uitkomst_0'):
+            # arrange = klaarzetten voorbereiden
+            a = 1.0
+            b = 1.0
+
+            # act: effectief uitvoeren
+            resultaat = GeometryHelper.bereken_hoek(a, b)
+
+            # assert: controle tussen resultaat en verwacht
+            verwacht = 0.0
+            self.assertEqual(verwacht, resultaat)
+
+        with self.subTest('0_181_uitkomst_min179'):
+            # arrange = klaarzetten voorbereiden
+            a = 0
+            b = 181
+
+            # act: effectief uitvoeren
+            resultaat = GeometryHelper.bereken_hoek(a, b)
+
+            # assert: controle tussen resultaat en verwacht
+            verwacht = -179
+            self.assertEqual(verwacht, resultaat)
+
+        with self.subTest('0_800_uitkomst_80'):
+            # arrange = klaarzetten voorbereiden
+            a = 0
+            b = 800
+
+            # act: effectief uitvoeren
+            resultaat = GeometryHelper.bereken_hoek(a, b)
+
+            # assert: controle tussen resultaat en verwacht
+            verwacht = 80
+            self.assertEqual(verwacht, resultaat)
+
+        with self.subTest('0_min800_uitkomst_min80'):
+            # arrange = klaarzetten voorbereiden
+            a = 0
+            b = -800
+
+            # act: effectief uitvoeren
+            resultaat = GeometryHelper.bereken_hoek(a, b)
+
+            # assert: controle tussen resultaat en verwacht
+            verwacht = -80
+            self.assertEqual(verwacht, resultaat)
+
+        with self.subTest('0_str180_uitkomst_typeError'):
+            # arrange = klaarzetten voorbereiden
+            a = 0
+            b = "180"
+
+            # act: effectief uitvoeren
+
+            # assert: controle tussen resultaat en verwacht
+            with self.assertRaises(TypeError):
+                resultaat = GeometryHelper.bereken_hoek(a, b)
+
+        with self.subTest('0_None_uitkomst_valueError'):
+            # arrange = klaarzetten voorbereiden
+            a = 0
+            b = None
+
+            # act: effectief uitvoeren
+
+            # assert: controle tussen resultaat en verwacht
+            with self.assertRaises(ValueError) as NoneValueError:
+                resultaat = GeometryHelper.bereken_hoek(a, b)
+            self.assertEqual(str(NoneValueError.exception), "None is geen geldige waarde")
 
     def test_find_min_buffersize_from_geometry_to_be_within_another(self):
         line = shapely.wkt.loads(
