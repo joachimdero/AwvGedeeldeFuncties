@@ -1,4 +1,3 @@
-import json
 import unittest
 from math import sqrt
 
@@ -125,7 +124,7 @@ class GeometryHelperTest(unittest.TestCase):
         result = GeometryHelper.find_min_buffersize_from_geometry_to_be_within_another(geometry=line, within_geometry=new_line)
         self.assertEqual(round(sqrt(2) / 2, 5), result)
 
-    def test_round_wkt(self):
+    def test_example_code_round_wkt(self):
         g1 = shapely.wkt.loads(OffsetLineTestData.origineel[6273])
         g2 = shape(g1)
         geojson = mapping(g2)
