@@ -8,8 +8,8 @@ class JsonToEventDataACProcessor:
     def processJson(self, jsonList):
         returnlist = []
 
-        for el in jsonList.split('\n'):
-            dict_list = json.loads(el)
+        for el in jsonList:
+            dict_list = json.loads(el.replace('\n', ''))
             eventDataAC = EventDataAC()
             eventDataAC.ident8 = dict_list["properties"]["ident8"]
             eventDataAC.wktLineStringZM = self.FSInputToWktLineStringZM(dict_list["geometry"]["coordinates"])
