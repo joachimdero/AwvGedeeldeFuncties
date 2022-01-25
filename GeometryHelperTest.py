@@ -1,4 +1,7 @@
 import unittest
+from math import sqrt
+
+import shapely.wkt
 
 from GeometryHelper import GeometryHelper
 
@@ -98,3 +101,20 @@ class GeometryHelperTest(unittest.TestCase):
         with self.assertRaises(ValueError) as NoneValueError:
             resultaat = GeometryHelper.bereken_hoek(a, b)
         self.assertEqual(str(NoneValueError.exception), "None is geen geldige waarde")
+
+    def test_find_min_buffersize_from_geometry_to_be_within_another(self):
+        line = shapely.wkt.loads(
+            'LINESTRING ZM (161468.378768416 160252.040726318 0 12.054, 161473.488399997 160248.7412 0 12.0601500000048, '
+            '161485.656400003 160239.505199999 0 12.0755499999941, 161497.47762291 160231.46343517 0 12.09)')
+        translated_line = line.parallel_offset(distance=4, side='right', join_style=3)
+
+        result = GeometryHelper.find_min_buffersize_from_geometry_to_be_within_another(geometry=line,
+                                                                                       within_geometry=translated_line)
+        self.assertEqual(4.00577, result)
+
+    def test_find_min_buffersize_from_geometry_to_be_within_another_fixed_example(self):
+        line = shapely.wkt.loads('LINESTRING (0 0, 0 1, 1 1)')
+        new_line = shapely.wkt.loads('LINESTRING (0 0, 1 1)')
+
+        result = GeometryHelper.find_min_buffersize_from_geometry_to_be_within_another(geometry=line, within_geometry=new_line)
+        self.assertEqual(round(sqrt(2) / 2, 5), result)
