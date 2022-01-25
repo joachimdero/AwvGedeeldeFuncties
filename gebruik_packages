@@ -1,5 +1,10 @@
 virtual env aanmaken
 python -m pip install --upgrade pip
-download Shapely wheel, gelet op windows versie en python versie van https://pypi.org/project/Shapely/#files
-pip install .\wheels\Shapely-1.8.0-cp310-cp310-win_amd64.whl
+
+installeer shapely, twee methodes
+1) download Shapely wheel, gelet op windows versie en python versie van https://pypi.org/project/Shapely/#files
+   pip install .\wheels\Shapely-1.8.0-cp310-cp310-win_amd64.whl
+2) pip install pipwin
+   pipwin install shapely
+
 pip freeze > requirements.txt

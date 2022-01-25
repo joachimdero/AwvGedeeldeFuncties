@@ -1,3 +1,6 @@
+from shapely.geometry.base import BaseGeometry
+
+
 class GeometryHelper:
     @staticmethod
     def bereken_hoek(a, b):
@@ -36,21 +39,23 @@ class GeometryHelper:
             return round(buffer, -round_to)
         if geometry.within(within_geometry.buffer(buffer)):
             # go down
+            new_i = 0
             for i in range(step + 2):
                 new_buffer = buffer + buffer_step * i
                 within = geometry.within(within_geometry.buffer(new_buffer))
                 if not within:
                     new_i = i
                     break
-            return find_min_buffersize_from_geometry_to_be_within_another(geometry, within_geometry, buffer + buffer_step * new_i,
+            return GeometryHelper.find_min_buffersize_from_geometry_to_be_within_another(geometry, within_geometry, buffer + buffer_step * new_i,
                                                                           -buffer_step / step, step, round_to)
         else:
             # go up
+            new_i = 0
             for i in range(step + 2):
                 new_buffer = buffer + buffer_step * i
                 within = geometry.within(within_geometry.buffer(new_buffer))
                 if within:
                     new_i = i
                     break
-            return find_min_buffersize_from_geometry_to_be_within_another(geometry, within_geometry, buffer + buffer_step * new_i,
+            return GeometryHelper.find_min_buffersize_from_geometry_to_be_within_another(geometry, within_geometry, buffer + buffer_step * new_i,
                                                                           -buffer_step / step, step, round_to)
