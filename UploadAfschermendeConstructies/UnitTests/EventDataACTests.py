@@ -11,8 +11,12 @@ class EventDataACTests(TestCase):
         self.assertIsNotNone(ev.wktLineStringZM)
         self.assertIsNotNone(ev.begin)
         self.assertIsNotNone(ev.eind)
+        self.assertIsNotNone(ev.afstand_rijbaan)
+        self.assertIsNotNone(ev.zijde_rijbaan)
         self.assertTrue(isinstance(ev.begin, WegLocatieData))
         self.assertTrue(isinstance(ev.eind, WegLocatieData))
+        self.assertTrue(isinstance(ev.afstand_rijbaan, float))
+        self.assertTrue(isinstance(ev.zijde_rijbaan, str))
 
     def test_init_EventDataAC_with_values_and_assert(self):
         ev = EventDataAC()

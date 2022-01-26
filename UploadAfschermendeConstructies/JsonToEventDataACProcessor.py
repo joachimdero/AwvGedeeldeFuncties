@@ -5,7 +5,7 @@ from UploadAfschermendeConstructies.WegLocatieData import WegLocatieData
 
 
 class JsonToEventDataACProcessor:
-    def processJson(self, jsonList):
+    def processJson(self, jsonList) -> []:
         returnlist = []
 
         for el in jsonList:
@@ -21,6 +21,12 @@ class JsonToEventDataACProcessor:
             eventDataAC.eind.positie = dict_list["properties"]["locatie"]["eind"]["positie"]
             eventDataAC.eind.bron = dict_list["properties"]["locatie"]["eind"]["bron"]
             eventDataAC.eind.wktPoint = self.FSInputToWktPoint(dict_list["properties"]["locatie"]["eind"]["geometry"]["coordinates"])
+
+            eventDataAC.zijde_rijbaan = dict_list["properties"]["zijderijbaan"]
+            afstand_rijbaan = dict_list["properties"]["afstandrijbaan"]
+            if afstand_rijbaan is not None:
+                eventDataAC.afstand_rijbaan = afstand_rijbaan / 100.0
+
             returnlist.append(eventDataAC)
 
         return returnlist

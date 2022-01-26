@@ -87,3 +87,16 @@ class JsonToEventDataACProcessorTests(TestCase):
         expected = "POINT (151938.95276640623 177948.05493700944)"
         self.assertEqual(expected, result)
 
+    def test_assert_processJson_results_in_EventDataAC_afstand_en_zijde_rijbaan_values(self):
+        processor = JsonToEventDataACProcessor()
+        listEventDataAC = processor.processJson(JsonTestData.jsonLines)
+        self.assertEqual('L', listEventDataAC[0].zijde_rijbaan)
+        self.assertEqual(0.20, listEventDataAC[0].afstand_rijbaan)
+
+    def test_zoek(self):
+        processor = JsonToEventDataACProcessor()
+        listEventDataAC = processor.processJson(JsonTestData.jsonLines)
+        legewaardes = list(filter(lambda x: x.afstand_rijbaan == -1.0, listEventDataAC))
+        self.assertTrue(len(legewaardes) == 0)
+
+

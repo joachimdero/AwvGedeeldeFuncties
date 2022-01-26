@@ -1,4 +1,4 @@
-virtual env aanmaken
+virtual env aanmaken via settings > definieert root van project en dus ook voor pip
 python -m pip install --upgrade pip
 
 installeer shapely, twee methodes

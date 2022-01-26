@@ -5,7 +5,7 @@ class FSConnector:
     def get_raw_lines(self, layer, lines):
         cert_path = 'C:\\resources\\datamanager_eminfra_prd.awv.vlaanderen.be.crt'
         key_path = 'C:\\resources\\datamanager_eminfra_prd.awv.vlaanderen.be.key'
-        url = f'https://services.apps.mow.vlaanderen.be/geolatte-nosqlfs/cert/api/databases/featureserver/{layer}/query?limit={lines}'
+        url = f'https://services.apps.mow.vlaanderen.be/geolatte-nosqlfs/cert/api/databases/featureserver/{layer}/query?limit={lines}' # TODO query weglatn indien lines is None
         response = requests.get(url, cert=(cert_path, key_path))
         if response.status_code == 200:
 
