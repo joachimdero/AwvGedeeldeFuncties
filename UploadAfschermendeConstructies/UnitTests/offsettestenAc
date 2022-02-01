@@ -1,39 +1,4 @@
-richting id8 = 1
-afstand tot rijbaan = 0
-zijde rijbaan = rechts
-offset = rechts 200 (-200 ?)
 
-richting id8 = 1
-afstand tot rijbaan = 100
-zijde rijbaan = rechts
-offset = rechts 300
-
-richting id8 = 1
-afstand tot rijbaan = 300
-zijde rijbaan = rechts
-offset = rechts 500
-
-richting id8 = 1
-afstand tot rijbaan = 0
-zijde rijbaan = l
-offset = links 200
-
-
-
-richting id8 = 2
-afstand tot rijbaan = 0
-zijde rijbaan = l
-offset = rechts 200
-
-richting id8 = 2
-afstand tot rijbaan = 0
-zijde rijbaan = r
-offset = links 200
-
-richting id8 = 2
-afstand tot rijbaan = 100
-zijde rijbaan = r
-offset = links 300
 
 Beslissingsboom
 offsetwaarde is negatief (rechts):

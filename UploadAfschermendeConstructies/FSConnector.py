@@ -2,9 +2,8 @@ import requests
 
 
 class FSConnector:
-    def get_raw_lines(self, layer, lines: int=-1):
-        cert_path = 'C:\\resources\\datamanager_eminfra_prd.awv.vlaanderen.be.crt'
-        key_path = 'C:\\resources\\datamanager_eminfra_prd.awv.vlaanderen.be.key'
+    def get_raw_lines(self, layer, cert_path: str,key_path: str, lines: int=-1):
+
         url = f'https://services.apps.mow.vlaanderen.be/geolatte-nosqlfs/cert/api/databases/featureserver/{layer}/query'
         if lines > -1:
             url += f'?limit={lines}'
