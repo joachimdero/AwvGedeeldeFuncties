@@ -93,14 +93,9 @@ class JsonToEventDataACProcessorTests(TestCase):
         self.assertEqual('L', listEventDataAC[0].zijde_rijbaan)
         self.assertEqual(0.20, listEventDataAC[0].afstand_rijbaan)
 
-    def test_zoek(self):
-        processor = JsonToEventDataACProcessor()
-        listEventDataAC = processor.processJson(JsonTestData.jsonLines)
-        legewaardes = list(filter(lambda x: x.afstand_rijbaan == -1.0, listEventDataAC))
-        self.assertTrue(len(legewaardes) == 0)
-
-    def test_assert_processJson_results_in_EventData_ACproduct_en_typeAc_values(self):
+    def test_assert_processJson_results_in_EventData_ACproduct_materiaal_en_typeAc_values(self):
         processor = JsonToEventDataACProcessor()
         listEventDataAC = processor.processJson(JsonTestData.jsonLines)
         self.assertEqual('geleideconstructie', listEventDataAC[0].typeAC)
         self.assertEqual("onbekend beton", listEventDataAC[0].product)
+        self.assertEqual("beton", listEventDataAC[0].materiaal)
