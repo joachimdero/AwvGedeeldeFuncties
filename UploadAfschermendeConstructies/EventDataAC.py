@@ -11,3 +11,5 @@ class EventDataAC:
     wktLineStringZM: str = ''
     begin: WegLocatieData = WegLocatieData()
     eind: WegLocatieData = WegLocatieData()
+    typeAC : str = ''
+    product : str = ''

@@ -17,7 +17,7 @@ if __name__ == '__main__':
     for eventDataAC in listEventDataAC :
         wktString = eventDataAC.wktLineStringZM
         shape = shapely.wkt.loads(wktString)
-        new_shape = shapely.ops.transform(lambda x, y, z: (x, y), shape)
+        new_shape = shapely.ops.transform(lambda x, y, z: (x, y, z), shape)
         new_wkt = new_shape.wkt
         eventDataAC.wktLineStringZM = new_wkt
 

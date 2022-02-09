@@ -13,6 +13,8 @@ class EventDataACTests(TestCase):
         self.assertIsNotNone(ev.eind)
         self.assertIsNotNone(ev.afstand_rijbaan)
         self.assertIsNotNone(ev.zijde_rijbaan)
+        self.assertIsNotNone(ev.typeAC)
+        self.assertIsNotNone(ev.product)
         self.assertTrue(isinstance(ev.begin, WegLocatieData))
         self.assertTrue(isinstance(ev.eind, WegLocatieData))
         self.assertTrue(isinstance(ev.afstand_rijbaan, float))
