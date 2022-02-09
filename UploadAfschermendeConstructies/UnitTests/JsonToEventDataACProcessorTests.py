@@ -75,11 +75,9 @@ class JsonToEventDataACProcessorTests(TestCase):
         processor = JsonToEventDataACProcessor()
         listEventDataAC = processor.processJson(JsonTestData.jsonLines)
         self.assertTrue(isinstance(listEventDataAC[0].eind, WegLocatieData))
-        print (listEventDataAC[0].eind.positie)
         self.assertEqual(12.09, listEventDataAC[0].eind.positie)
         self.assertEqual('gps', listEventDataAC[0].eind.bron)
         self.assertEqual('POINT (161496.99027397216 160230.19308630042)', listEventDataAC[0].eind.wktPoint)
-        print (listEventDataAC[0].eind)
 
     def test_assert_FSInputToWktPoint_returns_valid_Point(self):
         processor = JsonToEventDataACProcessor()

@@ -42,7 +42,6 @@ class OffsetGeometryProcessorTests(unittest.TestCase):
                 outputline = ogp.apply_offset(geometry=inputline, offset=t[1], side=t[2])
 
                 min_buffer_size = GeometryHelper.find_min_buffersize_from_geometry_to_be_within_another(outputline, expectedline)
-                print(f'line {t[0]} has accuracy of {min_buffer_size}')
                 self.assertLessEqual(min_buffer_size, 0.10)
 
     def test_given_eventdataAC_calculate_input_params_zijde_rijbaan(self):
