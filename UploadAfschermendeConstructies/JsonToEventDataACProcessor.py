@@ -21,8 +21,8 @@ class JsonToEventDataACProcessor:
             eventDataAC.eind.positie = dict_list["properties"]["locatie"]["eind"]["positie"]
             eventDataAC.eind.bron = dict_list["properties"]["locatie"]["eind"]["bron"]
             eventDataAC.eind.wktPoint = self.FSInputToWktPoint(dict_list["properties"]["locatie"]["eind"]["geometry"]["coordinates"])
-            eventDataAC.product = self.FSInputToWktPoint(dict_list["properties"]["product"])
-            eventDataAC.typeAC = self.FSInputToWktPoint(dict_list["properties"]["type"])
+            eventDataAC.product = dict_list["properties"]["product"]
+            eventDataAC.typeAC = dict_list["properties"]["type"]
 
             eventDataAC.zijde_rijbaan = dict_list["properties"]["zijderijbaan"]
             afstand_rijbaan = dict_list["properties"]["afstandrijbaan"]
