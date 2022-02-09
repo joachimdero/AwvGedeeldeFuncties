@@ -13,3 +13,4 @@ class EventDataAC:
     eind: WegLocatieData = WegLocatieData()
     typeAC : str = ''
     product : str = ''
+    materiaal: str = ''
