@@ -32,3 +32,5 @@ if __name__ == '__main__':
     #print(df['properties.type'].value_counts())
 
     pass
+
+#  te bekijken naast https://docs.google.com/spreadsheets/d/1C0pfa-ntBvqVn2DLNtBJst-fCZGXjX-7/edit#gid=2055843188
