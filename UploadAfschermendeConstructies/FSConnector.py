@@ -21,8 +21,8 @@ class FSConnector:
                     corrected_el = corrected_el[1:]
                 elif el == splitted_list[-1]:
                     corrected_el = corrected_el[:-2]
-                corrected_list.append(corrected_el)
                 corrected_el = corrected_el.replace("\\'", "'").replace("\\\\n", " ").replace('\\\\"', "'", ) \
                     .replace(r'\xc2\xb1', '+/-').replace(r'\xc3\xa9', 'é').replace(r'\xe2\x80\x98', "'") \
                     .replace(r'\xe2\x80\x99', "'").replace(r'\xc3\xab', 'ë')
+                corrected_list.append(corrected_el)
             return corrected_list
