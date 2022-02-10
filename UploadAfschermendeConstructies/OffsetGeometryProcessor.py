@@ -26,31 +26,38 @@ class OffsetGeometryProcessor:
         if eventData.afstand_rijbaan == -1:
             eventData.afstand_rijbaan = 0
         wegtype = eventData.ident8[0]
-        if (wegtype == 'A' or eventData.ident8.startswith('R00')) and eventData.ident8[4:7] == '000':
-            if eventData.zijde_rijbaan == 'R':
-                return eventData.afstand_rijbaan + 4.5
-            elif eventData.zijde_rijbaan == 'L':
-                return eventData.afstand_rijbaan + 4.0
-        elif (wegtype == 'A' or eventData.ident8.startswith('R00')) and eventData.ident8[4:7] != '000':
-            if eventData.zijde_rijbaan == 'R':
-                return eventData.afstand_rijbaan + 2.0
-            elif eventData.zijde_rijbaan == 'L':
-                return eventData.afstand_rijbaan + 1.5
-        elif wegtype == 'N':
-            if eventData.zijde_rijbaan == 'R':
-                return eventData.afstand_rijbaan + 2.0
-            elif eventData.zijde_rijbaan == 'L':
-                return eventData.afstand_rijbaan + 1.5
+
+        is_hoofdweg = ((wegtype == 'A' or eventData.ident8.startswith('R00')) and eventData.ident8[4:7] == '000')
+        is_af_oprit_hoofdweg = ((wegtype == 'A' or eventData.ident8.startswith('R00')) and eventData.ident8[4:7] != '000')
+        is_n_weg = (wegtype == 'N')
+        is_zijde_rijbaan_R = (eventData.zijde_rijbaan == 'R')
+        is_zijde_rijbaan_L = (eventData.zijde_rijbaan == 'L')
+
+        mappingtabel = {
+            (1, 0, 0, 1, 0): 4.5,
+            (1, 0, 0, 0, 1): 4.0,
+            (0, 1, 0, 1, 0): 2.0,
+            (0, 1, 0, 0, 1): 1.5,
+            (0, 0, 1, 1, 0): 2.0,
+            (0, 0, 1, 0, 1): 1.5,
+        }
+
+        return eventData.afstand_rijbaan + mappingtabel[(is_hoofdweg, is_af_oprit_hoofdweg, is_n_weg, is_zijde_rijbaan_R, is_zijde_rijbaan_L)]
+
 
     def determine_zijde(self, eventData):
         wegnr = eventData.ident8[-1]
-        if eventData.zijde_rijbaan == 'R':
-            if wegnr == '1':
-                return 'right'
-            elif wegnr == '2':
-                return 'left'
-        elif eventData.zijde_rijbaan == 'L':
-            if wegnr == '1':
-                return 'left'
-            elif wegnr == '2':
-                return 'right'
+
+        is_zijde_rijbaan_R = (eventData.zijde_rijbaan == 'R')
+        is_zijde_rijbaan_L = (eventData.zijde_rijbaan == 'L')
+        is_wegnr_1 = (wegnr == '1')
+        is_wegnr_2 = (wegnr == '2')
+
+        mappingtabel = {
+            (1, 0, 1, 0): 'right',
+            (1, 0, 0, 1): 'left',
+            (0, 1, 1, 0): 'left',
+            (0, 1, 0, 1): 'right',
+        }
+
+        return mappingtabel[(is_zijde_rijbaan_R, is_zijde_rijbaan_L, is_wegnr_1, is_wegnr_2)]
