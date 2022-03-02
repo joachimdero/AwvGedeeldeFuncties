@@ -1,0 +1,4730 @@
+[
+    {
+        "id": "81add234-baff-46a3-ba63-0cfe6cc21663",
+        "type": "Feature",
+        "geometry": {
+            "type": "LineString",
+            "crs": {
+                "type": "name",
+                "properties": {
+                    "name": "EPSG:31370"
+                }
+            },
+            "bbox": [
+                153181.916563156,
+                206831.940168415,
+                153182.856735405,
+                206839.870809563
+            ],
+            "coordinates": [
+                [
+                    153181.916563156,
+                    206831.940168415,
+                    0,
+                    32.672
+                ],
+                [
+                    153182.856735405,
+                    206839.870809563,
+                    0,
+                    32.68
+                ]
+            ]
+        },
+        "properties": {
+            "creatiedatum": "18/05/2013",
+            "wegcategorie": "Hoofdweg",
+            "wijzigingsdatum": "18/05/2013",
+            "begineind": null,
+            "fabrikant": null,
+            "performanceclass": null,
+            "schokindex": null,
+            "tussenafstandpalen": null,
+            "trekstrip": null,
+            "opnamedatum": "18/05/2013",
+            "totx": "Some(153194.731608)",
+            "brug": null,
+            "ident8": "A0010001",
+            "aantaldiagonalen": null,
+            "bijkomendezijderijbaan": null,
+            "werkelijkelengte": null,
+            "diagonalen": null,
+            "afstandrijbaan": null,
+            "opmerking": null,
+            "toty": "Some(206838.513271)",
+            "kerendvermogen": null,
+            "gebied": "Agentschap Wegen en Verkeer - AWV121",
+            "zijderijbaan": "R",
+            "typepalen": null,
+            "id": "13980",
+            "minimaleinstallatielengte": null,
+            "koppeling": null,
+            "vanx": "Some(153192.684934)",
+            "lengte": 8,
+            "minimumlengte": 0,
+            "begindatum": "18/05/2013",
+            "voertuigoverhelling": null,
+            "werkingsbreedte": null,
+            "type": null,
+            "aantalplanken": null,
+            "vany": "Some(206830.458344)",
+            "gebruiker": "jansseba",
+            "locatie": {
+                "begin": {
+                    "type": "WegLocatie",
+                    "ident8": "A0010001",
+                    "opschrift": 32.7,
+                    "afstand": -30,
+                    "positie": 32.672,
+                    "bron": "gps",
+                    "geometry": {
+                        "type": "Point",
+                        "crs": {
+                            "type": "name",
+                            "properties": {
+                                "name": "EPSG:31370"
+                            }
+                        },
+                        "bbox": [
+                            153192.684934,
+                            206830.458344,
+                            153192.684934,
+                            206830.458344
+                        ],
+                        "coordinates": [
+                            153192.684934,
+                            206830.458344
+                        ]
+                    }
+                },
+                "eind": {
+                    "type": "WegLocatie",
+                    "ident8": "A0010001",
+                    "opschrift": 32.7,
+                    "afstand": -22,
+                    "positie": 32.68,
+                    "bron": "gps",
+                    "geometry": {
+                        "type": "Point",
+                        "crs": {
+                            "type": "name",
+                            "properties": {
+                                "name": "EPSG:31370"
+                            }
+                        },
+                        "bbox": [
+                            153194.731608,
+                            206838.513271,
+                            153194.731608,
+                            206838.513271
+                        ],
+                        "coordinates": [
+                            153194.731608,
+                            206838.513271
+                        ]
+                    }
+                },
+                "geometry": {
+                    "type": "LineString",
+                    "crs": {
+                        "type": "name",
+                        "properties": {
+                            "name": "EPSG:31370"
+                        }
+                    },
+                    "bbox": [
+                        153181.91656315638,
+                        206831.9401684147,
+                        0,
+                        153182.85673540484,
+                        206839.87080956297,
+                        0
+                    ],
+                    "coordinates": [
+                        [
+                            153181.91656315638,
+                            206831.9401684147,
+                            0,
+                            32.672
+                        ],
+                        [
+                            153182.85673540484,
+                            206839.87080956297,
+                            0,
+                            32.68
+                        ]
+                    ]
+                },
+                "type": "WegSegment",
+                "ident8": "A0010001",
+                "lengte": 7.986175109486818
+            },
+            "materiaal": null,
+            "geometry": "LINESTRING (153181.91656315638 206831.9401684147, 153182.85673540484 206839.87080956297)",
+            "bronid": 13980,
+            "product": "onbekend staal begin- en eindconstructie",
+            "bovenbalk": null,
+            "bebouwdekom": null
+        }
+    },
+    {
+        "id": "f0c2ce4a-f80b-465f-afde-caa20a2ee095",
+        "type": "Feature",
+        "geometry": {
+            "type": "LineString",
+            "crs": {
+                "type": "name",
+                "properties": {
+                    "name": "EPSG:31370"
+                }
+            },
+            "bbox": [
+                153149.266338451,
+                206546.235431635,
+                153181.916563156,
+                206831.940168415
+            ],
+            "coordinates": [
+                [
+                    153149.266338451,
+                    206546.235431635,
+                    0,
+                    32.384
+                ],
+                [
+                    153153.391400002,
+                    206583.2982,
+                    0,
+                    32.4213500000042
+                ],
+                [
+                    153158.047399998,
+                    206623.626200002,
+                    0,
+                    32.4619999999995
+                ],
+                [
+                    153162.531400003,
+                    206665.266199999,
+                    0,
+                    32.5039499999984
+                ],
+                [
+                    153172.156400003,
+                    206749.610199999,
+                    0,
+                    32.5889500000048
+                ],
+                [
+                    153181.916563156,
+                    206831.940168415,
+                    0,
+                    32.672
+                ]
+            ]
+        },
+        "properties": {
+            "creatiedatum": "18/05/2013",
+            "wegcategorie": "Hoofdweg",
+            "wijzigingsdatum": "18/05/2013",
+            "begineind": null,
+            "fabrikant": null,
+            "performanceclass": null,
+            "schokindex": null,
+            "tussenafstandpalen": null,
+            "trekstrip": null,
+            "opnamedatum": "18/05/2013",
+            "totx": "Some(153192.684934)",
+            "brug": null,
+            "ident8": "A0010001",
+            "aantaldiagonalen": null,
+            "bijkomendezijderijbaan": null,
+            "werkelijkelengte": null,
+            "diagonalen": null,
+            "afstandrijbaan": null,
+            "opmerking": null,
+            "toty": "Some(206830.458344)",
+            "kerendvermogen": null,
+            "gebied": "Agentschap Wegen en Verkeer - AWV121",
+            "zijderijbaan": "R",
+            "typepalen": null,
+            "id": "13979",
+            "minimaleinstallatielengte": null,
+            "koppeling": null,
+            "vanx": "Some(153160.638901)",
+            "lengte": 288,
+            "minimumlengte": 0,
+            "begindatum": "18/05/2013",
+            "voertuigoverhelling": null,
+            "werkingsbreedte": null,
+            "type": null,
+            "aantalplanken": null,
+            "vany": "Some(206544.558019)",
+            "gebruiker": "jansseba",
+            "locatie": {
+                "begin": {
+                    "type": "WegLocatie",
+                    "ident8": "A0010001",
+                    "opschrift": 32.4,
+                    "afstand": -19,
+                    "positie": 32.384,
+                    "bron": "gps",
+                    "geometry": {
+                        "type": "Point",
+                        "crs": {
+                            "type": "name",
+                            "properties": {
+                                "name": "EPSG:31370"
+                            }
+                        },
+                        "bbox": [
+                            153160.638901,
+                            206544.558019,
+                            153160.638901,
+                            206544.558019
+                        ],
+                        "coordinates": [
+                            153160.638901,
+                            206544.558019
+                        ]
+                    }
+                },
+                "eind": {
+                    "type": "WegLocatie",
+                    "ident8": "A0010001",
+                    "opschrift": 32.7,
+                    "afstand": -30,
+                    "positie": 32.672,
+                    "bron": "gps",
+                    "geometry": {
+                        "type": "Point",
+                        "crs": {
+                            "type": "name",
+                            "properties": {
+                                "name": "EPSG:31370"
+                            }
+                        },
+                        "bbox": [
+                            153192.684934,
+                            206830.458344,
+                            153192.684934,
+                            206830.458344
+                        ],
+                        "coordinates": [
+                            153192.684934,
+                            206830.458344
+                        ]
+                    }
+                },
+                "geometry": {
+                    "type": "LineString",
+                    "crs": {
+                        "type": "name",
+                        "properties": {
+                            "name": "EPSG:31370"
+                        }
+                    },
+                    "bbox": [
+                        153149.2663384512,
+                        206546.23543163462,
+                        0,
+                        153181.91656315638,
+                        206831.9401684147,
+                        0
+                    ],
+                    "coordinates": [
+                        [
+                            153149.2663384512,
+                            206546.23543163462,
+                            0,
+                            32.384
+                        ],
+                        [
+                            153153.39140000194,
+                            206583.29820000008,
+                            0,
+                            32.42135000000417
+                        ],
+                        [
+                            153158.0473999977,
+                            206623.6262000017,
+                            0,
+                            32.461999999999534
+                        ],
+                        [
+                            153162.53140000254,
+                            206665.26619999856,
+                            0,
+                            32.50394999999844
+                        ],
+                        [
+                            153172.15640000254,
+                            206749.61019999906,
+                            0,
+                            32.58895000000484
+                        ],
+                        [
+                            153181.91656315638,
+                            206831.9401684147,
+                            0,
+                            32.672
+                        ]
+                    ]
+                },
+                "type": "WegSegment",
+                "ident8": "A0010001",
+                "lengte": 287.56612656517405
+            },
+            "materiaal": null,
+            "geometry": "LINESTRING (153149.2663384512 206546.23543163462, 153153.39140000194 206583.29820000008, 153158.0473999977 206623.6262000017, 153162.53140000254 206665.26619999856, 153172.15640000254 206749.61019999906, 153181.91656315638 206831.9401684147)",
+            "bronid": 13979,
+            "product": "type C2,67",
+            "bovenbalk": null,
+            "bebouwdekom": null
+        }
+    },
+    {
+        "id": "16e688e3-4bec-4100-9c2a-ff5266865e91",
+        "type": "Feature",
+        "geometry": {
+            "type": "LineString",
+            "crs": {
+                "type": "name",
+                "properties": {
+                    "name": "EPSG:31370"
+                }
+            },
+            "bbox": [
+                153148.493234546,
+                206539.289263535,
+                153149.266338451,
+                206546.235431635
+            ],
+            "coordinates": [
+                [
+                    153148.493234546,
+                    206539.289263535,
+                    0,
+                    32.377
+                ],
+                [
+                    153149.266338451,
+                    206546.235431635,
+                    0,
+                    32.384
+                ]
+            ]
+        },
+        "properties": {
+            "creatiedatum": "18/05/2013",
+            "wegcategorie": "Hoofdweg",
+            "wijzigingsdatum": "18/05/2013",
+            "begineind": null,
+            "fabrikant": null,
+            "performanceclass": null,
+            "schokindex": null,
+            "tussenafstandpalen": null,
+            "trekstrip": null,
+            "opnamedatum": "18/05/2013",
+            "totx": "Some(153160.638901)",
+            "brug": null,
+            "ident8": "A0010001",
+            "aantaldiagonalen": null,
+            "bijkomendezijderijbaan": null,
+            "werkelijkelengte": null,
+            "diagonalen": null,
+            "afstandrijbaan": null,
+            "opmerking": null,
+            "toty": "Some(206544.558019)",
+            "kerendvermogen": null,
+            "gebied": "Agentschap Wegen en Verkeer - AWV121",
+            "zijderijbaan": "R",
+            "typepalen": null,
+            "id": "13978",
+            "minimaleinstallatielengte": null,
+            "koppeling": null,
+            "vanx": "Some(153159.49202)",
+            "lengte": 7,
+            "minimumlengte": 0,
+            "begindatum": "18/05/2013",
+            "voertuigoverhelling": null,
+            "werkingsbreedte": null,
+            "type": null,
+            "aantalplanken": null,
+            "vany": "Some(206538.273234)",
+            "gebruiker": "jansseba",
+            "locatie": {
+                "begin": {
+                    "type": "WegLocatie",
+                    "ident8": "A0010001",
+                    "opschrift": 32.4,
+                    "afstand": -26,
+                    "positie": 32.377,
+                    "bron": "gps",
+                    "geometry": {
+                        "type": "Point",
+                        "crs": {
+                            "type": "name",
+                            "properties": {
+                                "name": "EPSG:31370"
+                            }
+                        },
+                        "bbox": [
+                            153159.49202,
+                            206538.273234,
+                            153159.49202,
+                            206538.273234
+                        ],
+                        "coordinates": [
+                            153159.49202,
+                            206538.273234
+                        ]
+                    }
+                },
+                "eind": {
+                    "type": "WegLocatie",
+                    "ident8": "A0010001",
+                    "opschrift": 32.4,
+                    "afstand": -19,
+                    "positie": 32.384,
+                    "bron": "gps",
+                    "geometry": {
+                        "type": "Point",
+                        "crs": {
+                            "type": "name",
+                            "properties": {
+                                "name": "EPSG:31370"
+                            }
+                        },
+                        "bbox": [
+                            153160.638901,
+                            206544.558019,
+                            153160.638901,
+                            206544.558019
+                        ],
+                        "coordinates": [
+                            153160.638901,
+                            206544.558019
+                        ]
+                    }
+                },
+                "geometry": {
+                    "type": "LineString",
+                    "crs": {
+                        "type": "name",
+                        "properties": {
+                            "name": "EPSG:31370"
+                        }
+                    },
+                    "bbox": [
+                        153148.49323454621,
+                        206539.28926353477,
+                        0,
+                        153149.2663384512,
+                        206546.23543163462,
+                        0
+                    ],
+                    "coordinates": [
+                        [
+                            153148.49323454621,
+                            206539.28926353477,
+                            0,
+                            32.377
+                        ],
+                        [
+                            153149.2663384512,
+                            206546.23543163462,
+                            0,
+                            32.384
+                        ]
+                    ]
+                },
+                "type": "WegSegment",
+                "ident8": "A0010001",
+                "lengte": 6.9890586575946685
+            },
+            "materiaal": null,
+            "geometry": "LINESTRING (153148.49323454621 206539.28926353477, 153149.2663384512 206546.23543163462)",
+            "bronid": 13978,
+            "product": "onbekend staal begin- en eindconstructie",
+            "bovenbalk": null,
+            "bebouwdekom": null
+        }
+    },
+    {
+        "id": "340feb99-c49d-4fd2-a311-11754915fbbe",
+        "type": "Feature",
+        "geometry": {
+            "type": "LineString",
+            "crs": {
+                "type": "name",
+                "properties": {
+                    "name": "EPSG:31370"
+                }
+            },
+            "bbox": [
+                120607.136817577,
+                179859.583784906,
+                120669.929720756,
+                179896.798551651
+            ],
+            "coordinates": [
+                [
+                    120607.136817577,
+                    179896.798551651,
+                    0,
+                    0.01
+                ],
+                [
+                    120616.114399999,
+                    179892.990200002,
+                    0,
+                    0.019599999999627
+                ],
+                [
+                    120616.9014,
+                    179892.656199999,
+                    0,
+                    0.020449999996345
+                ],
+                [
+                    120633.315399997,
+                    179884.803199999,
+                    0,
+                    0.038350000002538
+                ],
+                [
+                    120651.725400001,
+                    179873.873199999,
+                    0,
+                    0.059399999998277
+                ],
+                [
+                    120652.016400002,
+                    179873.701200001,
+                    0,
+                    0.059699999997974
+                ],
+                [
+                    120662.127400003,
+                    179866.2392,
+                    0,
+                    0.072100000004866
+                ],
+                [
+                    120669.929720756,
+                    179859.583784906,
+                    0,
+                    0.082
+                ]
+            ]
+        },
+        "properties": {
+            "creatiedatum": "12/05/2013",
+            "wegcategorie": "Primaire weg II type 4",
+            "wijzigingsdatum": "12/05/2013",
+            "begineind": null,
+            "fabrikant": null,
+            "performanceclass": null,
+            "schokindex": null,
+            "tussenafstandpalen": "4",
+            "trekstrip": "Nee",
+            "opnamedatum": "12/05/2013",
+            "totx": "Some(120666.683)",
+            "brug": "Nee",
+            "ident8": "A0100822",
+            "aantaldiagonalen": null,
+            "bijkomendezijderijbaan": null,
+            "werkelijkelengte": null,
+            "diagonalen": "Nee",
+            "afstandrijbaan": null,
+            "opmerking": null,
+            "toty": "Some(179855.2559)",
+            "kerendvermogen": null,
+            "gebied": "Agentschap Wegen en Verkeer - AWV411",
+            "zijderijbaan": "R",
+            "typepalen": null,
+            "id": "10917",
+            "minimaleinstallatielengte": null,
+            "koppeling": null,
+            "vanx": "Some(120604.5698)",
+            "lengte": 72,
+            "minimumlengte": 0,
+            "begindatum": "12/05/2013",
+            "voertuigoverhelling": null,
+            "werkingsbreedte": null,
+            "type": "geleideconstructie",
+            "aantalplanken": "1",
+            "vany": "Some(179891.5682)",
+            "gebruiker": "jansseba",
+            "locatie": {
+                "begin": {
+                    "type": "WegLocatie",
+                    "ident8": "A0100822",
+                    "opschrift": 0.0,
+                    "afstand": 1,
+                    "positie": 0.01,
+                    "bron": "gps",
+                    "geometry": {
+                        "type": "Point",
+                        "crs": {
+                            "type": "name",
+                            "properties": {
+                                "name": "EPSG:31370"
+                            }
+                        },
+                        "bbox": [
+                            120604.5698,
+                            179891.5682,
+                            120604.5698,
+                            179891.5682
+                        ],
+                        "coordinates": [
+                            120604.5698,
+                            179891.5682
+                        ]
+                    }
+                },
+                "eind": {
+                    "type": "WegLocatie",
+                    "ident8": "A0100822",
+                    "opschrift": 0.1,
+                    "afstand": -26,
+                    "positie": 0.082,
+                    "bron": "gps",
+                    "geometry": {
+                        "type": "Point",
+                        "crs": {
+                            "type": "name",
+                            "properties": {
+                                "name": "EPSG:31370"
+                            }
+                        },
+                        "bbox": [
+                            120666.683,
+                            179855.2559,
+                            120666.683,
+                            179855.2559
+                        ],
+                        "coordinates": [
+                            120666.683,
+                            179855.2559
+                        ]
+                    }
+                },
+                "geometry": {
+                    "type": "LineString",
+                    "crs": {
+                        "type": "name",
+                        "properties": {
+                            "name": "EPSG:31370"
+                        }
+                    },
+                    "bbox": [
+                        120607.13681757746,
+                        179859.5837849063,
+                        0,
+                        120669.92972075564,
+                        179896.79855165113,
+                        0
+                    ],
+                    "coordinates": [
+                        [
+                            120607.13681757746,
+                            179896.79855165113,
+                            0,
+                            0.01
+                        ],
+                        [
+                            120616.11439999938,
+                            179892.99020000175,
+                            0,
+                            0.01959999999962747
+                        ],
+                        [
+                            120616.90139999986,
+                            179892.65619999915,
+                            0,
+                            0.02044999999634456
+                        ],
+                        [
+                            120633.31539999694,
+                            179884.80319999903,
+                            0,
+                            0.038350000002537854
+                        ],
+                        [
+                            120651.72540000081,
+                            179873.87319999933,
+                            0,
+                            0.05939999999827705
+                        ],
+                        [
+                            120652.01640000194,
+                            179873.70120000094,
+                            0,
+                            0.05969999999797437
+                        ],
+                        [
+                            120662.12740000337,
+                            179866.23919999972,
+                            0,
+                            0.07210000000486616
+                        ],
+                        [
+                            120669.92972075564,
+                            179859.5837849063,
+                            0,
+                            0.082
+                        ]
+                    ]
+                },
+                "type": "WegSegment",
+                "ident8": "A0100822",
+                "lengte": 73.37254226598468
+            },
+            "materiaal": "staal",
+            "geometry": "LINESTRING (120607.13681757746 179896.79855165113, 120616.11439999938 179892.99020000175, 120616.90139999986 179892.65619999915, 120633.31539999694 179884.80319999903, 120651.72540000081 179873.87319999933, 120652.01640000194 179873.70120000094, 120662.12740000337 179866.23919999972, 120669.92972075564 179859.5837849063)",
+            "bronid": 10917,
+            "product": "type A4",
+            "bovenbalk": "Nee",
+            "bebouwdekom": null
+        }
+    },
+    {
+        "id": "d4b1678a-fb4c-4251-ad68-cd420c4d9009",
+        "type": "Feature",
+        "geometry": {
+            "type": "LineString",
+            "crs": {
+                "type": "name",
+                "properties": {
+                    "name": "EPSG:31370"
+                }
+            },
+            "bbox": [
+                120605.266487906,
+                179896.798551651,
+                120607.136817577,
+                179897.591958245
+            ],
+            "coordinates": [
+                [
+                    120605.266487906,
+                    179897.591958245,
+                    0,
+                    0.008
+                ],
+                [
+                    120607.136817577,
+                    179896.798551651,
+                    0,
+                    0.01
+                ]
+            ]
+        },
+        "properties": {
+            "creatiedatum": "12/05/2013",
+            "wegcategorie": "Primaire weg II type 4",
+            "wijzigingsdatum": "12/05/2013",
+            "begineind": null,
+            "fabrikant": null,
+            "performanceclass": null,
+            "schokindex": null,
+            "tussenafstandpalen": null,
+            "trekstrip": null,
+            "opnamedatum": "12/05/2013",
+            "totx": "Some(120604.5698)",
+            "brug": null,
+            "ident8": "A0100822",
+            "aantaldiagonalen": null,
+            "bijkomendezijderijbaan": null,
+            "werkelijkelengte": null,
+            "diagonalen": null,
+            "afstandrijbaan": null,
+            "opmerking": null,
+            "toty": "Some(179891.5682)",
+            "kerendvermogen": null,
+            "gebied": "Agentschap Wegen en Verkeer - AWV411",
+            "zijderijbaan": "R",
+            "typepalen": null,
+            "id": "10916",
+            "minimaleinstallatielengte": null,
+            "koppeling": null,
+            "vanx": "Some(120603.0018)",
+            "lengte": 2,
+            "minimumlengte": 0,
+            "begindatum": "12/05/2013",
+            "voertuigoverhelling": null,
+            "werkingsbreedte": null,
+            "type": null,
+            "aantalplanken": null,
+            "vany": "Some(179892.3197)",
+            "gebruiker": "jansseba",
+            "locatie": {
+                "begin": {
+                    "type": "WegLocatie",
+                    "ident8": "A0100822",
+                    "opschrift": 0.0,
+                    "afstand": -1,
+                    "positie": 0.008,
+                    "bron": "gps",
+                    "geometry": {
+                        "type": "Point",
+                        "crs": {
+                            "type": "name",
+                            "properties": {
+                                "name": "EPSG:31370"
+                            }
+                        },
+                        "bbox": [
+                            120603.0018,
+                            179892.3197,
+                            120603.0018,
+                            179892.3197
+                        ],
+                        "coordinates": [
+                            120603.0018,
+                            179892.3197
+                        ]
+                    }
+                },
+                "eind": {
+                    "type": "WegLocatie",
+                    "ident8": "A0100822",
+                    "opschrift": 0.0,
+                    "afstand": 1,
+                    "positie": 0.01,
+                    "bron": "gps",
+                    "geometry": {
+                        "type": "Point",
+                        "crs": {
+                            "type": "name",
+                            "properties": {
+                                "name": "EPSG:31370"
+                            }
+                        },
+                        "bbox": [
+                            120604.5698,
+                            179891.5682,
+                            120604.5698,
+                            179891.5682
+                        ],
+                        "coordinates": [
+                            120604.5698,
+                            179891.5682
+                        ]
+                    }
+                },
+                "geometry": {
+                    "type": "LineString",
+                    "crs": {
+                        "type": "name",
+                        "properties": {
+                            "name": "EPSG:31370"
+                        }
+                    },
+                    "bbox": [
+                        120605.26648790615,
+                        179896.79855165113,
+                        0,
+                        120607.13681757746,
+                        179897.5919582448,
+                        0
+                    ],
+                    "coordinates": [
+                        [
+                            120605.26648790615,
+                            179897.5919582448,
+                            0,
+                            0.008
+                        ],
+                        [
+                            120607.13681757746,
+                            179896.79855165113,
+                            0,
+                            0.01
+                        ]
+                    ]
+                },
+                "type": "WegSegment",
+                "ident8": "A0100822",
+                "lengte": 2.0316562460837417
+            },
+            "materiaal": null,
+            "geometry": "LINESTRING (120605.26648790615 179897.5919582448, 120607.13681757746 179896.79855165113)",
+            "bronid": 10916,
+            "product": "Onbekend staal overgangsconstructie",
+            "bovenbalk": null,
+            "bebouwdekom": null
+        }
+    },
+    {
+        "id": "c71f61db-1025-4d10-9272-e22a5ce13134",
+        "type": "Feature",
+        "geometry": {
+            "type": "LineString",
+            "crs": {
+                "type": "name",
+                "properties": {
+                    "name": "EPSG:31370"
+                }
+            },
+            "bbox": [
+                126401.899362062,
+                178801.778832193,
+                126453.365000002,
+                178883.069948278
+            ],
+            "coordinates": [
+                [
+                    126451.376520551,
+                    178801.778832193,
+                    0,
+                    0.138
+                ],
+                [
+                    126453.365000002,
+                    178813.984999999,
+                    0,
+                    0.149650000006659
+                ],
+                [
+                    126453.166000001,
+                    178824.598999999,
+                    0,
+                    0.15965000000142
+                ],
+                [
+                    126451.167000003,
+                    178835.390000001,
+                    0,
+                    0.169999999998254
+                ],
+                [
+                    126448.092,
+                    178844.919,
+                    0,
+                    0.17939999999362
+                ],
+                [
+                    126443.218000002,
+                    178854.085999999,
+                    0,
+                    0.189199999993434
+                ],
+                [
+                    126435.284000002,
+                    178864.146000002,
+                    0,
+                    0.201300000000629
+                ],
+                [
+                    126427.534999996,
+                    178871.688999999,
+                    0,
+                    0.211450000002515
+                ],
+                [
+                    126419.43,
+                    178876.532000002,
+                    0,
+                    0.220350000003236
+                ],
+                [
+                    126405.027999997,
+                    178881.903000001,
+                    0,
+                    0.234849999993457
+                ],
+                [
+                    126401.899362062,
+                    178883.069948278,
+                    0,
+                    0.238
+                ]
+            ]
+        },
+        "properties": {
+            "creatiedatum": "12/05/2013",
+            "wegcategorie": "Primaire weg II",
+            "wijzigingsdatum": "12/05/2013",
+            "begineind": null,
+            "fabrikant": null,
+            "performanceclass": null,
+            "schokindex": null,
+            "tussenafstandpalen": null,
+            "trekstrip": null,
+            "opnamedatum": "12/05/2013",
+            "totx": "Some(126403.5623)",
+            "brug": null,
+            "ident8": "A0100631",
+            "aantaldiagonalen": null,
+            "bijkomendezijderijbaan": null,
+            "werkelijkelengte": null,
+            "diagonalen": null,
+            "afstandrijbaan": null,
+            "opmerking": null,
+            "toty": "Some(178888.9338)",
+            "kerendvermogen": null,
+            "gebied": "Agentschap Wegen en Verkeer - AWV411",
+            "zijderijbaan": "R",
+            "typepalen": null,
+            "id": "10860",
+            "minimaleinstallatielengte": null,
+            "koppeling": null,
+            "vanx": "Some(126457.557)",
+            "lengte": 100,
+            "minimumlengte": 0,
+            "begindatum": "12/05/2013",
+            "voertuigoverhelling": null,
+            "werkingsbreedte": null,
+            "type": null,
+            "aantalplanken": null,
+            "vany": "Some(178800.2522)",
+            "gebruiker": "jansseba",
+            "locatie": {
+                "begin": {
+                    "type": "WegLocatie",
+                    "ident8": "A0100631",
+                    "opschrift": 0.1,
+                    "afstand": 40,
+                    "positie": 0.138,
+                    "bron": "gps",
+                    "geometry": {
+                        "type": "Point",
+                        "crs": {
+                            "type": "name",
+                            "properties": {
+                                "name": "EPSG:31370"
+                            }
+                        },
+                        "bbox": [
+                            126457.557,
+                            178800.2522,
+                            126457.557,
+                            178800.2522
+                        ],
+                        "coordinates": [
+                            126457.557,
+                            178800.2522
+                        ]
+                    }
+                },
+                "eind": {
+                    "type": "WegLocatie",
+                    "ident8": "A0100631",
+                    "opschrift": 0.1,
+                    "afstand": 140,
+                    "positie": 0.238,
+                    "bron": "gps",
+                    "geometry": {
+                        "type": "Point",
+                        "crs": {
+                            "type": "name",
+                            "properties": {
+                                "name": "EPSG:31370"
+                            }
+                        },
+                        "bbox": [
+                            126403.5623,
+                            178888.9338,
+                            126403.5623,
+                            178888.9338
+                        ],
+                        "coordinates": [
+                            126403.5623,
+                            178888.9338
+                        ]
+                    }
+                },
+                "geometry": {
+                    "type": "LineString",
+                    "crs": {
+                        "type": "name",
+                        "properties": {
+                            "name": "EPSG:31370"
+                        }
+                    },
+                    "bbox": [
+                        126401.89936206207,
+                        178801.77883219346,
+                        0,
+                        126453.36500000209,
+                        178883.06994827813,
+                        0
+                    ],
+                    "coordinates": [
+                        [
+                            126451.37652055123,
+                            178801.77883219346,
+                            0,
+                            0.138
+                        ],
+                        [
+                            126453.36500000209,
+                            178813.9849999994,
+                            0,
+                            0.14965000000665896
+                        ],
+                        [
+                            126453.16600000113,
+                            178824.59899999946,
+                            0,
+                            0.15965000000142027
+                        ],
+                        [
+                            126451.16700000316,
+                            178835.3900000006,
+                            0,
+                            0.16999999999825377
+                        ],
+                        [
+                            126448.09200000018,
+                            178844.91899999976,
+                            0,
+                            0.17939999999362044
+                        ],
+                        [
+                            126443.2180000022,
+                            178854.0859999992,
+                            0,
+                            0.18919999999343418
+                        ],
+                        [
+                            126435.28400000185,
+                            178864.14600000158,
+                            0,
+                            0.20130000000062864
+                        ],
+                        [
+                            126427.53499999642,
+                            178871.6889999993,
+                            0,
+                            0.21145000000251457
+                        ],
+                        [
+                            126419.4299999997,
+                            178876.53200000152,
+                            0,
+                            0.22035000000323635
+                        ],
+                        [
+                            126405.02799999714,
+                            178881.90300000086,
+                            0,
+                            0.23484999999345746
+                        ],
+                        [
+                            126401.89936206207,
+                            178883.06994827813,
+                            0,
+                            0.238
+                        ]
+                    ]
+                },
+                "type": "WegSegment",
+                "ident8": "A0100631",
+                "lengte": 106.13062628170742
+            },
+            "materiaal": null,
+            "geometry": "LINESTRING (126451.37652055123 178801.77883219346, 126453.36500000209 178813.9849999994, 126453.16600000113 178824.59899999946, 126451.16700000316 178835.3900000006, 126448.09200000018 178844.91899999976, 126443.2180000022 178854.0859999992, 126435.28400000185 178864.14600000158, 126427.53499999642 178871.6889999993, 126419.4299999997 178876.53200000152, 126405.02799999714 178881.90300000086, 126401.89936206207 178883.06994827813)",
+            "bronid": 10860,
+            "product": "type D2,67",
+            "bovenbalk": null,
+            "bebouwdekom": null
+        }
+    },
+    {
+        "id": "fa0dbe93-a39d-4d74-b1c7-d46ad532c67a",
+        "type": "Feature",
+        "geometry": {
+            "type": "LineString",
+            "crs": {
+                "type": "name",
+                "properties": {
+                    "name": "EPSG:31370"
+                }
+            },
+            "bbox": [
+                126451.035150689,
+                178799.683352743,
+                126451.376520551,
+                178801.778832193
+            ],
+            "coordinates": [
+                [
+                    126451.035150689,
+                    178799.683352743,
+                    0,
+                    0.136
+                ],
+                [
+                    126451.376520551,
+                    178801.778832193,
+                    0,
+                    0.138
+                ]
+            ]
+        },
+        "properties": {
+            "creatiedatum": "12/05/2013",
+            "wegcategorie": "Primaire weg II",
+            "wijzigingsdatum": "12/05/2013",
+            "begineind": null,
+            "fabrikant": null,
+            "performanceclass": null,
+            "schokindex": null,
+            "tussenafstandpalen": null,
+            "trekstrip": null,
+            "opnamedatum": "12/05/2013",
+            "totx": "Some(126457.557)",
+            "brug": null,
+            "ident8": "A0100631",
+            "aantaldiagonalen": null,
+            "bijkomendezijderijbaan": null,
+            "werkelijkelengte": null,
+            "diagonalen": null,
+            "afstandrijbaan": null,
+            "opmerking": null,
+            "toty": "Some(178800.2522)",
+            "kerendvermogen": null,
+            "gebied": "Agentschap Wegen en Verkeer - AWV411",
+            "zijderijbaan": "R",
+            "typepalen": null,
+            "id": "10859",
+            "minimaleinstallatielengte": null,
+            "koppeling": null,
+            "vanx": "Some(126457.4497)",
+            "lengte": 2,
+            "minimumlengte": 0,
+            "begindatum": "12/05/2013",
+            "voertuigoverhelling": null,
+            "werkingsbreedte": null,
+            "type": null,
+            "aantalplanken": null,
+            "vany": "Some(178798.9728)",
+            "gebruiker": "jansseba",
+            "locatie": {
+                "begin": {
+                    "type": "WegLocatie",
+                    "ident8": "A0100631",
+                    "opschrift": 0.1,
+                    "afstand": 38,
+                    "positie": 0.136,
+                    "bron": "gps",
+                    "geometry": {
+                        "type": "Point",
+                        "crs": {
+                            "type": "name",
+                            "properties": {
+                                "name": "EPSG:31370"
+                            }
+                        },
+                        "bbox": [
+                            126457.4497,
+                            178798.9728,
+                            126457.4497,
+                            178798.9728
+                        ],
+                        "coordinates": [
+                            126457.4497,
+                            178798.9728
+                        ]
+                    }
+                },
+                "eind": {
+                    "type": "WegLocatie",
+                    "ident8": "A0100631",
+                    "opschrift": 0.1,
+                    "afstand": 40,
+                    "positie": 0.138,
+                    "bron": "gps",
+                    "geometry": {
+                        "type": "Point",
+                        "crs": {
+                            "type": "name",
+                            "properties": {
+                                "name": "EPSG:31370"
+                            }
+                        },
+                        "bbox": [
+                            126457.557,
+                            178800.2522,
+                            126457.557,
+                            178800.2522
+                        ],
+                        "coordinates": [
+                            126457.557,
+                            178800.2522
+                        ]
+                    }
+                },
+                "geometry": {
+                    "type": "LineString",
+                    "crs": {
+                        "type": "name",
+                        "properties": {
+                            "name": "EPSG:31370"
+                        }
+                    },
+                    "bbox": [
+                        126451.03515068862,
+                        178799.68335274298,
+                        0,
+                        126451.37652055123,
+                        178801.77883219346,
+                        0
+                    ],
+                    "coordinates": [
+                        [
+                            126451.03515068862,
+                            178799.68335274298,
+                            0,
+                            0.136
+                        ],
+                        [
+                            126451.37652055123,
+                            178801.77883219346,
+                            0,
+                            0.138
+                        ]
+                    ]
+                },
+                "type": "WegSegment",
+                "ident8": "A0100631",
+                "lengte": 2.1231032736258326
+            },
+            "materiaal": null,
+            "geometry": "LINESTRING (126451.03515068862 178799.68335274298, 126451.37652055123 178801.77883219346)",
+            "bronid": 10859,
+            "product": "Onbekend staal overgangsconstructie",
+            "bovenbalk": null,
+            "bebouwdekom": null
+        }
+    },
+    {
+        "id": "344d7b78-526b-4870-832a-1e08767bcd22",
+        "type": "Feature",
+        "geometry": {
+            "type": "LineString",
+            "crs": {
+                "type": "name",
+                "properties": {
+                    "name": "EPSG:31370"
+                }
+            },
+            "bbox": [
+                126445.214000002,
+                178713.873191011,
+                126452.094752808,
+                178799.683352743
+            ],
+            "coordinates": [
+                [
+                    126452.094752808,
+                    178713.873191011,
+                    0,
+                    0.054
+                ],
+                [
+                    126449.752999999,
+                    178721.146000002,
+                    0,
+                    0.061199999996461
+                ],
+                [
+                    126447.030000001,
+                    178734.634,
+                    0,
+                    0.074150000000373
+                ],
+                [
+                    126445.391999997,
+                    178748.460000001,
+                    0,
+                    0.087299999999232
+                ],
+                [
+                    126445.214000002,
+                    178758.548,
+                    0,
+                    0.096799999999348
+                ],
+                [
+                    126445.733999997,
+                    178768.993999999,
+                    0,
+                    0.106650000001537
+                ],
+                [
+                    126447.842,
+                    178783.390000001,
+                    0,
+                    0.120349999997416
+                ],
+                [
+                    126450.873000003,
+                    178798.688000001,
+                    0,
+                    0.135049999997136
+                ],
+                [
+                    126451.035150689,
+                    178799.683352743,
+                    0,
+                    0.136
+                ]
+            ]
+        },
+        "properties": {
+            "creatiedatum": "12/05/2013",
+            "wegcategorie": "Primaire weg II",
+            "wijzigingsdatum": "12/05/2013",
+            "begineind": null,
+            "fabrikant": null,
+            "performanceclass": null,
+            "schokindex": null,
+            "tussenafstandpalen": null,
+            "trekstrip": null,
+            "opnamedatum": "12/05/2013",
+            "totx": "Some(126457.4497)",
+            "brug": null,
+            "ident8": "A0100631",
+            "aantaldiagonalen": null,
+            "bijkomendezijderijbaan": null,
+            "werkelijkelengte": null,
+            "diagonalen": null,
+            "afstandrijbaan": null,
+            "opmerking": null,
+            "toty": "Some(178798.9728)",
+            "kerendvermogen": null,
+            "gebied": "Agentschap Wegen en Verkeer - AWV411",
+            "zijderijbaan": "R",
+            "typepalen": null,
+            "id": "10858",
+            "minimaleinstallatielengte": null,
+            "koppeling": null,
+            "vanx": "Some(126472.0665)",
+            "lengte": 82,
+            "minimumlengte": 0,
+            "begindatum": "12/05/2013",
+            "voertuigoverhelling": null,
+            "werkingsbreedte": null,
+            "type": null,
+            "aantalplanken": null,
+            "vany": "Some(178720.0716)",
+            "gebruiker": "jansseba",
+            "locatie": {
+                "begin": {
+                    "type": "WegLocatie",
+                    "ident8": "A0100631",
+                    "opschrift": 0.1,
+                    "afstand": -44,
+                    "positie": 0.054,
+                    "bron": "gps",
+                    "geometry": {
+                        "type": "Point",
+                        "crs": {
+                            "type": "name",
+                            "properties": {
+                                "name": "EPSG:31370"
+                            }
+                        },
+                        "bbox": [
+                            126472.0665,
+                            178720.0716,
+                            126472.0665,
+                            178720.0716
+                        ],
+                        "coordinates": [
+                            126472.0665,
+                            178720.0716
+                        ]
+                    }
+                },
+                "eind": {
+                    "type": "WegLocatie",
+                    "ident8": "A0100631",
+                    "opschrift": 0.1,
+                    "afstand": 38,
+                    "positie": 0.136,
+                    "bron": "gps",
+                    "geometry": {
+                        "type": "Point",
+                        "crs": {
+                            "type": "name",
+                            "properties": {
+                                "name": "EPSG:31370"
+                            }
+                        },
+                        "bbox": [
+                            126457.4497,
+                            178798.9728,
+                            126457.4497,
+                            178798.9728
+                        ],
+                        "coordinates": [
+                            126457.4497,
+                            178798.9728
+                        ]
+                    }
+                },
+                "geometry": {
+                    "type": "LineString",
+                    "crs": {
+                        "type": "name",
+                        "properties": {
+                            "name": "EPSG:31370"
+                        }
+                    },
+                    "bbox": [
+                        126445.21400000155,
+                        178713.87319101134,
+                        0,
+                        126452.09475280765,
+                        178799.68335274298,
+                        0
+                    ],
+                    "coordinates": [
+                        [
+                            126452.09475280765,
+                            178713.87319101134,
+                            0,
+                            0.054
+                        ],
+                        [
+                            126449.75299999863,
+                            178721.14600000158,
+                            0,
+                            0.061199999996460974
+                        ],
+                        [
+                            126447.03000000119,
+                            178734.6339999996,
+                            0,
+                            0.07415000000037253
+                        ],
+                        [
+                            126445.3919999972,
+                            178748.4600000009,
+                            0,
+                            0.08729999999923166
+                        ],
+                        [
+                            126445.21400000155,
+                            178758.54800000042,
+                            0,
+                            0.09679999999934807
+                        ],
+                        [
+                            126445.73399999738,
+                            178768.99399999902,
+                            0,
+                            0.10665000000153668
+                        ],
+                        [
+                            126447.84200000018,
+                            178783.3900000006,
+                            0,
+                            0.12034999999741558
+                        ],
+                        [
+                            126450.8730000034,
+                            178798.688000001,
+                            0,
+                            0.13504999999713618
+                        ],
+                        [
+                            126451.03515068862,
+                            178799.68335274298,
+                            0,
+                            0.136
+                        ]
+                    ]
+                },
+                "type": "WegSegment",
+                "ident8": "A0100631",
+                "lengte": 87.02520414487648
+            },
+            "materiaal": null,
+            "geometry": "LINESTRING (126452.09475280765 178713.87319101134, 126449.75299999863 178721.14600000158, 126447.03000000119 178734.6339999996, 126445.3919999972 178748.4600000009, 126445.21400000155 178758.54800000042, 126445.73399999738 178768.99399999902, 126447.84200000018 178783.3900000006, 126450.8730000034 178798.688000001, 126451.03515068862 178799.68335274298)",
+            "bronid": 10858,
+            "product": "type D4",
+            "bovenbalk": null,
+            "bebouwdekom": null
+        }
+    },
+    {
+        "id": "64e4480c-82a8-4de4-8b3d-5bb4820a9b25",
+        "type": "Feature",
+        "geometry": {
+            "type": "LineString",
+            "crs": {
+                "type": "name",
+                "properties": {
+                    "name": "EPSG:31370"
+                }
+            },
+            "bbox": [
+                110281.248271495,
+                179718.19676644,
+                121371.611942184,
+                186681.287256126
+            ],
+            "coordinates": [
+                [
+                    121371.611942184,
+                    179718.19676644,
+                    0,
+                    24.604
+                ],
+                [
+                    121324.556400001,
+                    179730.6362,
+                    0,
+                    24.6521999999968
+                ],
+                [
+                    121219.169399999,
+                    179758.8072,
+                    0,
+                    24.7602999999945
+                ],
+                [
+                    121161.939199999,
+                    179774.335499998,
+                    0,
+                    24.8190999999933
+                ],
+                [
+                    121151.586499996,
+                    179777.144499999,
+                    0,
+                    24.8295499999949
+                ],
+                [
+                    121034.795400001,
+                    179808.834199999,
+                    0,
+                    24.9495500000048
+                ],
+                [
+                    121020.2104,
+                    179812.653200001,
+                    0,
+                    24.9648500000039
+                ],
+                [
+                    121006.786399998,
+                    179816.347199999,
+                    0,
+                    24.9790000000066
+                ],
+                [
+                    120947.793399997,
+                    179832.5812,
+                    0,
+                    25.0411500000046
+                ],
+                [
+                    120854.4124,
+                    179857.8752,
+                    0,
+                    25.1394
+                ],
+                [
+                    120744.261399999,
+                    179887.768199999,
+                    0,
+                    25.2553500000067
+                ],
+                [
+                    120721.025399998,
+                    179894.183200002,
+                    0,
+                    25.2798500000063
+                ],
+                [
+                    120660.981399998,
+                    179910.760200001,
+                    0,
+                    25.3430999999982
+                ],
+                [
+                    120656.693400003,
+                    179911.917199999,
+                    0,
+                    25.3475999999937
+                ],
+                [
+                    120581.989399999,
+                    179932.073199999,
+                    0,
+                    25.4248999999982
+                ],
+                [
+                    120507.137400001,
+                    179952.291200001,
+                    0,
+                    25.5023999999976
+                ],
+                [
+                    120432.578400001,
+                    179972.656199999,
+                    0,
+                    25.5795999999973
+                ],
+                [
+                    120355.524400003,
+                    179992.878199998,
+                    0,
+                    25.6591999999946
+                ],
+                [
+                    120338.398400001,
+                    179997.545200001,
+                    0,
+                    25.6769000000058
+                ],
+                [
+                    120268.343400002,
+                    180016.637200002,
+                    0,
+                    25.749450000003
+                ],
+                [
+                    120185.216399997,
+                    180039.562199999,
+                    0,
+                    25.8356000000058
+                ],
+                [
+                    120174.705399998,
+                    180042.461199999,
+                    0,
+                    25.8464999999997
+                ],
+                [
+                    120125.979400001,
+                    180056.770199999,
+                    0,
+                    25.8972499999945
+                ],
+                [
+                    120072.4014,
+                    180072.990200002,
+                    0,
+                    25.9531500000012
+                ],
+                [
+                    120037.603399999,
+                    180083.920200001,
+                    0,
+                    25.9896000000008
+                ],
+                [
+                    119986.9384,
+                    180101.496199999,
+                    0,
+                    26.0432000000001
+                ],
+                [
+                    119939.939400002,
+                    180118.653200001,
+                    0,
+                    26.0931500000006
+                ],
+                [
+                    119882.066399999,
+                    180140.7282,
+                    0,
+                    26.1549499999965
+                ],
+                [
+                    119835.496399999,
+                    180159.6472,
+                    0,
+                    26.2051499999943
+                ],
+                [
+                    119790.241400003,
+                    180179.1602,
+                    0,
+                    26.2543000000005
+                ],
+                [
+                    119766.044399999,
+                    180190.282200001,
+                    0,
+                    26.2808999999979
+                ],
+                [
+                    119765.069399998,
+                    180190.729200002,
+                    0,
+                    26.2819500000041
+                ],
+                [
+                    119762.865400001,
+                    180191.7432,
+                    0,
+                    26.2844000000041
+                ],
+                [
+                    119745.861400001,
+                    180199.558200002,
+                    0,
+                    26.3030500000023
+                ],
+                [
+                    119691.913400002,
+                    180226.9322,
+                    0,
+                    26.3634500000044
+                ],
+                [
+                    119641.196400002,
+                    180253.007199999,
+                    0,
+                    26.4204000000027
+                ],
+                [
+                    119595.619400002,
+                    180277.501200002,
+                    0,
+                    26.4720499999967
+                ],
+                [
+                    119536.500399999,
+                    180311.8792,
+                    0,
+                    26.5402999999933
+                ],
+                [
+                    119458.389399998,
+                    180360.652199998,
+                    0,
+                    26.6323499999999
+                ],
+                [
+                    119390.7104,
+                    180405.235199999,
+                    0,
+                    26.7133999999933
+                ],
+                [
+                    119340.600400001,
+                    180437.1492,
+                    0,
+                    26.7728000000061
+                ],
+                [
+                    119287.608400002,
+                    180472.260200001,
+                    0,
+                    26.8363499999978
+                ],
+                [
+                    119229.704400003,
+                    180509.852200001,
+                    0,
+                    26.9053500000009
+                ],
+                [
+                    119157.792400002,
+                    180556.334199999,
+                    0,
+                    26.9909500000067
+                ],
+                [
+                    119087.902400002,
+                    180601.794199999,
+                    0,
+                    27.0742999999929
+                ],
+                [
+                    119062.047399998,
+                    180619.229200002,
+                    0,
+                    27.1055000000051
+                ],
+                [
+                    119031.736400001,
+                    180639.669199999,
+                    0,
+                    27.1420499999949
+                ],
+                [
+                    118956.646399997,
+                    180687.9012,
+                    0,
+                    27.2312499999971
+                ],
+                [
+                    118885.315399997,
+                    180734.960200001,
+                    0,
+                    27.3166999999958
+                ],
+                [
+                    118821.635399997,
+                    180776.485199999,
+                    0,
+                    27.3926999999967
+                ],
+                [
+                    118748.5704,
+                    180824.275199998,
+                    0,
+                    27.4799999999959
+                ],
+                [
+                    118673.339400001,
+                    180873.5222,
+                    0,
+                    27.5699000000022
+                ],
+                [
+                    118607.928400002,
+                    180916.6472,
+                    0,
+                    27.648199999996
+                ],
+                [
+                    118548.4344,
+                    180955.1142,
+                    0,
+                    27.7190499999997
+                ],
+                [
+                    118466.274400003,
+                    181009.312199999,
+                    0,
+                    27.8174500000023
+                ],
+                [
+                    118411.257399999,
+                    181044.924199998,
+                    0,
+                    27.8829499999993
+                ],
+                [
+                    118347.433399998,
+                    181086.595199998,
+                    0,
+                    27.9591499999951
+                ],
+                [
+                    118287.361400001,
+                    181125.210200001,
+                    0,
+                    28.0305499999959
+                ],
+                [
+                    118243.1774,
+                    181154.6382,
+                    0,
+                    28.0836500000005
+                ],
+                [
+                    118198.267399997,
+                    181183.490200002,
+                    0,
+                    28.1370000000024
+                ],
+                [
+                    118127.226400003,
+                    181230.258200001,
+                    0,
+                    28.2220499999967
+                ],
+                [
+                    118068.220399998,
+                    181268.063200001,
+                    0,
+                    28.292100000006
+                ],
+                [
+                    117995.660400003,
+                    181315.417199999,
+                    0,
+                    28.3787000000011
+                ],
+                [
+                    117907.520400003,
+                    181372.773200002,
+                    0,
+                    28.4838500000042
+                ],
+                [
+                    117831.499399997,
+                    181422.4782,
+                    0,
+                    28.574649999995
+                ],
+                [
+                    117792.9164,
+                    181447.044199999,
+                    0,
+                    28.6203999999998
+                ],
+                [
+                    117774.034400001,
+                    181460.093199998,
+                    0,
+                    28.6433499999985
+                ],
+                [
+                    117703.694399998,
+                    181506.1512,
+                    0,
+                    28.7274000000034
+                ],
+                [
+                    117613.386399999,
+                    181564.542199999,
+                    0,
+                    28.8349000000017
+                ],
+                [
+                    117533.034400001,
+                    181616.606199998,
+                    0,
+                    28.9306499999948
+                ],
+                [
+                    117461.632399999,
+                    181663.514199998,
+                    0,
+                    29.0160500000056
+                ],
+                [
+                    117453.117399998,
+                    181669.095199998,
+                    0,
+                    29.026199999993
+                ],
+                [
+                    117386.478399999,
+                    181712.777199998,
+                    0,
+                    29.105899999995
+                ],
+                [
+                    117312.900399998,
+                    181759.849199999,
+                    0,
+                    29.1931999999942
+                ],
+                [
+                    117248.853399999,
+                    181801.760200001,
+                    0,
+                    29.2697500000068
+                ],
+                [
+                    117183.214400001,
+                    181844.119199999,
+                    0,
+                    29.3478500000056
+                ],
+                [
+                    117110.513400003,
+                    181891.909200002,
+                    0,
+                    29.4348000000027
+                ],
+                [
+                    117027.419399999,
+                    181945.5942,
+                    0,
+                    29.5337
+                ],
+                [
+                    116962.219400004,
+                    181988.385200001,
+                    0,
+                    29.611699999994
+                ],
+                [
+                    116879.995399997,
+                    182042.062199999,
+                    0,
+                    29.7098499999993
+                ],
+                [
+                    116815.223399997,
+                    182084.124200001,
+                    0,
+                    29.787049999999
+                ],
+                [
+                    116754.347400002,
+                    182123.6862,
+                    0,
+                    29.8596499999985
+                ],
+                [
+                    116687.988399997,
+                    182166.632199999,
+                    0,
+                    29.9386999999988
+                ],
+                [
+                    116615.286399998,
+                    182214.277199998,
+                    0,
+                    30.0255999999936
+                ],
+                [
+                    116548.783399999,
+                    182257.370200001,
+                    0,
+                    30.104800000001
+                ],
+                [
+                    116464.396399997,
+                    182312.517200001,
+                    0,
+                    30.2056000000011
+                ],
+                [
+                    116421.969400004,
+                    182339.814199999,
+                    0,
+                    30.2560499999963
+                ],
+                [
+                    116420.264399998,
+                    182340.911200002,
+                    0,
+                    30.258050000004
+                ],
+                [
+                    116417.7654,
+                    182342.519200001,
+                    0,
+                    30.261050000001
+                ],
+                [
+                    116392.841399997,
+                    182358.556200001,
+                    0,
+                    30.2906499999954
+                ],
+                [
+                    116338.752400003,
+                    182394.575199999,
+                    0,
+                    30.3556499999977
+                ],
+                [
+                    116299.941399999,
+                    182419.4362,
+                    0,
+                    30.4017000000022
+                ],
+                [
+                    116285.653399996,
+                    182429.145199999,
+                    0,
+                    30.4189999999944
+                ],
+                [
+                    116242.794399999,
+                    182456.3792,
+                    0,
+                    30.4697500000038
+                ],
+                [
+                    116199.933399998,
+                    182484.341200002,
+                    0,
+                    30.5209000000032
+                ],
+                [
+                    116148.3244,
+                    182518.245200001,
+                    0,
+                    30.5826499999966
+                ],
+                [
+                    116096.716399997,
+                    182552.0022,
+                    0,
+                    30.6442999999999
+                ],
+                [
+                    116032.134400003,
+                    182593.872200001,
+                    0,
+                    30.7212500000023
+                ],
+                [
+                    115969.301399998,
+                    182634.874200001,
+                    0,
+                    30.7962499999994
+                ],
+                [
+                    115896.116400003,
+                    182682.685199998,
+                    0,
+                    30.8836500000034
+                ],
+                [
+                    115825.996399999,
+                    182727.7412,
+                    0,
+                    30.9670000000042
+                ],
+                [
+                    115747.566399999,
+                    182778.157200001,
+                    0,
+                    31.0602000000072
+                ],
+                [
+                    115678.851400003,
+                    182822.429200001,
+                    0,
+                    31.1419000000024
+                ],
+                [
+                    115631.086400002,
+                    182853.202199999,
+                    0,
+                    31.1986999999936
+                ],
+                [
+                    115576.269400001,
+                    182889.716200002,
+                    0,
+                    31.2645500000071
+                ],
+                [
+                    115519.850400001,
+                    182926.517200001,
+                    0,
+                    31.3319000000047
+                ],
+                [
+                    115473.0524,
+                    182957.669199999,
+                    0,
+                    31.3880999999965
+                ],
+                [
+                    115401.327399999,
+                    183004.030200001,
+                    0,
+                    31.4734999999928
+                ],
+                [
+                    115346.510399997,
+                    183040.253199998,
+                    0,
+                    31.5391999999993
+                ],
+                [
+                    115297.818400003,
+                    183071.9822,
+                    0,
+                    31.597299999994
+                ],
+                [
+                    115254.519400001,
+                    183100.525199998,
+                    0,
+                    31.6491499999975
+                ],
+                [
+                    115203.203400001,
+                    183133.9932,
+                    0,
+                    31.7103999999963
+                ],
+                [
+                    115164.869400002,
+                    183158.701200001,
+                    0,
+                    31.7559999999939
+                ],
+                [
+                    115163.437399998,
+                    183159.624200001,
+                    0,
+                    31.7577000000019
+                ],
+                [
+                    115161.922399998,
+                    183160.601199999,
+                    0,
+                    31.7595000000001
+                ],
+                [
+                    115146.786399998,
+                    183170.3572,
+                    0,
+                    31.7774999999965
+                ],
+                [
+                    115105.967399999,
+                    183196.5792,
+                    0,
+                    31.8260000000009
+                ],
+                [
+                    115050.713399999,
+                    183233.383200001,
+                    0,
+                    31.8923499999946
+                ],
+                [
+                    114988.171400003,
+                    183274.240200002,
+                    0,
+                    31.9670500000066
+                ],
+                [
+                    114946.477399997,
+                    183301.187199999,
+                    0,
+                    32.0166999999929
+                ],
+                [
+                    114910.758400001,
+                    183325.2412,
+                    0,
+                    32.0597500000003
+                ],
+                [
+                    114869.793399997,
+                    183351.7542,
+                    0,
+                    32.1085500000045
+                ],
+                [
+                    114805.939400002,
+                    183393.4802,
+                    0,
+                    32.1848000000027
+                ],
+                [
+                    114758.558399998,
+                    183424.631200001,
+                    0,
+                    32.2415000000037
+                ],
+                [
+                    114700.389399998,
+                    183462.736200001,
+                    0,
+                    32.3110000000015
+                ],
+                [
+                    114631.726400003,
+                    183507.214200001,
+                    0,
+                    32.3928000000014
+                ],
+                [
+                    114580.556400001,
+                    183540.391199999,
+                    0,
+                    32.4537500000006
+                ],
+                [
+                    114520.638400003,
+                    183579.510200001,
+                    0,
+                    32.5252999999939
+                ],
+                [
+                    114464.510399997,
+                    183616.602200001,
+                    0,
+                    32.5925500000012
+                ],
+                [
+                    114445.5484,
+                    183629.074200001,
+                    0,
+                    32.6152500000026
+                ],
+                [
+                    114413.761399999,
+                    183649.9822,
+                    0,
+                    32.6532000000007
+                ],
+                [
+                    114362.076399997,
+                    183683.770199999,
+                    0,
+                    32.7148500000039
+                ],
+                [
+                    114184.644400001,
+                    183799.810199998,
+                    0,
+                    32.9263999999966
+                ],
+                [
+                    114019.522399999,
+                    183907.3752,
+                    0,
+                    33.1230999999971
+                ],
+                [
+                    113921.5854,
+                    183971.516199999,
+                    0,
+                    33.2399000000005
+                ],
+                [
+                    113835.786399998,
+                    184026.654199999,
+                    0,
+                    33.3417000000045
+                ],
+                [
+                    113526.269400001,
+                    184230.099199999,
+                    0,
+                    33.7113499999978
+                ],
+                [
+                    113309.775399998,
+                    184380.1052,
+                    0,
+                    33.9741999999969
+                ],
+                [
+                    113304.832400002,
+                    184383.742199998,
+                    0,
+                    33.9802999999956
+                ],
+                [
+                    113050.854400001,
+                    184572.0722,
+                    0,
+                    34.295299999998
+                ],
+                [
+                    112831.643399999,
+                    184743.678199999,
+                    0,
+                    34.5725999999995
+                ],
+                [
+                    112646.2544,
+                    184892.735199999,
+                    0,
+                    34.815499999997
+                ],
+                [
+                    112430.592699997,
+                    185066.230999999,
+                    0,
+                    35.0917500000069
+                ],
+                [
+                    112335.207599998,
+                    185142.966800001,
+                    0,
+                    35.2150499999989
+                ],
+                [
+                    112145.071599998,
+                    185295.928100001,
+                    0,
+                    35.4584500000055
+                ],
+                [
+                    111976.4384,
+                    185431.591200002,
+                    0,
+                    35.6747999999934
+                ],
+                [
+                    111816.766400002,
+                    185560.188200001,
+                    0,
+                    35.8797999999952
+                ],
+                [
+                    111322.1074,
+                    185957.9822,
+                    0,
+                    36.5144500000024
+                ],
+                [
+                    111073.1664,
+                    186149.6072,
+                    0,
+                    36.8285500000056
+                ],
+                [
+                    110889.595399998,
+                    186282.862199999,
+                    0,
+                    37.0553499999951
+                ],
+                [
+                    110880.165399998,
+                    186289.520199999,
+                    0,
+                    37.0669000000053
+                ],
+                [
+                    110848.222400002,
+                    186312.2152,
+                    0,
+                    37.1061000000045
+                ],
+                [
+                    110824.341399997,
+                    186328.8572,
+                    0,
+                    37.1352000000043
+                ],
+                [
+                    110780.383400001,
+                    186359.5702,
+                    0,
+                    37.1888500000059
+                ],
+                [
+                    110739.467399999,
+                    186388.0132,
+                    0,
+                    37.2387000000017
+                ],
+                [
+                    110707.375399999,
+                    186409.4932,
+                    0,
+                    37.2773500000039
+                ],
+                [
+                    110675.740400001,
+                    186430.367199998,
+                    0,
+                    37.3152499999997
+                ],
+                [
+                    110635.283399999,
+                    186457.748199999,
+                    0,
+                    37.3641000000061
+                ],
+                [
+                    110599.8464,
+                    186481.042199999,
+                    0,
+                    37.4065499999997
+                ],
+                [
+                    110567.452399999,
+                    186501.915199999,
+                    0,
+                    37.4450999999972
+                ],
+                [
+                    110535.211400002,
+                    186522.332199998,
+                    0,
+                    37.4832500000048
+                ],
+                [
+                    110502.664399996,
+                    186543.659200002,
+                    0,
+                    37.5222000000067
+                ],
+                [
+                    110462.804399997,
+                    186569.163199998,
+                    0,
+                    37.5695500000002
+                ],
+                [
+                    110456.1184,
+                    186573.564199999,
+                    0,
+                    37.5775500000018
+                ],
+                [
+                    110352.804399997,
+                    186637.619199999,
+                    0,
+                    37.6991500000004
+                ],
+                [
+                    110281.248271495,
+                    186681.287256126,
+                    0,
+                    37.783
+                ]
+            ]
+        },
+        "properties": {
+            "creatiedatum": "26/09/2013",
+            "wegcategorie": "Hoofdweg",
+            "wijzigingsdatum": "26/09/2013",
+            "begineind": null,
+            "fabrikant": null,
+            "performanceclass": null,
+            "schokindex": null,
+            "tussenafstandpalen": null,
+            "trekstrip": null,
+            "opnamedatum": "26/09/2013",
+            "totx": "Some(110277.739)",
+            "brug": null,
+            "ident8": "A0100001",
+            "aantaldiagonalen": null,
+            "bijkomendezijderijbaan": null,
+            "werkelijkelengte": null,
+            "diagonalen": null,
+            "afstandrijbaan": 1.0,
+            "opmerking": null,
+            "toty": "Some(186675.5263)",
+            "kerendvermogen": null,
+            "gebied": "Agentschap Wegen en Verkeer - AWV411",
+            "zijderijbaan": "L",
+            "typepalen": null,
+            "id": "21043",
+            "minimaleinstallatielengte": null,
+            "koppeling": null,
+            "vanx": "Some(121369.8018)",
+            "lengte": 13179,
+            "minimumlengte": 0,
+            "begindatum": "26/09/2013",
+            "voertuigoverhelling": null,
+            "werkingsbreedte": null,
+            "type": "begin- en eindconstructie",
+            "aantalplanken": null,
+            "vany": "Some(179712.624)",
+            "gebruiker": "jansseba",
+            "locatie": {
+                "begin": {
+                    "type": "WegLocatie",
+                    "ident8": "A0100001",
+                    "opschrift": 24.5,
+                    "afstand": 98,
+                    "positie": 24.604,
+                    "bron": "gps",
+                    "geometry": {
+                        "type": "Point",
+                        "crs": {
+                            "type": "name",
+                            "properties": {
+                                "name": "EPSG:31370"
+                            }
+                        },
+                        "bbox": [
+                            121369.8018,
+                            179712.624,
+                            121369.8018,
+                            179712.624
+                        ],
+                        "coordinates": [
+                            121369.8018,
+                            179712.624
+                        ]
+                    }
+                },
+                "eind": {
+                    "type": "WegLocatie",
+                    "ident8": "A0100001",
+                    "opschrift": 37.8,
+                    "afstand": -21,
+                    "positie": 37.783,
+                    "bron": "gps",
+                    "geometry": {
+                        "type": "Point",
+                        "crs": {
+                            "type": "name",
+                            "properties": {
+                                "name": "EPSG:31370"
+                            }
+                        },
+                        "bbox": [
+                            110277.739,
+                            186675.5263,
+                            110277.739,
+                            186675.5263
+                        ],
+                        "coordinates": [
+                            110277.739,
+                            186675.5263
+                        ]
+                    }
+                },
+                "geometry": {
+                    "type": "LineString",
+                    "crs": {
+                        "type": "name",
+                        "properties": {
+                            "name": "EPSG:31370"
+                        }
+                    },
+                    "bbox": [
+                        110281.24827149518,
+                        179718.19676644038,
+                        0,
+                        121371.61194218426,
+                        186681.28725612554,
+                        0
+                    ],
+                    "coordinates": [
+                        [
+                            121371.61194218426,
+                            179718.19676644038,
+                            0,
+                            24.604
+                        ],
+                        [
+                            121324.55640000105,
+                            179730.6361999996,
+                            0,
+                            24.65219999999681
+                        ],
+                        [
+                            121219.16939999908,
+                            179758.8071999997,
+                            0,
+                            24.76029999999446
+                        ],
+                        [
+                            121161.93919999897,
+                            179774.33549999818,
+                            0,
+                            24.81909999999334
+                        ],
+                        [
+                            121151.58649999648,
+                            179777.14449999854,
+                            0,
+                            24.829549999994924
+                        ],
+                        [
+                            121034.79540000111,
+                            179808.83419999853,
+                            0,
+                            24.94955000000482
+                        ],
+                        [
+                            121020.21040000021,
+                            179812.65320000052,
+                            0,
+                            24.964850000003935
+                        ],
+                        [
+                            121006.78639999777,
+                            179816.3471999988,
+                            0,
+                            24.979000000006636
+                        ],
+                        [
+                            120947.79339999706,
+                            179832.5811999999,
+                            0,
+                            25.041150000004563
+                        ],
+                        [
+                            120854.4123999998,
+                            179857.87519999966,
+                            0,
+                            25.139400000000023
+                        ],
+                        [
+                            120744.26139999926,
+                            179887.76819999889,
+                            0,
+                            25.25535000000673
+                        ],
+                        [
+                            120721.02539999783,
+                            179894.18320000172,
+                            0,
+                            25.279850000006263
+                        ],
+                        [
+                            120660.98139999807,
+                            179910.7602000013,
+                            0,
+                            25.34309999999823
+                        ],
+                        [
+                            120656.69340000302,
+                            179911.9171999991,
+                            0,
+                            25.34759999999369
+                        ],
+                        [
+                            120581.98939999938,
+                            179932.0731999986,
+                            0,
+                            25.42489999999816
+                        ],
+                        [
+                            120507.13740000129,
+                            179952.2912000008,
+                            0,
+                            25.50239999999758
+                        ],
+                        [
+                            120432.57840000093,
+                            179972.65619999915,
+                            0,
+                            25.5795999999973
+                        ],
+                        [
+                            120355.52440000325,
+                            179992.8781999983,
+                            0,
+                            25.6591999999946
+                        ],
+                        [
+                            120338.39840000123,
+                            179997.54520000145,
+                            0,
+                            25.676900000005844
+                        ],
+                        [
+                            120268.34340000153,
+                            180016.63720000163,
+                            0,
+                            25.74945000000298
+                        ],
+                        [
+                            120185.21639999747,
+                            180039.56219999865,
+                            0,
+                            25.835600000005797
+                        ],
+                        [
+                            120174.70539999753,
+                            180042.46119999886,
+                            0,
+                            25.84649999999965
+                        ],
+                        [
+                            120125.97940000147,
+                            180056.7701999992,
+                            0,
+                            25.89724999999453
+                        ],
+                        [
+                            120072.40139999986,
+                            180072.99020000175,
+                            0,
+                            25.953150000001187
+                        ],
+                        [
+                            120037.60339999944,
+                            180083.92020000145,
+                            0,
+                            25.98960000000079
+                        ],
+                        [
+                            119986.93840000033,
+                            180101.496199999,
+                            0,
+                            26.04320000000007
+                        ],
+                        [
+                            119939.93940000236,
+                            180118.65320000052,
+                            0,
+                            26.093150000000605
+                        ],
+                        [
+                            119882.06639999896,
+                            180140.72819999978,
+                            0,
+                            26.15494999999646
+                        ],
+                        [
+                            119835.49639999866,
+                            180159.64719999954,
+                            0,
+                            26.20514999999432
+                        ],
+                        [
+                            119790.24140000343,
+                            180179.1601999998,
+                            0,
+                            26.254300000000512
+                        ],
+                        [
+                            119766.04439999908,
+                            180190.28220000118,
+                            0,
+                            26.280899999997928
+                        ],
+                        [
+                            119765.06939999759,
+                            180190.7292000018,
+                            0,
+                            26.281950000004144
+                        ],
+                        [
+                            119762.8654000014,
+                            180191.74320000038,
+                            0,
+                            26.284400000004098
+                        ],
+                        [
+                            119745.86140000075,
+                            180199.55820000172,
+                            0,
+                            26.30305000000226
+                        ],
+                        [
+                            119691.91340000182,
+                            180226.9321999997,
+                            0,
+                            26.363450000004377
+                        ],
+                        [
+                            119641.19640000165,
+                            180253.00719999894,
+                            0,
+                            26.4204000000027
+                        ],
+                        [
+                            119595.61940000206,
+                            180277.5012000017,
+                            0,
+                            26.47204999999667
+                        ],
+                        [
+                            119536.50039999932,
+                            180311.87920000032,
+                            0,
+                            26.540299999993294
+                        ],
+                        [
+                            119458.38939999789,
+                            180360.6521999985,
+                            0,
+                            26.63234999999986
+                        ],
+                        [
+                            119390.71040000021,
+                            180405.23519999906,
+                            0,
+                            26.71339999999327
+                        ],
+                        [
+                            119340.60040000081,
+                            180437.14919999987,
+                            0,
+                            26.7728000000061
+                        ],
+                        [
+                            119287.60840000212,
+                            180472.2602000013,
+                            0,
+                            26.836349999997765
+                        ],
+                        [
+                            119229.70440000296,
+                            180509.85220000148,
+                            0,
+                            26.905350000000908
+                        ],
+                        [
+                            119157.79240000248,
+                            180556.33419999853,
+                            0,
+                            26.990950000006706
+                        ],
+                        [
+                            119087.90240000188,
+                            180601.79419999942,
+                            0,
+                            27.074299999992945
+                        ],
+                        [
+                            119062.04739999771,
+                            180619.2292000018,
+                            0,
+                            27.105500000005122
+                        ],
+                        [
+                            119031.73640000075,
+                            180639.66919999942,
+                            0,
+                            27.142049999994924
+                        ],
+                        [
+                            118956.64639999717,
+                            180687.9012000002,
+                            0,
+                            27.23124999999709
+                        ],
+                        [
+                            118885.31539999694,
+                            180734.96020000055,
+                            0,
+                            27.316699999995762
+                        ],
+                        [
+                            118821.63539999723,
+                            180776.48519999906,
+                            0,
+                            27.392699999996694
+                        ],
+                        [
+                            118748.57039999962,
+                            180824.27519999817,
+                            0,
+                            27.479999999995925
+                        ],
+                        [
+                            118673.33940000087,
+                            180873.52219999954,
+                            0,
+                            27.569900000002235
+                        ],
+                        [
+                            118607.92840000242,
+                            180916.64719999954,
+                            0,
+                            27.648199999995995
+                        ],
+                        [
+                            118548.43439999968,
+                            180955.11419999972,
+                            0,
+                            27.719049999999697
+                        ],
+                        [
+                            118466.27440000325,
+                            181009.31219999865,
+                            0,
+                            27.81745000000228
+                        ],
+                        [
+                            118411.2573999986,
+                            181044.92419999838,
+                            0,
+                            27.882949999999255
+                        ],
+                        [
+                            118347.43339999765,
+                            181086.59519999847,
+                            0,
+                            27.959149999995134
+                        ],
+                        [
+                            118287.36140000075,
+                            181125.21020000055,
+                            0,
+                            28.030549999995856
+                        ],
+                        [
+                            118243.1774000004,
+                            181154.63819999993,
+                            0,
+                            28.08365000000049
+                        ],
+                        [
+                            118198.26739999652,
+                            181183.49020000175,
+                            0,
+                            28.137000000002445
+                        ],
+                        [
+                            118127.22640000284,
+                            181230.25820000097,
+                            0,
+                            28.22204999999667
+                        ],
+                        [
+                            118068.22039999813,
+                            181268.06320000067,
+                            0,
+                            28.29210000000603
+                        ],
+                        [
+                            117995.6604000032,
+                            181315.4171999991,
+                            0,
+                            28.378700000001118
+                        ],
+                        [
+                            117907.5204000026,
+                            181372.77320000157,
+                            0,
+                            28.483850000004168
+                        ],
+                        [
+                            117831.4993999973,
+                            181422.47819999978,
+                            0,
+                            28.574649999995017
+                        ],
+                        [
+                            117792.91640000045,
+                            181447.04419999942,
+                            0,
+                            28.62039999999979
+                        ],
+                        [
+                            117774.03440000117,
+                            181460.09319999814,
+                            0,
+                            28.643349999998463
+                        ],
+                        [
+                            117703.69439999759,
+                            181506.1512000002,
+                            0,
+                            28.7274000000034
+                        ],
+                        [
+                            117613.38639999926,
+                            181564.5421999991,
+                            0,
+                            28.834900000001653
+                        ],
+                        [
+                            117533.03440000117,
+                            181616.6061999984,
+                            0,
+                            28.930649999994785
+                        ],
+                        [
+                            117461.6323999986,
+                            181663.51419999823,
+                            0,
+                            29.016050000005635
+                        ],
+                        [
+                            117453.11739999801,
+                            181669.09519999847,
+                            0,
+                            29.02619999999297
+                        ],
+                        [
+                            117386.47839999944,
+                            181712.7771999985,
+                            0,
+                            29.105899999995017
+                        ],
+                        [
+                            117312.90039999783,
+                            181759.84919999912,
+                            0,
+                            29.19319999999425
+                        ],
+                        [
+                            117248.85339999944,
+                            181801.7602000013,
+                            0,
+                            29.269750000006752
+                        ],
+                        [
+                            117183.21440000087,
+                            181844.11919999868,
+                            0,
+                            29.347850000005565
+                        ],
+                        [
+                            117110.51340000331,
+                            181891.9092000015,
+                            0,
+                            29.434800000002724
+                        ],
+                        [
+                            117027.41939999908,
+                            181945.59420000017,
+                            0,
+                            29.533699999999953
+                        ],
+                        [
+                            116962.21940000355,
+                            181988.3852000013,
+                            0,
+                            29.611699999994016
+                        ],
+                        [
+                            116879.99539999664,
+                            182042.06219999865,
+                            0,
+                            29.70984999999928
+                        ],
+                        [
+                            116815.22339999676,
+                            182084.12420000136,
+                            0,
+                            29.787049999999
+                        ],
+                        [
+                            116754.34740000218,
+                            182123.68620000035,
+                            0,
+                            29.85964999999851
+                        ],
+                        [
+                            116687.98839999735,
+                            182166.63219999894,
+                            0,
+                            29.93869999999879
+                        ],
+                        [
+                            116615.28639999777,
+                            182214.2771999985,
+                            0,
+                            30.025599999993574
+                        ],
+                        [
+                            116548.78339999914,
+                            182257.3702000007,
+                            0,
+                            30.104800000000978
+                        ],
+                        [
+                            116464.39639999717,
+                            182312.51720000058,
+                            0,
+                            30.20560000000114
+                        ],
+                        [
+                            116421.96940000355,
+                            182339.81419999897,
+                            0,
+                            30.25604999999632
+                        ],
+                        [
+                            116420.26439999789,
+                            182340.91120000184,
+                            0,
+                            30.258050000004005
+                        ],
+                        [
+                            116417.76539999992,
+                            182342.5192000009,
+                            0,
+                            30.261050000000978
+                        ],
+                        [
+                            116392.84139999747,
+                            182358.5562000014,
+                            0,
+                            30.290649999995367
+                        ],
+                        [
+                            116338.75240000337,
+                            182394.57519999892,
+                            0,
+                            30.355649999997695
+                        ],
+                        [
+                            116299.94139999896,
+                            182419.43620000035,
+                            0,
+                            30.401700000002165
+                        ],
+                        [
+                            116285.65339999646,
+                            182429.1451999992,
+                            0,
+                            30.418999999994412
+                        ],
+                        [
+                            116242.79439999908,
+                            182456.37920000032,
+                            0,
+                            30.46975000000384
+                        ],
+                        [
+                            116199.93339999765,
+                            182484.34120000154,
+                            0,
+                            30.520900000003166
+                        ],
+                        [
+                            116148.32440000027,
+                            182518.2452000007,
+                            0,
+                            30.582649999996647
+                        ],
+                        [
+                            116096.71639999747,
+                            182552.0022,
+                            0,
+                            30.64429999999993
+                        ],
+                        [
+                            116032.13440000266,
+                            182593.87220000103,
+                            0,
+                            30.72125000000233
+                        ],
+                        [
+                            115969.30139999837,
+                            182634.87420000136,
+                            0,
+                            30.796249999999418
+                        ],
+                        [
+                            115896.11640000343,
+                            182682.68519999832,
+                            0,
+                            30.8836500000034
+                        ],
+                        [
+                            115825.99639999866,
+                            182727.74120000005,
+                            0,
+                            30.96700000000419
+                        ],
+                        [
+                            115747.56639999896,
+                            182778.15720000118,
+                            0,
+                            31.06020000000717
+                        ],
+                        [
+                            115678.85140000284,
+                            182822.42920000106,
+                            0,
+                            31.14190000000235
+                        ],
+                        [
+                            115631.08640000224,
+                            182853.20219999924,
+                            0,
+                            31.19869999999355
+                        ],
+                        [
+                            115576.26940000057,
+                            182889.71620000154,
+                            0,
+                            31.264550000007148
+                        ],
+                        [
+                            115519.85040000081,
+                            182926.51720000058,
+                            0,
+                            31.33190000000468
+                        ],
+                        [
+                            115473.0524000004,
+                            182957.66919999942,
+                            0,
+                            31.388099999996484
+                        ],
+                        [
+                            115401.3273999989,
+                            183004.03020000085,
+                            0,
+                            31.473499999992782
+                        ],
+                        [
+                            115346.51039999723,
+                            183040.2531999983,
+                            0,
+                            31.539199999999255
+                        ],
+                        [
+                            115297.81840000302,
+                            183071.98220000044,
+                            0,
+                            31.597299999993993
+                        ],
+                        [
+                            115254.51940000057,
+                            183100.52519999817,
+                            0,
+                            31.649149999997462
+                        ],
+                        [
+                            115203.20340000093,
+                            183133.99320000038,
+                            0,
+                            31.710399999996298
+                        ],
+                        [
+                            115164.86940000206,
+                            183158.70120000094,
+                            0,
+                            31.755999999993946
+                        ],
+                        [
+                            115163.4373999983,
+                            183159.62420000136,
+                            0,
+                            31.757700000001932
+                        ],
+                        [
+                            115161.92239999771,
+                            183160.60119999945,
+                            0,
+                            31.759500000000116
+                        ],
+                        [
+                            115146.78639999777,
+                            183170.35720000044,
+                            0,
+                            31.777499999996508
+                        ],
+                        [
+                            115105.9673999995,
+                            183196.57919999957,
+                            0,
+                            31.82600000000093
+                        ],
+                        [
+                            115050.71339999884,
+                            183233.38320000097,
+                            0,
+                            31.89234999999462
+                        ],
+                        [
+                            114988.17140000314,
+                            183274.24020000175,
+                            0,
+                            31.967050000006566
+                        ],
+                        [
+                            114946.47739999741,
+                            183301.18719999865,
+                            0,
+                            32.01669999999285
+                        ],
+                        [
+                            114910.75840000063,
+                            183325.24120000005,
+                            0,
+                            32.05975000000035
+                        ],
+                        [
+                            114869.79339999706,
+                            183351.75420000032,
+                            0,
+                            32.10855000000447
+                        ],
+                        [
+                            114805.93940000236,
+                            183393.4802000001,
+                            0,
+                            32.184800000002724
+                        ],
+                        [
+                            114758.55839999765,
+                            183424.63120000064,
+                            0,
+                            32.241500000003725
+                        ],
+                        [
+                            114700.38939999789,
+                            183462.7362000011,
+                            0,
+                            32.31100000000151
+                        ],
+                        [
+                            114631.72640000284,
+                            183507.2142000012,
+                            0,
+                            32.39280000000144
+                        ],
+                        [
+                            114580.55640000105,
+                            183540.39119999856,
+                            0,
+                            32.45375000000058
+                        ],
+                        [
+                            114520.63840000331,
+                            183579.5102000013,
+                            0,
+                            32.52529999999388
+                        ],
+                        [
+                            114464.51039999723,
+                            183616.60220000148,
+                            0,
+                            32.59255000000121
+                        ],
+                        [
+                            114445.54839999974,
+                            183629.0742000006,
+                            0,
+                            32.61525000000256
+                        ],
+                        [
+                            114413.76139999926,
+                            183649.98220000044,
+                            0,
+                            32.65320000000065
+                        ],
+                        [
+                            114362.07639999688,
+                            183683.7701999992,
+                            0,
+                            32.714850000003935
+                        ],
+                        [
+                            114184.64440000057,
+                            183799.81019999832,
+                            0,
+                            32.92639999999665
+                        ],
+                        [
+                            114019.5223999992,
+                            183907.37519999966,
+                            0,
+                            33.123099999997066
+                        ],
+                        [
+                            113921.58540000021,
+                            183971.51619999856,
+                            0,
+                            33.23990000000049
+                        ],
+                        [
+                            113835.78639999777,
+                            184026.65419999883,
+                            0,
+                            33.341700000004494
+                        ],
+                        [
+                            113526.26940000057,
+                            184230.09919999912,
+                            0,
+                            33.711349999997765
+                        ],
+                        [
+                            113309.77539999783,
+                            184380.1052000001,
+                            0,
+                            33.97419999999693
+                        ],
+                        [
+                            113304.83240000159,
+                            184383.74219999835,
+                            0,
+                            33.98029999999562
+                        ],
+                        [
+                            113050.85440000147,
+                            184572.0722000003,
+                            0,
+                            34.29529999999795
+                        ],
+                        [
+                            112831.64339999855,
+                            184743.67819999903,
+                            0,
+                            34.57259999999951
+                        ],
+                        [
+                            112646.25439999998,
+                            184892.73519999906,
+                            0,
+                            34.81549999999697
+                        ],
+                        [
+                            112430.59269999713,
+                            185066.23099999875,
+                            0,
+                            35.09175000000687
+                        ],
+                        [
+                            112335.20759999752,
+                            185142.96680000052,
+                            0,
+                            35.21504999999888
+                        ],
+                        [
+                            112145.07159999758,
+                            185295.92810000107,
+                            0,
+                            35.45845000000554
+                        ],
+                        [
+                            111976.43840000033,
+                            185431.59120000154,
+                            0,
+                            35.67479999999341
+                        ],
+                        [
+                            111816.76640000194,
+                            185560.18820000067,
+                            0,
+                            35.87979999999516
+                        ],
+                        [
+                            111322.1074000001,
+                            185957.98220000044,
+                            0,
+                            36.5144500000024
+                        ],
+                        [
+                            111073.16640000045,
+                            186149.60720000044,
+                            0,
+                            36.828550000005635
+                        ],
+                        [
+                            110889.59539999813,
+                            186282.8621999994,
+                            0,
+                            37.05534999999509
+                        ],
+                        [
+                            110880.16539999843,
+                            186289.5201999992,
+                            0,
+                            37.06690000000526
+                        ],
+                        [
+                            110848.22240000218,
+                            186312.2151999995,
+                            0,
+                            37.10610000000452
+                        ],
+                        [
+                            110824.34139999747,
+                            186328.85720000044,
+                            0,
+                            37.13520000000426
+                        ],
+                        [
+                            110780.38340000063,
+                            186359.57019999996,
+                            0,
+                            37.188850000005914
+                        ],
+                        [
+                            110739.4673999995,
+                            186388.01319999993,
+                            0,
+                            37.2387000000017
+                        ],
+                        [
+                            110707.37539999932,
+                            186409.49320000038,
+                            0,
+                            37.277350000003935
+                        ],
+                        [
+                            110675.7404000014,
+                            186430.36719999835,
+                            0,
+                            37.31524999999965
+                        ],
+                        [
+                            110635.28339999914,
+                            186457.74819999933,
+                            0,
+                            37.36410000000615
+                        ],
+                        [
+                            110599.84640000015,
+                            186481.0421999991,
+                            0,
+                            37.4065499999997
+                        ],
+                        [
+                            110567.4523999989,
+                            186501.91519999877,
+                            0,
+                            37.44509999999718
+                        ],
+                        [
+                            110535.21140000224,
+                            186522.3321999982,
+                            0,
+                            37.48325000000477
+                        ],
+                        [
+                            110502.6643999964,
+                            186543.6592000015,
+                            0,
+                            37.522200000006706
+                        ],
+                        [
+                            110462.804399997,
+                            186569.16319999844,
+                            0,
+                            37.56955000000016
+                        ],
+                        [
+                            110456.11840000004,
+                            186573.56419999897,
+                            0,
+                            37.57755000000179
+                        ],
+                        [
+                            110352.804399997,
+                            186637.61919999868,
+                            0,
+                            37.69915000000037
+                        ],
+                        [
+                            110281.24827149518,
+                            186681.28725612554,
+                            0,
+                            37.783
+                        ]
+                    ]
+                },
+                "type": "WegSegment",
+                "ident8": "A0100001",
+                "lengte": 13179.49600828895
+            },
+            "materiaal": "beton",
+            "geometry": "LINESTRING (121371.61194218426 179718.19676644038, 121324.55640000105 179730.6361999996, 121219.16939999908 179758.8071999997, 121161.93919999897 179774.33549999818, 121151.58649999648 179777.14449999854, 121034.79540000111 179808.83419999853, 121020.21040000021 179812.65320000052, 121006.78639999777 179816.3471999988, 120947.79339999706 179832.5811999999, 120854.4123999998 179857.87519999966, 120744.26139999926 179887.76819999889, 120721.02539999783 179894.18320000172, 120660.98139999807 179910.7602000013, 120656.69340000302 179911.9171999991, 120581.98939999938 179932.0731999986, 120507.13740000129 179952.2912000008, 120432.57840000093 179972.65619999915, 120355.52440000325 179992.8781999983, 120338.39840000123 179997.54520000145, 120268.34340000153 180016.63720000163, 120185.21639999747 180039.56219999865, 120174.70539999753 180042.46119999886, 120125.97940000147 180056.7701999992, 120072.40139999986 180072.99020000175, 120037.60339999944 180083.92020000145, 119986.93840000033 180101.496199999, 119939.93940000236 180118.65320000052, 119882.06639999896 180140.72819999978, 119835.49639999866 180159.64719999954, 119790.24140000343 180179.1601999998, 119766.04439999908 180190.28220000118, 119765.06939999759 180190.7292000018, 119762.8654000014 180191.74320000038, 119745.86140000075 180199.55820000172, 119691.91340000182 180226.9321999997, 119641.19640000165 180253.00719999894, 119595.61940000206 180277.5012000017, 119536.50039999932 180311.87920000032, 119458.38939999789 180360.6521999985, 119390.71040000021 180405.23519999906, 119340.60040000081 180437.14919999987, 119287.60840000212 180472.2602000013, 119229.70440000296 180509.85220000148, 119157.79240000248 180556.33419999853, 119087.90240000188 180601.79419999942, 119062.04739999771 180619.2292000018, 119031.73640000075 180639.66919999942, 118956.64639999717 180687.9012000002, 118885.31539999694 180734.96020000055, 118821.63539999723 180776.48519999906, 118748.57039999962 180824.27519999817, 118673.33940000087 180873.52219999954, 118607.92840000242 180916.64719999954, 118548.43439999968 180955.11419999972, 118466.27440000325 181009.31219999865, 118411.2573999986 181044.92419999838, 118347.43339999765 181086.59519999847, 118287.36140000075 181125.21020000055, 118243.1774000004 181154.63819999993, 118198.26739999652 181183.49020000175, 118127.22640000284 181230.25820000097, 118068.22039999813 181268.06320000067, 117995.6604000032 181315.4171999991, 117907.5204000026 181372.77320000157, 117831.4993999973 181422.47819999978, 117792.91640000045 181447.04419999942, 117774.03440000117 181460.09319999814, 117703.69439999759 181506.1512000002, 117613.38639999926 181564.5421999991, 117533.03440000117 181616.6061999984, 117461.6323999986 181663.51419999823, 117453.11739999801 181669.09519999847, 117386.47839999944 181712.7771999985, 117312.90039999783 181759.84919999912, 117248.85339999944 181801.7602000013, 117183.21440000087 181844.11919999868, 117110.51340000331 181891.9092000015, 117027.41939999908 181945.59420000017, 116962.21940000355 181988.3852000013, 116879.99539999664 182042.06219999865, 116815.22339999676 182084.12420000136, 116754.34740000218 182123.68620000035, 116687.98839999735 182166.63219999894, 116615.28639999777 182214.2771999985, 116548.78339999914 182257.3702000007, 116464.39639999717 182312.51720000058, 116421.96940000355 182339.81419999897, 116420.26439999789 182340.91120000184, 116417.76539999992 182342.5192000009, 116392.84139999747 182358.5562000014, 116338.75240000337 182394.57519999892, 116299.94139999896 182419.43620000035, 116285.65339999646 182429.1451999992, 116242.79439999908 182456.37920000032, 116199.93339999765 182484.34120000154, 116148.32440000027 182518.2452000007, 116096.71639999747 182552.0022, 116032.13440000266 182593.87220000103, 115969.30139999837 182634.87420000136, 115896.11640000343 182682.68519999832, 115825.99639999866 182727.74120000005, 115747.56639999896 182778.15720000118, 115678.85140000284 182822.42920000106, 115631.08640000224 182853.20219999924, 115576.26940000057 182889.71620000154, 115519.85040000081 182926.51720000058, 115473.0524000004 182957.66919999942, 115401.3273999989 183004.03020000085, 115346.51039999723 183040.2531999983, 115297.81840000302 183071.98220000044, 115254.51940000057 183100.52519999817, 115203.20340000093 183133.99320000038, 115164.86940000206 183158.70120000094, 115163.4373999983 183159.62420000136, 115161.92239999771 183160.60119999945, 115146.78639999777 183170.35720000044, 115105.9673999995 183196.57919999957, 115050.71339999884 183233.38320000097, 114988.17140000314 183274.24020000175, 114946.47739999741 183301.18719999865, 114910.75840000063 183325.24120000005, 114869.79339999706 183351.75420000032, 114805.93940000236 183393.4802000001, 114758.55839999765 183424.63120000064, 114700.38939999789 183462.7362000011, 114631.72640000284 183507.2142000012, 114580.55640000105 183540.39119999856, 114520.63840000331 183579.5102000013, 114464.51039999723 183616.60220000148, 114445.54839999974 183629.0742000006, 114413.76139999926 183649.98220000044, 114362.07639999688 183683.7701999992, 114184.64440000057 183799.81019999832, 114019.5223999992 183907.37519999966, 113921.58540000021 183971.51619999856, 113835.78639999777 184026.65419999883, 113526.26940000057 184230.09919999912, 113309.77539999783 184380.1052000001, 113304.83240000159 184383.74219999835, 113050.85440000147 184572.0722000003, 112831.64339999855 184743.67819999903, 112646.25439999998 184892.73519999906, 112430.59269999713 185066.23099999875, 112335.20759999752 185142.96680000052, 112145.07159999758 185295.92810000107, 111976.43840000033 185431.59120000154, 111816.76640000194 185560.18820000067, 111322.1074000001 185957.98220000044, 111073.16640000045 186149.60720000044, 110889.59539999813 186282.8621999994, 110880.16539999843 186289.5201999992, 110848.22240000218 186312.2151999995, 110824.34139999747 186328.85720000044, 110780.38340000063 186359.57019999996, 110739.4673999995 186388.01319999993, 110707.37539999932 186409.49320000038, 110675.7404000014 186430.36719999835, 110635.28339999914 186457.74819999933, 110599.84640000015 186481.0421999991, 110567.4523999989 186501.91519999877, 110535.21140000224 186522.3321999982, 110502.6643999964 186543.6592000015, 110462.804399997 186569.16319999844, 110456.11840000004 186573.56419999897, 110352.804399997 186637.61919999868, 110281.24827149518 186681.28725612554)",
+            "bronid": 21043,
+            "product": "onbekend beton begin- en eindconstructie",
+            "bovenbalk": null,
+            "bebouwdekom": null
+        }
+    },
+    {
+        "id": "a4b5b13f-f888-43bc-9be1-ecd7bd6620ae",
+        "type": "Feature",
+        "geometry": {
+            "type": "LineString",
+            "crs": {
+                "type": "name",
+                "properties": {
+                    "name": "EPSG:31370"
+                }
+            },
+            "bbox": [
+                153155.000748213,
+                206787.439887501,
+                153156.775854546,
+                206803.352745454
+            ],
+            "coordinates": [
+                [
+                    153155.000748213,
+                    206787.439887501,
+                    0,
+                    32.625
+                ],
+                [
+                    153156.022399999,
+                    206796.598200001,
+                    0,
+                    32.6342000000004
+                ],
+                [
+                    153156.775854546,
+                    206803.352745454,
+                    0,
+                    32.641
+                ]
+            ]
+        },
+        "properties": {
+            "creatiedatum": "19/05/2013",
+            "wegcategorie": "Hoofdweg",
+            "wijzigingsdatum": "19/05/2013",
+            "begineind": null,
+            "fabrikant": null,
+            "performanceclass": null,
+            "schokindex": null,
+            "tussenafstandpalen": null,
+            "trekstrip": null,
+            "opnamedatum": "19/05/2013",
+            "totx": "Some(153145.311737)",
+            "brug": null,
+            "ident8": "A0010002",
+            "aantaldiagonalen": null,
+            "bijkomendezijderijbaan": null,
+            "werkelijkelengte": null,
+            "diagonalen": null,
+            "afstandrijbaan": null,
+            "opmerking": null,
+            "toty": "Some(206804.319439)",
+            "kerendvermogen": null,
+            "gebied": "Agentschap Wegen en Verkeer - AWV121",
+            "zijderijbaan": "R",
+            "typepalen": null,
+            "id": "14031",
+            "minimaleinstallatielengte": null,
+            "koppeling": null,
+            "vanx": "Some(153143.983967)",
+            "lengte": 16,
+            "minimumlengte": 0,
+            "begindatum": "19/05/2013",
+            "voertuigoverhelling": null,
+            "werkingsbreedte": null,
+            "type": null,
+            "aantalplanken": null,
+            "vany": "Some(206789.105252)",
+            "gebruiker": "jansseba",
+            "locatie": {
+                "begin": {
+                    "type": "WegLocatie",
+                    "ident8": "A0010002",
+                    "opschrift": 32.6,
+                    "afstand": 22,
+                    "positie": 32.625,
+                    "bron": "gps",
+                    "geometry": {
+                        "type": "Point",
+                        "crs": {
+                            "type": "name",
+                            "properties": {
+                                "name": "EPSG:31370"
+                            }
+                        },
+                        "bbox": [
+                            153143.983967,
+                            206789.105252,
+                            153143.983967,
+                            206789.105252
+                        ],
+                        "coordinates": [
+                            153143.983967,
+                            206789.105252
+                        ]
+                    }
+                },
+                "eind": {
+                    "type": "WegLocatie",
+                    "ident8": "A0010002",
+                    "opschrift": 32.6,
+                    "afstand": 38,
+                    "positie": 32.641,
+                    "bron": "gps",
+                    "geometry": {
+                        "type": "Point",
+                        "crs": {
+                            "type": "name",
+                            "properties": {
+                                "name": "EPSG:31370"
+                            }
+                        },
+                        "bbox": [
+                            153145.311737,
+                            206804.319439,
+                            153145.311737,
+                            206804.319439
+                        ],
+                        "coordinates": [
+                            153145.311737,
+                            206804.319439
+                        ]
+                    }
+                },
+                "geometry": {
+                    "type": "LineString",
+                    "crs": {
+                        "type": "name",
+                        "properties": {
+                            "name": "EPSG:31370"
+                        }
+                    },
+                    "bbox": [
+                        153155.0007482132,
+                        206787.43988750127,
+                        0,
+                        153156.77585454617,
+                        206803.3527454545,
+                        0
+                    ],
+                    "coordinates": [
+                        [
+                            153155.0007482132,
+                            206787.43988750127,
+                            0,
+                            32.625
+                        ],
+                        [
+                            153156.0223999992,
+                            206796.59820000082,
+                            0,
+                            32.63420000000042
+                        ],
+                        [
+                            153156.77585454617,
+                            206803.3527454545,
+                            0,
+                            32.641
+                        ]
+                    ]
+                },
+                "type": "WegSegment",
+                "ident8": "A0010002",
+                "lengte": 16.011559909506435
+            },
+            "materiaal": null,
+            "geometry": "LINESTRING (153155.0007482132 206787.43988750127, 153156.0223999992 206796.59820000082, 153156.77585454617 206803.3527454545)",
+            "bronid": 14031,
+            "product": "onbekend staal begin- en eindconstructie",
+            "bovenbalk": null,
+            "bebouwdekom": null
+        }
+    },
+    {
+        "id": "00ce76c4-07a1-4601-90e0-619f51f1f133",
+        "type": "Feature",
+        "geometry": {
+            "type": "LineString",
+            "crs": {
+                "type": "name",
+                "properties": {
+                    "name": "EPSG:31370"
+                }
+            },
+            "bbox": [
+                153130.920406633,
+                206573.438280897,
+                153155.000748213,
+                206787.439887501
+            ],
+            "coordinates": [
+                [
+                    153130.920406633,
+                    206573.438280897,
+                    0,
+                    32.41
+                ],
+                [
+                    153132.281400003,
+                    206585.688200001,
+                    0,
+                    32.4223000000056
+                ],
+                [
+                    153136.9384,
+                    206625.985199999,
+                    0,
+                    32.4627999999939
+                ],
+                [
+                    153141.422399998,
+                    206667.595199998,
+                    0,
+                    32.5046000000002
+                ],
+                [
+                    153151.047399998,
+                    206752.001200002,
+                    0,
+                    32.5893999999971
+                ],
+                [
+                    153155.000748213,
+                    206787.439887501,
+                    0,
+                    32.625
+                ]
+            ]
+        },
+        "properties": {
+            "creatiedatum": "19/05/2013",
+            "wegcategorie": "Hoofdweg",
+            "wijzigingsdatum": "19/05/2013",
+            "begineind": null,
+            "fabrikant": null,
+            "performanceclass": null,
+            "schokindex": null,
+            "tussenafstandpalen": null,
+            "trekstrip": null,
+            "opnamedatum": "19/05/2013",
+            "totx": "Some(153143.983967)",
+            "brug": null,
+            "ident8": "A0010002",
+            "aantaldiagonalen": null,
+            "bijkomendezijderijbaan": null,
+            "werkelijkelengte": null,
+            "diagonalen": null,
+            "afstandrijbaan": null,
+            "opmerking": null,
+            "toty": "Some(206789.105252)",
+            "kerendvermogen": null,
+            "gebied": "Agentschap Wegen en Verkeer - AWV121",
+            "zijderijbaan": "R",
+            "typepalen": null,
+            "id": "14032",
+            "minimaleinstallatielengte": null,
+            "koppeling": null,
+            "vanx": "Some(153119.410787)",
+            "lengte": 215,
+            "minimumlengte": 0,
+            "begindatum": "19/05/2013",
+            "voertuigoverhelling": null,
+            "werkingsbreedte": null,
+            "type": null,
+            "aantalplanken": null,
+            "vany": "Some(206574.564835)",
+            "gebruiker": "jansseba",
+            "locatie": {
+                "begin": {
+                    "type": "WegLocatie",
+                    "ident8": "A0010002",
+                    "opschrift": 32.4,
+                    "afstand": -9,
+                    "positie": 32.41,
+                    "bron": "gps",
+                    "geometry": {
+                        "type": "Point",
+                        "crs": {
+                            "type": "name",
+                            "properties": {
+                                "name": "EPSG:31370"
+                            }
+                        },
+                        "bbox": [
+                            153119.410787,
+                            206574.564835,
+                            153119.410787,
+                            206574.564835
+                        ],
+                        "coordinates": [
+                            153119.410787,
+                            206574.564835
+                        ]
+                    }
+                },
+                "eind": {
+                    "type": "WegLocatie",
+                    "ident8": "A0010002",
+                    "opschrift": 32.6,
+                    "afstand": 22,
+                    "positie": 32.625,
+                    "bron": "gps",
+                    "geometry": {
+                        "type": "Point",
+                        "crs": {
+                            "type": "name",
+                            "properties": {
+                                "name": "EPSG:31370"
+                            }
+                        },
+                        "bbox": [
+                            153143.983967,
+                            206789.105252,
+                            153143.983967,
+                            206789.105252
+                        ],
+                        "coordinates": [
+                            153143.983967,
+                            206789.105252
+                        ]
+                    }
+                },
+                "geometry": {
+                    "type": "LineString",
+                    "crs": {
+                        "type": "name",
+                        "properties": {
+                            "name": "EPSG:31370"
+                        }
+                    },
+                    "bbox": [
+                        153130.92040663288,
+                        206573.4382808968,
+                        0,
+                        153155.0007482132,
+                        206787.43988750127,
+                        0
+                    ],
+                    "coordinates": [
+                        [
+                            153130.92040663288,
+                            206573.4382808968,
+                            0,
+                            32.41
+                        ],
+                        [
+                            153132.28140000254,
+                            206585.68820000067,
+                            0,
+                            32.422300000005635
+                        ],
+                        [
+                            153136.93840000033,
+                            206625.98519999906,
+                            0,
+                            32.46279999999388
+                        ],
+                        [
+                            153141.4223999977,
+                            206667.59519999847,
+                            0,
+                            32.50460000000021
+                        ],
+                        [
+                            153151.0473999977,
+                            206752.0012000017,
+                            0,
+                            32.58939999999711
+                        ],
+                        [
+                            153155.0007482132,
+                            206787.43988750127,
+                            0,
+                            32.625
+                        ]
+                    ]
+                },
+                "type": "WegSegment",
+                "ident8": "A0010002",
+                "lengte": 215.35292336532143
+            },
+            "materiaal": null,
+            "geometry": "LINESTRING (153130.92040663288 206573.4382808968, 153132.28140000254 206585.68820000067, 153136.93840000033 206625.98519999906, 153141.4223999977 206667.59519999847, 153151.0473999977 206752.0012000017, 153155.0007482132 206787.43988750127)",
+            "bronid": 14032,
+            "product": "type C2,67",
+            "bovenbalk": null,
+            "bebouwdekom": null
+        }
+    },
+    {
+        "id": "d6bbded7-43f2-4ace-a6f0-ce404520824d",
+        "type": "Feature",
+        "geometry": {
+            "type": "LineString",
+            "crs": {
+                "type": "name",
+                "properties": {
+                    "name": "EPSG:31370"
+                }
+            },
+            "bbox": [
+                153116.482575075,
+                206439.026208898,
+                153130.588457031,
+                206570.450495751
+            ],
+            "coordinates": [
+                [
+                    153116.482575075,
+                    206439.026208898,
+                    0,
+                    32.275
+                ],
+                [
+                    153119.734399997,
+                    206469.345199998,
+                    0,
+                    32.3055000000022
+                ],
+                [
+                    153123.9384,
+                    206510.595199998,
+                    0,
+                    32.3469000000041
+                ],
+                [
+                    153130.588457031,
+                    206570.450495751,
+                    0,
+                    32.407
+                ]
+            ]
+        },
+        "properties": {
+            "creatiedatum": "19/05/2013",
+            "wegcategorie": "Hoofdweg",
+            "wijzigingsdatum": "19/05/2013",
+            "begineind": null,
+            "fabrikant": null,
+            "performanceclass": null,
+            "schokindex": null,
+            "tussenafstandpalen": null,
+            "trekstrip": null,
+            "opnamedatum": "19/05/2013",
+            "totx": "Some(153119.524967)",
+            "brug": null,
+            "ident8": "A0010002",
+            "aantaldiagonalen": null,
+            "bijkomendezijderijbaan": null,
+            "werkelijkelengte": null,
+            "diagonalen": null,
+            "afstandrijbaan": null,
+            "opmerking": null,
+            "toty": "Some(206572.169841)",
+            "kerendvermogen": null,
+            "gebied": "Agentschap Wegen en Verkeer - AWV121",
+            "zijderijbaan": "R",
+            "typepalen": null,
+            "id": "14033",
+            "minimaleinstallatielengte": null,
+            "koppeling": null,
+            "vanx": "Some(153105.815638)",
+            "lengte": 132,
+            "minimumlengte": 0,
+            "begindatum": "19/05/2013",
+            "voertuigoverhelling": null,
+            "werkingsbreedte": null,
+            "type": null,
+            "aantalplanken": null,
+            "vany": "Some(206440.531227)",
+            "gebruiker": "jansseba",
+            "locatie": {
+                "begin": {
+                    "type": "WegLocatie",
+                    "ident8": "A0010002",
+                    "opschrift": 32.3,
+                    "afstand": -37,
+                    "positie": 32.275,
+                    "bron": "gps",
+                    "geometry": {
+                        "type": "Point",
+                        "crs": {
+                            "type": "name",
+                            "properties": {
+                                "name": "EPSG:31370"
+                            }
+                        },
+                        "bbox": [
+                            153105.815638,
+                            206440.531227,
+                            153105.815638,
+                            206440.531227
+                        ],
+                        "coordinates": [
+                            153105.815638,
+                            206440.531227
+                        ]
+                    }
+                },
+                "eind": {
+                    "type": "WegLocatie",
+                    "ident8": "A0010002",
+                    "opschrift": 32.4,
+                    "afstand": -12,
+                    "positie": 32.407,
+                    "bron": "gps",
+                    "geometry": {
+                        "type": "Point",
+                        "crs": {
+                            "type": "name",
+                            "properties": {
+                                "name": "EPSG:31370"
+                            }
+                        },
+                        "bbox": [
+                            153119.524967,
+                            206572.169841,
+                            153119.524967,
+                            206572.169841
+                        ],
+                        "coordinates": [
+                            153119.524967,
+                            206572.169841
+                        ]
+                    }
+                },
+                "geometry": {
+                    "type": "LineString",
+                    "crs": {
+                        "type": "name",
+                        "properties": {
+                            "name": "EPSG:31370"
+                        }
+                    },
+                    "bbox": [
+                        153116.48257507538,
+                        206439.0262088983,
+                        0,
+                        153130.58845703068,
+                        206570.45049575088,
+                        0
+                    ],
+                    "coordinates": [
+                        [
+                            153116.48257507538,
+                            206439.0262088983,
+                            0,
+                            32.275
+                        ],
+                        [
+                            153119.7343999967,
+                            206469.34519999847,
+                            0,
+                            32.30550000000221
+                        ],
+                        [
+                            153123.93840000033,
+                            206510.59519999847,
+                            0,
+                            32.3469000000041
+                        ],
+                        [
+                            153130.58845703068,
+                            206570.45049575088,
+                            0,
+                            32.407
+                        ]
+                    ]
+                },
+                "type": "WegSegment",
+                "ident8": "A0010002",
+                "lengte": 132.18013071400233
+            },
+            "materiaal": null,
+            "geometry": "LINESTRING (153116.48257507538 206439.0262088983, 153119.7343999967 206469.34519999847, 153123.93840000033 206510.59519999847, 153130.58845703068 206570.45049575088)",
+            "bronid": 14033,
+            "product": "type C2,67",
+            "bovenbalk": null,
+            "bebouwdekom": null
+        }
+    },
+    {
+        "id": "08fc4c37-0e17-4346-b93f-d4fcf45316ce",
+        "type": "Feature",
+        "geometry": {
+            "type": "LineString",
+            "crs": {
+                "type": "name",
+                "properties": {
+                    "name": "EPSG:31370"
+                }
+            },
+            "bbox": [
+                153115.680599042,
+                206430.046869062,
+                153116.482575075,
+                206439.026208898
+            ],
+            "coordinates": [
+                [
+                    153115.680599042,
+                    206430.046869062,
+                    0,
+                    32.266
+                ],
+                [
+                    153116.141400002,
+                    206435.845199998,
+                    0,
+                    32.2718000000023
+                ],
+                [
+                    153116.482575075,
+                    206439.026208898,
+                    0,
+                    32.275
+                ]
+            ]
+        },
+        "properties": {
+            "creatiedatum": "19/05/2013",
+            "wegcategorie": "Hoofdweg",
+            "wijzigingsdatum": "19/05/2013",
+            "begineind": null,
+            "fabrikant": null,
+            "performanceclass": null,
+            "schokindex": null,
+            "tussenafstandpalen": null,
+            "trekstrip": null,
+            "opnamedatum": "19/05/2013",
+            "totx": "Some(153105.815638)",
+            "brug": null,
+            "ident8": "A0010002",
+            "aantaldiagonalen": null,
+            "bijkomendezijderijbaan": null,
+            "werkelijkelengte": null,
+            "diagonalen": null,
+            "afstandrijbaan": null,
+            "opmerking": null,
+            "toty": "Some(206440.531227)",
+            "kerendvermogen": null,
+            "gebied": "Agentschap Wegen en Verkeer - AWV121",
+            "zijderijbaan": "R",
+            "typepalen": null,
+            "id": "14034",
+            "minimaleinstallatielengte": null,
+            "koppeling": null,
+            "vanx": "Some(153104.163036)",
+            "lengte": 9,
+            "minimumlengte": 0,
+            "begindatum": "19/05/2013",
+            "voertuigoverhelling": null,
+            "werkingsbreedte": null,
+            "type": null,
+            "aantalplanken": null,
+            "vany": "Some(206431.333097)",
+            "gebruiker": "jansseba",
+            "locatie": {
+                "begin": {
+                    "type": "WegLocatie",
+                    "ident8": "A0010002",
+                    "opschrift": 32.3,
+                    "afstand": -46,
+                    "positie": 32.266,
+                    "bron": "gps",
+                    "geometry": {
+                        "type": "Point",
+                        "crs": {
+                            "type": "name",
+                            "properties": {
+                                "name": "EPSG:31370"
+                            }
+                        },
+                        "bbox": [
+                            153104.163036,
+                            206431.333097,
+                            153104.163036,
+                            206431.333097
+                        ],
+                        "coordinates": [
+                            153104.163036,
+                            206431.333097
+                        ]
+                    }
+                },
+                "eind": {
+                    "type": "WegLocatie",
+                    "ident8": "A0010002",
+                    "opschrift": 32.3,
+                    "afstand": -37,
+                    "positie": 32.275,
+                    "bron": "gps",
+                    "geometry": {
+                        "type": "Point",
+                        "crs": {
+                            "type": "name",
+                            "properties": {
+                                "name": "EPSG:31370"
+                            }
+                        },
+                        "bbox": [
+                            153105.815638,
+                            206440.531227,
+                            153105.815638,
+                            206440.531227
+                        ],
+                        "coordinates": [
+                            153105.815638,
+                            206440.531227
+                        ]
+                    }
+                },
+                "geometry": {
+                    "type": "LineString",
+                    "crs": {
+                        "type": "name",
+                        "properties": {
+                            "name": "EPSG:31370"
+                        }
+                    },
+                    "bbox": [
+                        153115.68059904242,
+                        206430.04686906157,
+                        0,
+                        153116.48257507538,
+                        206439.0262088983,
+                        0
+                    ],
+                    "coordinates": [
+                        [
+                            153115.68059904242,
+                            206430.04686906157,
+                            0,
+                            32.266
+                        ],
+                        [
+                            153116.14140000194,
+                            206435.84519999847,
+                            0,
+                            32.27180000000226
+                        ],
+                        [
+                            153116.48257507538,
+                            206439.0262088983,
+                            0,
+                            32.275
+                        ]
+                    ]
+                },
+                "type": "WegSegment",
+                "ident8": "A0010002",
+                "lengte": 9.015865078842852
+            },
+            "materiaal": null,
+            "geometry": "LINESTRING (153115.68059904242 206430.04686906157, 153116.14140000194 206435.84519999847, 153116.48257507538 206439.0262088983)",
+            "bronid": 14034,
+            "product": "onbekend staal begin- en eindconstructie",
+            "bovenbalk": null,
+            "bebouwdekom": null
+        }
+    },
+    {
+        "id": "97478748-d72b-4697-8192-9c92ddcf61be",
+        "type": "Feature",
+        "geometry": {
+            "type": "LineString",
+            "crs": {
+                "type": "name",
+                "properties": {
+                    "name": "EPSG:31370"
+                }
+            },
+            "bbox": [
+                203722.795156963,
+                221382.071082079,
+                203774.920293024,
+                221404.57012493
+            ],
+            "coordinates": [
+                [
+                    203722.795156963,
+                    221382.071082079,
+                    0,
+                    52.675
+                ],
+                [
+                    203774.920293024,
+                    221404.57012493,
+                    0,
+                    52.732
+                ]
+            ]
+        },
+        "properties": {
+            "creatiedatum": "10/05/2013",
+            "wegcategorie": "Hoofdweg",
+            "wijzigingsdatum": "10/05/2013",
+            "begineind": null,
+            "fabrikant": null,
+            "performanceclass": null,
+            "schokindex": null,
+            "tussenafstandpalen": null,
+            "trekstrip": null,
+            "opnamedatum": "10/05/2013",
+            "totx": "Some(203779.1926)",
+            "brug": null,
+            "ident8": "A0210002",
+            "aantaldiagonalen": null,
+            "bijkomendezijderijbaan": null,
+            "werkelijkelengte": null,
+            "diagonalen": null,
+            "afstandrijbaan": null,
+            "opmerking": null,
+            "toty": "Some(221395.8103)",
+            "kerendvermogen": null,
+            "gebied": "Agentschap Wegen en Verkeer - AWV125",
+            "zijderijbaan": "L",
+            "typepalen": null,
+            "id": "1492",
+            "minimaleinstallatielengte": null,
+            "koppeling": null,
+            "vanx": "Some(203726.3493)",
+            "lengte": 57,
+            "minimumlengte": 0,
+            "begindatum": "10/05/2013",
+            "voertuigoverhelling": null,
+            "werkingsbreedte": null,
+            "type": null,
+            "aantalplanken": null,
+            "vany": "Some(221372.6901)",
+            "gebruiker": "jansseba",
+            "locatie": {
+                "begin": {
+                    "type": "WegLocatie",
+                    "ident8": "A0210002",
+                    "opschrift": 52.7,
+                    "afstand": -28,
+                    "positie": 52.675,
+                    "bron": "gps",
+                    "geometry": {
+                        "type": "Point",
+                        "crs": {
+                            "type": "name",
+                            "properties": {
+                                "name": "EPSG:31370"
+                            }
+                        },
+                        "bbox": [
+                            203726.3493,
+                            221372.6901,
+                            203726.3493,
+                            221372.6901
+                        ],
+                        "coordinates": [
+                            203726.3493,
+                            221372.6901
+                        ]
+                    }
+                },
+                "eind": {
+                    "type": "WegLocatie",
+                    "ident8": "A0210002",
+                    "opschrift": 52.7,
+                    "afstand": 29,
+                    "positie": 52.732,
+                    "bron": "gps",
+                    "geometry": {
+                        "type": "Point",
+                        "crs": {
+                            "type": "name",
+                            "properties": {
+                                "name": "EPSG:31370"
+                            }
+                        },
+                        "bbox": [
+                            203779.1926,
+                            221395.8103,
+                            203779.1926,
+                            221395.8103
+                        ],
+                        "coordinates": [
+                            203779.1926,
+                            221395.8103
+                        ]
+                    }
+                },
+                "geometry": {
+                    "type": "LineString",
+                    "crs": {
+                        "type": "name",
+                        "properties": {
+                            "name": "EPSG:31370"
+                        }
+                    },
+                    "bbox": [
+                        203722.7951569634,
+                        221382.0710820785,
+                        0,
+                        203774.92029302407,
+                        221404.57012492995,
+                        0
+                    ],
+                    "coordinates": [
+                        [
+                            203722.7951569634,
+                            221382.0710820785,
+                            0,
+                            52.675
+                        ],
+                        [
+                            203774.92029302407,
+                            221404.57012492995,
+                            0,
+                            52.732
+                        ]
+                    ]
+                },
+                "type": "WegSegment",
+                "ident8": "A0210002",
+                "lengte": 56.773556684202504
+            },
+            "materiaal": null,
+            "geometry": "LINESTRING (203722.7951569634 221382.0710820785, 203774.92029302407 221404.57012492995)",
+            "bronid": 1492,
+            "product": "type D2,67",
+            "bovenbalk": null,
+            "bebouwdekom": null
+        }
+    }
+]
