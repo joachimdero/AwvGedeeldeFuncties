@@ -6,7 +6,6 @@ from OTLMOW.OTLModel.Classes.GetesteBeginconstructie import GetesteBeginconstruc
 from UploadAfschermendeConstructies.DataToAssetProcessor import DataToAssetProcessor
 from UploadAfschermendeConstructies.EventDataAC import EventDataAC
 
-
 class DataToAssetProcessorTests(TestCase):
     def test_empty_EventDataAC_with_geometry(self):
         input = EventDataAC()

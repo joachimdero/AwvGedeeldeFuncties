@@ -24,6 +24,8 @@ class EventDataACTests(TestCase):
         ev = EventDataAC()
         ev.ident8 = 'A0120001'
         ev.wktLineStringZM = "LINESTRING ZM (204687.014412866 207284.945373632 0 23.331, 204687.998785856 207284.800409002 0 23.332)"
+        ev.tt = "e"
+        ev.ident8 = 0
 
         self.assertEqual('A0120001', ev.ident8)
         self.assertEqual("LINESTRING ZM (204687.014412866 207284.945373632 0 23.331, 204687.998785856 207284.800409002 0 23.332)", ev.wktLineStringZM)
