@@ -6,6 +6,7 @@ from UploadAfschermendeConstructies.JsonToEventDataACProcessor import JsonToEven
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
+
 class BeginEnEindProcessorTests(TestCase):
     def test_load_json(self):
         processor = JsonToEventDataACProcessor()
@@ -16,4 +17,4 @@ class BeginEnEindProcessorTests(TestCase):
             jsonData = json.load(datafile)
         listEventDataAC = processor.processJsonObjectOrList(jsonData, is_list=True)
 
-        self.assertGreater(0,len(listEventDataAC))
+        self.assertGreater(len(listEventDataAC), 0)

@@ -14,8 +14,9 @@ ArcGIS Pro libraries
   * geometry
   * beginpositie
   * eindpositie
+  * ...
 
-* Verwerking
+* Verwerking - Preprocessing
   - objecten met locaties
   - geometrie afleiden uit het routesysteem
   - WDB bevat evt. WKT string
@@ -23,7 +24,7 @@ ArcGIS Pro libraries
      - geen validatie
   2) geometrie met vaste offset aanpassen (2 kanten, links en rechts)
      - sommige constructies gaan validatiefouten geven (staan over elkaar)
-  3) geometrie met variabele offset aanpassen (rekening houden afstand rijbaan en zijde van de rijbaan)
+> 3) geometrie met variabele offset aanpassen (rekening houden afstand rijbaan en zijde van de rijbaan)
      - gaan normaal niet over elkaar staan
      - rand van de rijbaan moet benaderd worden
   4) geometrie mappen op GRB
@@ -31,9 +32,16 @@ ArcGIS Pro libraries
 
   ==> FeatureAC objecten
 
+* Omzetten naar OTL objecten
+  - mapping construeren
+  - mappingtabel inladen en gebruiken om objecten aan te maken
+  - op basis van geometrie relaties aanmaken
+
+  ==> [OtlObject] (OTLMOW objecten)
+
 * Output
   - ArcGIS features omzetten naar OTL conforme assets
-  - gebeurt via OTLCLassPython project
+  - gebeurt via OTLMOW project
   - enkel nog mapping te maken of toe te passen
     - waarschijnlijk for loop die de mapping manueel toepast
 
