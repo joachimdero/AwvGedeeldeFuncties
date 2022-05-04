@@ -2,12 +2,15 @@ import requests
 
 
 class FSConnector:
-    def get_raw_lines(self, layer, cert_path: str,key_path: str, lines: int=-1):
+    def __init__(self, requester):
+        self.requester = requester
 
-        url = f'https://services.apps.mow.vlaanderen.be/geolatte-nosqlfs/cert/api/databases/featureserver/{layer}/query'
+    def get_raw_lines(self, layer, lines: int = -1) -> object:
+
+        url = f'geolatte-nosqlfs/cert/api/databases/featureserver/{layer}/query'
         if lines > -1:
             url += f'?limit={lines}'
-        response = requests.get(url, cert=(cert_path, key_path))
+        response = self.requester.get(url)
         if response.status_code == 200:
 
             raw_string = str(response.content)

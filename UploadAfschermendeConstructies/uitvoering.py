@@ -1,18 +1,20 @@
 import shapely.wkt
 import shapely.ops
 from OTLMOW.Facility.DavieExporter import DavieExporter
+from OTLMOW.Facility.RequesterFactory import RequesterFactory
 
 from UploadAfschermendeConstructies.FSConnector import FSConnector
 from UploadAfschermendeConstructies.JsonToEventDataACProcessor import JsonToEventDataACProcessor
 from UploadAfschermendeConstructies.MappingTableProcessor import MappingTableProcessor
 from UploadAfschermendeConstructies.OffsetGeometryProcessor import OffsetGeometryProcessor
+from UploadAfschermendeConstructies.SettingsManager import SettingsManager
 
 if __name__ == '__main__':
-    fs_c = FSConnector()
-    raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies",
-                                    cert_path=r"C:\GoogleDrive\SyncGisAwv\GIStools\AwvFuncties\Awv\derojp_client.awv.vlaanderen.be.crt",
-                                    key_path=r"C:\GoogleDrive\SyncGisAwv\GIStools\AwvFuncties\Awv\derojp_client.awv.vlaanderen.be.key",
-                                    lines =20) # beperkt tot 20
+    settings_manager = SettingsManager(settings_path='C:\\resources\\settings_AWVGedeeldeFuncties.json')
+    requester = RequesterFactory.create_requester(settings=settings_manager.settings, auth_type='cert', env='prd')
+
+    fs_c = FSConnector(requester)
+    raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies", lines=20)  # beperkt tot 20
 
     processor = JsonToEventDataACProcessor()
     listEventDataAC = processor.processJson(raw_output)
@@ -27,18 +29,15 @@ if __name__ == '__main__':
 
     lijst_otl_objecten = []
     mtp = MappingTableProcessor('analyse_afschermende_constructies.xlsx')
-    for eventDataAC in listEventDataAC:
-        otl_object = mtp.create_otl_object_from_eventDataAC(eventDataAC)
-        lijst_otl_objecten.append(otl_object)
+
+    for index, eventDataAC in enumerate(listEventDataAC):
+        try:
+            otl_object = mtp.create_otl_object_from_eventDataAC(eventDataAC)
+            otl_object.assetId.identificator = str(index)
+            lijst_otl_objecten.append(otl_object)
+        except Exception as e:
+            print(e)
 
     DavieExporter().export_objects_to_json_file(list_of_objects=lijst_otl_objecten, file_path='DAVIE_export_file.json')
-
-
-
-
-
-
-
-
 
     pass
