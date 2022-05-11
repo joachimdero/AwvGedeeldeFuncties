@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 
-class WKT_Simplifier:
+class WktSimplifier:
     @classmethod
     def correct_zm_string_to_z_string(cls, teststring: str):
         parts = teststring.split('((')
@@ -16,9 +16,9 @@ class WKT_Simplifier:
         return wkt
 
 
-class WKT_SimplifierTests(TestCase):
+class WktSimplifierTests(TestCase):
     def test_MultilineZM(self):
         teststring = 'MULTILINESTRING ZM ((103333.63404978078 191928.96019978262 5.7255458645522594 NAN, 103332.98739755852 191928.97025321238 5.6865532780066133 NAN))'
-        result = WKT_Simplifier.correct_zm_string_to_z_string(teststring)
+        result = WktSimplifier.correct_zm_string_to_z_string(teststring)
         expected = 'MULTILINESTRING Z ((103333.63404978078 191928.96019978262 5.7255458645522594, 103332.98739755852 191928.97025321238 5.6865532780066133))'
         self.assertEqual(result, expected)

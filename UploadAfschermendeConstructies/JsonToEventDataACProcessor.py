@@ -37,8 +37,6 @@ class JsonToEventDataACProcessor:
         eventDataAC.gebied = dict_list["properties"]["gebied"]
         eventDataAC.schokindex = dict_list["properties"]["schokindex"]
 
-
-
         eventDataAC.zijde_rijbaan = dict_list["properties"]["zijderijbaan"]
         afstand_rijbaan = dict_list["properties"]["afstandrijbaan"]
         if afstand_rijbaan is not None:

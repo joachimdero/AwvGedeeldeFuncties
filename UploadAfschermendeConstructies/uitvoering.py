@@ -47,21 +47,6 @@ if __name__ == '__main__':
             otl_object = mtp.create_otl_object_from_eventDataAC(eventDataAC)
             otl_object.assetId.identificator = str(index)
             otl_object.assetId.toegekendDoor = 'UploadAfschermendeConstructies'
-            if eventDataAC.fabrikant != 'onbekend':
-                otl_object.productidentificatiecode.producent = eventDataAC.fabrikant
-            if eventDataAC.opmerking != '':
-                otl_object.notitie = eventDataAC.opmerking
-            if eventDataAC.brug != '' and eventDataAC.brug is not None and eventDataAC.brug != 'Nee':
-                if otl_object.notitie is not None:
-                    otl_object.notitie += ' - brug:' + eventDataAC.brug
-                else:
-                    otl_object.notitie = 'brug:' + eventDataAC.brug
-
-            d = datetime.strptime(eventDataAC.begindatum, '%d/%m/%Y')
-            otl_object.datumOprichtingObject = datetime.strptime(eventDataAC.begindatum, '%d/%m/%Y')
-
-            if eventDataAC.schokindex is not None and isinstance(otl_object, SchokindexVoertuigkering):
-                otl_object.schokindex = str.lower(eventDataAC.schokindex)
 
             # verplaatsen naar jsoneventdataACProcessor
             if 'Agentschap Wegen en Verkeer' in eventDataAC.gebied:
@@ -74,12 +59,9 @@ if __name__ == '__main__':
                     districtrelatie.rol = 'berekende-beheerder'
                     lijst_otl_objecten.append(districtrelatie)
 
-
-
             lijst_otl_objecten.append(otl_object)
         except Exception as e:
             print(f'{e} => product:{eventDataAC.product} materiaal:{eventDataAC.materiaal}')
 
     DavieExporter().export_objects_to_json_file(list_of_objects=lijst_otl_objecten, file_path='DAVIE_export_file.json')
 
-    pass
