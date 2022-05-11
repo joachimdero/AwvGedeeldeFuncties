@@ -1,7 +1,15 @@
+from datetime import date, datetime
+
 import shapely.wkt
 import shapely.ops
+from OTLMOW.Facility.AgentCollection import AgentCollection
 from OTLMOW.Facility.DavieExporter import DavieExporter
+from OTLMOW.Facility.OTLFacility import OTLFacility
 from OTLMOW.Facility.RequesterFactory import RequesterFactory
+from OTLMOW.Loggers.ConsoleLogger import ConsoleLogger
+from OTLMOW.Loggers.LoggerCollection import LoggerCollection
+from OTLMOW.Loggers.TxtLogger import TxtLogger
+from OTLMOW.OTLModel.Classes.SchokindexVoertuigkering import SchokindexVoertuigkering
 
 from UploadAfschermendeConstructies.FSConnector import FSConnector
 from UploadAfschermendeConstructies.JsonToEventDataACProcessor import JsonToEventDataACProcessor
@@ -10,11 +18,15 @@ from UploadAfschermendeConstructies.OffsetGeometryProcessor import OffsetGeometr
 from UploadAfschermendeConstructies.SettingsManager import SettingsManager
 
 if __name__ == '__main__':
+    logger = LoggerCollection([
+        TxtLogger(r'C:\temp\pythonLogging\pythonlog.txt'),
+        ConsoleLogger()])
+    otl_facility = OTLFacility(logger, settings_path='C:\\resources\\settings_OTLMOW.json', enable_relation_features=True)
     settings_manager = SettingsManager(settings_path='C:\\resources\\settings_AWVGedeeldeFuncties.json')
     requester = RequesterFactory.create_requester(settings=settings_manager.settings, auth_type='cert', env='prd')
 
     fs_c = FSConnector(requester)
-    raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies", lines=20)  # beperkt tot 20
+    raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies", lines=50)  # beperkt tot 20
 
     processor = JsonToEventDataACProcessor()
     listEventDataAC = processor.processJson(raw_output)
@@ -34,9 +46,39 @@ if __name__ == '__main__':
         try:
             otl_object = mtp.create_otl_object_from_eventDataAC(eventDataAC)
             otl_object.assetId.identificator = str(index)
+            otl_object.assetId.toegekendDoor = 'UploadAfschermendeConstructies'
+            if eventDataAC.fabrikant != 'onbekend':
+                otl_object.productidentificatiecode.producent = eventDataAC.fabrikant
+            if eventDataAC.opmerking != '':
+                otl_object.notitie = eventDataAC.opmerking
+            if eventDataAC.brug != '' and eventDataAC.brug is not None and eventDataAC.brug != 'Nee':
+                if otl_object.notitie is not None:
+                    otl_object.notitie += ' - brug:' + eventDataAC.brug
+                else:
+                    otl_object.notitie = 'brug:' + eventDataAC.brug
+
+            d = datetime.strptime(eventDataAC.begindatum, '%d/%m/%Y')
+            otl_object.datumOprichtingObject = datetime.strptime(eventDataAC.begindatum, '%d/%m/%Y')
+
+            if eventDataAC.schokindex is not None and isinstance(otl_object, SchokindexVoertuigkering):
+                otl_object.schokindex = str.lower(eventDataAC.schokindex)
+
+            # verplaatsen naar jsoneventdataACProcessor
+            if 'Agentschap Wegen en Verkeer' in eventDataAC.gebied:
+                agent_name = eventDataAC.gebied[-6:]
+                agent_name = agent_name[0:3] + "_" + agent_name[-3:]
+                agent = AgentCollection(requester=requester).get_agent_by_full_name(agent_name)
+
+                if agent is not None:
+                    districtrelatie = otl_facility.relatie_creator.create_betrokkenerelation(bron=otl_object, doel=agent)
+                    districtrelatie.rol = 'berekende-beheerder'
+                    lijst_otl_objecten.append(districtrelatie)
+
+
+
             lijst_otl_objecten.append(otl_object)
         except Exception as e:
-            print(e)
+            print(f'{e} => product:{eventDataAC.product} materiaal:{eventDataAC.materiaal}')
 
     DavieExporter().export_objects_to_json_file(list_of_objects=lijst_otl_objecten, file_path='DAVIE_export_file.json')
 
