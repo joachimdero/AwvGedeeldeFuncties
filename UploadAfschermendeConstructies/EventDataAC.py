@@ -11,6 +11,12 @@ class EventDataAC:
     wktLineStringZM: str = ''
     begin: WegLocatieData = WegLocatieData()
     eind: WegLocatieData = WegLocatieData()
-    typeAC : str = ''
-    product : str = ''
+    typeAC: str = ''
+    product: str = ''
     materiaal: str = ''
+    fabrikant: str = ''
+    opmerking: str = ''
+    brug: str = ''
+    gebied: str = ''
+    schokindex: str = ''
+    begindatum: str = ''

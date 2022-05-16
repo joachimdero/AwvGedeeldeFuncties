@@ -24,7 +24,7 @@ class MappingTableProcessor:
 
     def create_otl_object_from_eventDataAC(self, eventDataAC: EventDataAC):
         resultaten = list(
-            filter(lambda mappingrecord: mappingrecord[1] == eventDataAC.materiaal and mappingrecord[2] == eventDataAC.product,
+            filter(lambda mappingrecord: mappingrecord[2] == eventDataAC.product,
                    self.mapping_table))
 
         if len(resultaten) > 1:
@@ -33,10 +33,12 @@ class MappingTableProcessor:
             raise NotImplementedError('couldn\'t find a mapping record')
 
         otl_type = resultaten[0][0]
+        instance = AssetFactory().dynamic_create_instance_from_name(class_name=str.title(otl_type).replace(' ', ''))
 
-        instance = AssetFactory().dynamic_create_instance_from_name(class_name=str.title(otl_type))
-
-        self.fill_instance(instance, eventDataAC)
+        if instance is not None:
+            if instance.materiaal is not None and not instance.materiaal.starts_with('beton'):
+                instance.materiaal = resultaten[0][1]
+            self.fill_instance(instance=instance, eventDataAC=eventDataAC)
 
         return instance
 

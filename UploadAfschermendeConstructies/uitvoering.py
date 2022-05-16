@@ -44,7 +44,12 @@ if __name__ == '__main__':
 
     for index, eventDataAC in enumerate(listEventDataAC):
         try:
+            if eventDataAC.product == 'Duero H2W5 - copro 0634/0002':
+                pass
+
             otl_object = mtp.create_otl_object_from_eventDataAC(eventDataAC)
+            if otl_object is None:
+                raise ValueError('Could not create an otl object so skipping...')
             otl_object.assetId.identificator = str(index)
             otl_object.assetId.toegekendDoor = 'UploadAfschermendeConstructies'
 
@@ -52,7 +57,7 @@ if __name__ == '__main__':
             if 'Agentschap Wegen en Verkeer' in eventDataAC.gebied:
                 agent_name = eventDataAC.gebied[-6:]
                 agent_name = agent_name[0:3] + "_" + agent_name[-3:]
-                agent = AgentCollection(requester=requester).get_agent_by_full_name(agent_name)
+                agent = AgentCollection(requester=requester).get_agent_by_fulltextsearch_name(agent_name)
 
                 if agent is not None:
                     districtrelatie = otl_facility.relatie_creator.create_betrokkenerelation(bron=otl_object, doel=agent)
