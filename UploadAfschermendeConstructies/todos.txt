@@ -1,5 +1,5 @@
 1 objecten aanvullen met data in andere attributen (uitwerken van theoretisch mapping)
-2 nakijken mappingtable geeft veel fouten
+
 3 maken van relaties tussen objecten
 4 afronden WKT op 0.001
 5 beginstukken/eindstukken maken op basis van geometrie/ligging

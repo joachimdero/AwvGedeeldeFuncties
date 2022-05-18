@@ -79,3 +79,35 @@ class OffsetGeometryProcessorTests(unittest.TestCase):
                 expected_output = OffsetParameters(offset=t[3])
                 self.assertTrue(isinstance(result, OffsetParameters))
                 self.assertEqual(expected_output.offset, result.offset)
+
+    def test_create_offset_geometry_from_eventdataAC_round_precision(self):
+        ogp = OffsetGeometryProcessor()
+        eventDataAc = EventDataAC()
+        eventDataAc.ident8 = 'A0120721'
+        eventDataAc.wktLineStringZM = u'LINESTRING M (147620.40680000186 193434.54670000076 0.080000000000000002, 147616.50110000372 193426.20309999958 0.088199999998323619, 147608.74909999967 193411.61510000005 0.10289999999804422, 147600.15110000223 193395.94310000166 0.11879999999655411, 147592.03809999675 193382.0800999999 0.13310000000637956, 147583.80810000002 193369.42410000041 0.14650000000256114)'
+        eventDataAc.afstand_rijbaan = 0
+        eventDataAc.zijde_rijbaan = 'L'
+
+        with self.subTest(f"default precision"):
+            outputline = ogp.create_offset_geometry_from_eventdataAC(eventData=eventDataAc, round_precision=-1)
+            expected_result = shapely.wkt.loads(
+                u'LINESTRING M (147621.76532376939 193433.91076511797 0.080000000000000002, 147617.84351907912 193425.53276127018 0.088199999998323619, 147610.06899975229 193410.90238357615 0.10289999999804422, 147601.45619468141 193395.2033976363 0.11879999999655411, 147593.3148586805 193381.29197881371 0.13310000000637956, 147585.05777520503 193368.59433015343 0.14650000000256114)')
+
+            min_buffer_size = GeometryHelper.find_min_buffersize_from_geometry_to_be_within_another(outputline, expected_result)
+            self.assertLessEqual(min_buffer_size, 0.0001)
+
+        with self.subTest(f"precision 3"):
+            outputline = ogp.create_offset_geometry_from_eventdataAC(eventData=eventDataAc, round_precision=3)
+            expected_result = shapely.wkt.loads(
+                u'LINESTRING M (147621.765 193433.911 0.080, 147617.843 193425.533 0.088, 147610.069 193410.902 0.103, 147601.456 193395.203 0.119, 147593.315 193381.292 0.133, 147585.058 193368.594 0.147)')
+
+            min_buffer_size = GeometryHelper.find_min_buffersize_from_geometry_to_be_within_another(outputline, expected_result)
+            self.assertLessEqual(min_buffer_size, 0.001)
+
+        with self.subTest(f"precision 1"):
+            outputline = ogp.create_offset_geometry_from_eventdataAC(eventData=eventDataAc, round_precision=1)
+            expected_result = shapely.wkt.loads(
+                u'LINESTRING M (147621.8 193433.9 0.1, 147617.8 193425.5 0, 147610.1 193410.9 0.1, 147601.5 193395.2 0.1, 147593.3 193381.3 0.1, 147585.1 193368.6 0.1)')
+
+            min_buffer_size = GeometryHelper.find_min_buffersize_from_geometry_to_be_within_another(outputline, expected_result)
+            self.assertLessEqual(min_buffer_size, 0.1)

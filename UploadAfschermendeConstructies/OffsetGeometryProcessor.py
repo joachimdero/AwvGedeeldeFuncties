@@ -8,10 +8,13 @@ from UploadAfschermendeConstructies.OffsetParameters import OffsetParameters
 
 
 class OffsetGeometryProcessor:
-    def create_offset_geometry_from_eventdataAC(self, eventData: EventDataAC) -> BaseGeometry:
+    def create_offset_geometry_from_eventdataAC(self, eventData: EventDataAC, round_precision: int = -1) -> BaseGeometry:
         params = self.get_offset_params_from_eventdataAC(eventData)
         input_geom = shapely.wkt.loads(eventData.wktLineStringZM)
         geom = self.apply_offset(geometry=input_geom, offset=params.offset, side=params.zijde)
+        if round_precision != -1:
+            new_wkt = shapely.wkt.dumps(geom, rounding_precision=round_precision)
+            geom = shapely.wkt.loads(new_wkt)
         return geom
 
     def apply_offset(self, geometry, offset, side):
@@ -29,9 +32,12 @@ class OffsetGeometryProcessor:
 
         is_hoofdweg = ((wegtype == 'A' or eventData.ident8.startswith('R00')) and eventData.ident8[4:7] == '000')
         is_af_oprit_hoofdweg = ((wegtype == 'A' or eventData.ident8.startswith('R00')) and eventData.ident8[4:7] != '000')
-        is_n_weg = (wegtype == 'N')
+        is_n_weg = (wegtype == 'N' or (eventData.ident8.startswith('R') and not eventData.ident8.startswith('R00')))
         is_zijde_rijbaan_R = (eventData.zijde_rijbaan == 'R')
         is_zijde_rijbaan_L = (eventData.zijde_rijbaan == 'L')
+
+        if not is_hoofdweg and not is_af_oprit_hoofdweg and not is_n_weg:
+            pass
 
         mappingtabel = {
             (1, 0, 0, 1, 0): 4.5,

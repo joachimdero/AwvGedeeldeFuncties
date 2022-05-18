@@ -9,7 +9,6 @@ from OTLMOW.Facility.RequesterFactory import RequesterFactory
 from OTLMOW.Loggers.ConsoleLogger import ConsoleLogger
 from OTLMOW.Loggers.LoggerCollection import LoggerCollection
 from OTLMOW.Loggers.TxtLogger import TxtLogger
-from OTLMOW.OTLModel.Classes.SchokindexVoertuigkering import SchokindexVoertuigkering
 
 from UploadAfschermendeConstructies.FSConnector import FSConnector
 from UploadAfschermendeConstructies.JsonToEventDataACProcessor import JsonToEventDataACProcessor
@@ -38,6 +37,7 @@ if __name__ == '__main__':
         new_shape = shapely.ops.transform(lambda x, y, z: (x, y, z), shape)
         new_wkt = new_shape.wkt
         eventDataAC.wktLineStringZM = new_wkt
+        ogp.create_offset_geometry_from_eventdataAC(eventDataAC, round_precision=3)
 
     lijst_otl_objecten = []
     mtp = MappingTableProcessor('analyse_afschermende_constructies.xlsx')
