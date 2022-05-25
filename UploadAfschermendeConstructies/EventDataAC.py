@@ -23,5 +23,6 @@ class EventDataAC:
     begindatum: str = ''
     id: str = ''
     candidates: list = None
+    offset_wkt: str = ''
 
 

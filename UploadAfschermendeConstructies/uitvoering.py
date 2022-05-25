@@ -45,11 +45,11 @@ if __name__ == '__main__':
     lijst_otl_objecten = []
     mtp = MappingTableProcessor('analyse_afschermende_constructies.xlsx')
 
+    # convert objects in listEventDataAC to OTL conform objects, using the mapping table
+    # fill in as much data as possible
+    # create heef
     for eventDataAC in listEventDataAC:
         try:
-            if eventDataAC.product == 'Duero H2W5 - copro 0634/0002':
-                pass
-
             otl_object = mtp.create_otl_object_from_eventDataAC(eventDataAC)
             if otl_object is None:
                 raise ValueError('Could not create an otl object so skipping...')

@@ -60,7 +60,7 @@ class RelationProcessor:
                 continue
             otl_asset_geom = otl_asset.eventDataAC.offset_geometry
 
-            # heeft otl_object en 1 van de candidates een gemeenschappelijk punt
+            # heeft otl_object en 1 van de candidates een gemeenschappelijk punt?
             for candidate in otl_asset.eventDataAC.candidates:
                 candidate_object = next((a for a in lijst_otl_objecten if a.assetId.identificator == candidate), None)
                 if candidate_object is None:
