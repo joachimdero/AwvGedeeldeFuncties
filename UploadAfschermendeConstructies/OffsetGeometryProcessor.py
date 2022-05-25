@@ -1,4 +1,5 @@
 import shapely
+import shapely.ops
 from shapely.wkt import loads
 from shapely.geometry import LineString
 from shapely.geometry.base import BaseGeometry
@@ -10,10 +11,15 @@ from UploadAfschermendeConstructies.OffsetParameters import OffsetParameters
 class OffsetGeometryProcessor:
     def create_offset_geometry_from_eventdataAC(self, eventData: EventDataAC, round_precision: int = -1) -> BaseGeometry:
         params = self.get_offset_params_from_eventdataAC(eventData)
-        input_geom = shapely.wkt.loads(eventData.wktLineStringZM)
+        input_geom = shapely.wkt.loads(eventData.wktLineStringZ)
         geom = self.apply_offset(geometry=input_geom, offset=params.offset, side=params.zijde)
         if round_precision != -1:
             new_wkt = shapely.wkt.dumps(geom, rounding_precision=round_precision)
+
+            shape = shapely.wkt.loads(new_wkt)
+            new_shape = shapely.ops.transform(lambda x, y: (x, y, 0), shape)
+            new_wkt = new_shape.wkt
+
             geom = shapely.wkt.loads(new_wkt)
         return geom
 
@@ -67,3 +73,10 @@ class OffsetGeometryProcessor:
         }
 
         return mappingtabel[(is_zijde_rijbaan_R, is_zijde_rijbaan_L, is_wegnr_1, is_wegnr_2)]
+
+    def process_wkt_to_Z(self, eventDataAC):
+        wktString = eventDataAC.wktLineStringZM
+        shape = shapely.wkt.loads(wktString)
+        new_shape = shapely.ops.transform(lambda x, y, z: (x, y, z), shape)
+        new_wkt = new_shape.wkt
+        eventDataAC.wktLineStringZ = new_wkt

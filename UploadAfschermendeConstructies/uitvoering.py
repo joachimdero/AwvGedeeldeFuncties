@@ -32,13 +32,12 @@ if __name__ == '__main__':
 
     ogp = OffsetGeometryProcessor()
     for eventDataAC in listEventDataAC:
-        wktString = eventDataAC.wktLineStringZM
-        shape = shapely.wkt.loads(wktString)
-        new_shape = shapely.ops.transform(lambda x, y, z: (x, y, z), shape)
-        new_wkt = new_shape.wkt
-        eventDataAC.wktLineStringZM = new_wkt
-        # new_geometry = ogp.create_offset_geometry_from_eventdataAC(eventDataAC, round_precision=3)
-        # eventDataAC.wktLineStringZ = new_geometry.wkt
+        ogp.process_wkt_to_Z(eventDataAC)
+        try:
+            offset_geometry = ogp.create_offset_geometry_from_eventdataAC(eventDataAC, round_precision=3)
+            eventDataAC.offset_wkt = offset_geometry.wkt
+        except:
+            pass
 
     lijst_otl_objecten = []
     mtp = MappingTableProcessor('analyse_afschermende_constructies.xlsx')

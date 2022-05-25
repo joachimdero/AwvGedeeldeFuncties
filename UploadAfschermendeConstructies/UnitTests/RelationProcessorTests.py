@@ -1,8 +1,22 @@
 from unittest import TestCase
 
+from OTLMOW.Facility.AgentCollection import AgentCollection
+from OTLMOW.Facility.OTLFacility import OTLFacility
+from OTLMOW.Facility.RequesterFactory import RequesterFactory
+from OTLMOW.Loggers.ConsoleLogger import ConsoleLogger
+from OTLMOW.Loggers.LoggerCollection import LoggerCollection
+from OTLMOW.Loggers.TxtLogger import TxtLogger
+from OTLMOW.OTLModel.Classes.Eindstuk import Eindstuk
+from OTLMOW.OTLModel.Classes.Geleideconstructie import Geleideconstructie
+from OTLMOW.OTLModel.Classes.RelatieObject import RelatieObject
+from OTLMOW.OTLModel.Classes.SluitAanOp import SluitAanOp
+
 from UploadAfschermendeConstructies.EventDataAC import EventDataAC
 from UploadAfschermendeConstructies.JsonToEventDataACProcessor import JsonToEventDataACProcessor
+from UploadAfschermendeConstructies.MappingTableProcessor import MappingTableProcessor
+from UploadAfschermendeConstructies.OffsetGeometryProcessor import OffsetGeometryProcessor
 from UploadAfschermendeConstructies.RelationProcessor import RelationProcessor
+from UploadAfschermendeConstructies.SettingsManager import SettingsManager
 
 
 class JsonTestData:
@@ -67,27 +81,101 @@ class JsonToEventDataACProcessorTests(TestCase):
         relation_processor.store(listEventDataAC)
         self.assertIsNotNone(relation_processor.events[0].shape)
 
-    def test_process(self):
+    def test_process_for_candidates(self):
         processor = JsonToEventDataACProcessor()
         listEventDataAC = processor.processJson(JsonTestData.jsonLines)
         listEventDataAC.extend(processor.processJson(JsonTestData.jsonLines2))
 
         relation_processor = RelationProcessor()
         relation_processor.store(listEventDataAC)
-        relation_processor.pre_process()
+        relation_processor.process_for_candidates()
 
         expected_relations = [
-            ['45093', ['45092']],
-            ['45092', ['45093']],
-            ['45088', ['45089']],
-            ['45089', ['45088']],
-
+            ['45093', ['45116']],
+            ['45088', ['45112']],
         ]
 
         for expected_relation in expected_relations:
             with self.subTest(f'testing relation for {expected_relation[0]}'):
                 asset1 = next(a for a in relation_processor.events if a.id == expected_relation[0])
-                self.assertListEqual(asset1.related_assets, expected_relation[1])
+                self.assertListEqual(asset1.candidates, expected_relation[1])
+
+    def test_process_for_relations(self):
+        logger = LoggerCollection([
+            TxtLogger(r'C:\temp\pythonLogging\pythonlog.txt'),
+            ConsoleLogger()])
+        otl_facility = OTLFacility(logger, settings_path='C:\\resources\\settings_OTLMOW.json', enable_relation_features=True)
+        settings_manager = SettingsManager(settings_path='C:\\resources\\settings_AWVGedeeldeFuncties.json')
+        requester = RequesterFactory.create_requester(settings=settings_manager.settings, auth_type='cert', env='prd')
+
+        # create list of EventDataAC from test data
+        processor = JsonToEventDataACProcessor()
+        listEventDataAC = processor.processJson(JsonTestData.jsonLines)
+        listEventDataAC.extend(processor.processJson(JsonTestData.jsonLines2))
+
+        # use relation_processor to search for candidates
+        relation_processor = RelationProcessor()
+        relation_processor.store(listEventDataAC)
+        relation_processor.process_for_candidates()
+
+        # offset geometry's
+        ogp = OffsetGeometryProcessor()
+        for eventDataAC in listEventDataAC:
+            ogp.process_wkt_to_Z(eventDataAC)
+            try:
+                offset_geometry = ogp.create_offset_geometry_from_eventdataAC(eventDataAC, round_precision=3)
+                eventDataAC.offset_wkt = offset_geometry.wkt
+                eventDataAC.offset_geometry = offset_geometry
+            except:
+                pass
+
+        lijst_otl_objecten = []
+        mtp = MappingTableProcessor('..\\analyse_afschermende_constructies.xlsx')
+
+        # ceate otl objects
+        for eventDataAC in listEventDataAC:
+            try:
+                otl_object = mtp.create_otl_object_from_eventDataAC(eventDataAC)
+                if otl_object is None:
+                    raise ValueError('Could not create an otl object so skipping...')
+                otl_object.eventDataAC = eventDataAC
+                otl_object.assetId.identificator = eventDataAC.id
+                otl_object.assetId.toegekendDoor = 'UploadAfschermendeConstructies'
+
+                lijst_otl_objecten.append(otl_object)
+            except Exception as e:
+                print(f'{e} => product:{eventDataAC.product} materiaal:{eventDataAC.materiaal}')
+
+        # process for relaties
+        relation_processor.process_for_relations(otl_facility, lijst_otl_objecten)
+
+        otl_relaties = list(filter(lambda r: isinstance(r, RelatieObject), lijst_otl_objecten))
+        otl_assets = list(filter(lambda r: not isinstance(r, RelatieObject), lijst_otl_objecten))
+
+        with self.subTest('geen relatie'):
+            asset1 = next(a for a in otl_assets if a.assetId.identificator == '45135')
+            self.assertTrue(isinstance(asset1, Geleideconstructie))
+
+            relaties = next((a for a in otl_relaties if isinstance(a, SluitAanOp) and (a.bronAssetId.identificator == '45135' or a.doelAssetId.identificator == '45135')), None)
+            self.assertIsNone(relaties)
+
+        # 45142 / 15680 / 15679
+        # 45136 / 45137 / 45138
+        # 45143 / 45144
+        # 45145 / 45146 / 45147
+        with self.subTest('geleide moet één relatie hebben, naar eindstuk (45142 / 15680 / 15679)'):
+            # zoeken naar assets
+            asset1 = next(a for a in otl_assets if a.assetId.identificator == '45142') # geleide
+            asset2 = next(a for a in otl_assets if a.assetId.identificator == '15680') # geleide
+            asset3 = next(a for a in otl_assets if a.assetId.identificator == '15679') # eind
+            self.assertTrue(isinstance(asset1, Geleideconstructie))
+            self.assertTrue(isinstance(asset2, Geleideconstructie))
+            self.assertTrue(isinstance(asset3, Eindstuk))
+
+            # zoeken naar relaties met één asset (15680)
+            relaties = list(filter(lambda r: isinstance(r, SluitAanOp) and (r.bronAssetId.identificator == '15680' or r.doelAssetId.identificator == '15680'), lijst_otl_objecten))
+            self.assertEqual(1, len(relaties))
+            self.assertTrue(relaties[0].bronAssetId.identificator == '15679' or relaties[0].doelAssetId.identificator == '15679')
 
 
 

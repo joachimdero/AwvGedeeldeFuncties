@@ -43,7 +43,7 @@ class MappingTableProcessor:
         return instance
 
     def fill_instance(self, instance, eventDataAC):
-        instance.geometry = eventDataAC.wktLineStringZ
+        instance.geometry = eventDataAC.offset_wkt
         if eventDataAC.fabrikant != 'onbekend':
             instance.productidentificatiecode.producent = eventDataAC.fabrikant
         if eventDataAC.opmerking != '':

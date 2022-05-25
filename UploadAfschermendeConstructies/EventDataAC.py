@@ -22,3 +22,6 @@ class EventDataAC:
     schokindex: str = ''
     begindatum: str = ''
     id: str = ''
+    candidates: list = None
+
+
