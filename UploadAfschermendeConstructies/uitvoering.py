@@ -1,7 +1,3 @@
-from datetime import date, datetime
-
-import shapely.wkt
-import shapely.ops
 from OTLMOW.Facility.AgentCollection import AgentCollection
 from OTLMOW.Facility.DavieExporter import DavieExporter
 from OTLMOW.Facility.OTLFacility import OTLFacility
@@ -14,6 +10,7 @@ from UploadAfschermendeConstructies.FSConnector import FSConnector
 from UploadAfschermendeConstructies.JsonToEventDataACProcessor import JsonToEventDataACProcessor
 from UploadAfschermendeConstructies.MappingTableProcessor import MappingTableProcessor
 from UploadAfschermendeConstructies.OffsetGeometryProcessor import OffsetGeometryProcessor
+from UploadAfschermendeConstructies.RelationProcessor import RelationProcessor
 from UploadAfschermendeConstructies.SettingsManager import SettingsManager
 
 if __name__ == '__main__':
@@ -30,12 +27,18 @@ if __name__ == '__main__':
     processor = JsonToEventDataACProcessor()
     listEventDataAC = processor.processJson(raw_output)
 
+    # use relation_processor to search for candidates
+    relation_processor = RelationProcessor()
+    relation_processor.store(listEventDataAC)
+    relation_processor.process_for_candidates()
+
     ogp = OffsetGeometryProcessor()
     for eventDataAC in listEventDataAC:
         ogp.process_wkt_to_Z(eventDataAC)
         try:
             offset_geometry = ogp.create_offset_geometry_from_eventdataAC(eventDataAC, round_precision=3)
             eventDataAC.offset_wkt = offset_geometry.wkt
+            eventDataAC.offset_geometry = offset_geometry
         except:
             pass
 
@@ -50,6 +53,7 @@ if __name__ == '__main__':
             otl_object = mtp.create_otl_object_from_eventDataAC(eventDataAC)
             if otl_object is None:
                 raise ValueError('Could not create an otl object so skipping...')
+            otl_object.eventDataAC = eventDataAC
             otl_object.assetId.identificator = eventDataAC.id
             otl_object.assetId.toegekendDoor = 'UploadAfschermendeConstructies'
 
@@ -67,6 +71,13 @@ if __name__ == '__main__':
             lijst_otl_objecten.append(otl_object)
         except Exception as e:
             print(f'{e} => product:{eventDataAC.product} materiaal:{eventDataAC.materiaal}')
+
+    relation_processor.process_for_relations(otl_facility, lijst_otl_objecten)
+
+    # clean up
+    for otl_object in lijst_otl_objecten:
+        if hasattr(otl_object, 'eventDataAC'):
+            delattr(otl_object, 'eventDataAC')
 
     DavieExporter().export_objects_to_json_file(list_of_objects=lijst_otl_objecten, file_path='DAVIE_export_file.json')
 
