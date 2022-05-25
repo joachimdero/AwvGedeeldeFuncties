@@ -22,7 +22,7 @@ if __name__ == '__main__':
     requester = RequesterFactory.create_requester(settings=settings_manager.settings, auth_type='cert', env='prd')
 
     fs_c = FSConnector(requester)
-    raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies", lines=50)  # beperkt tot 20
+    raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies", lines=1000)  # beperkt tot 20
 
     processor = JsonToEventDataACProcessor()
     listEventDataAC = processor.processJson(raw_output)
@@ -70,7 +70,7 @@ if __name__ == '__main__':
 
             lijst_otl_objecten.append(otl_object)
         except Exception as e:
-            print(f'{e} => product:{eventDataAC.product} materiaal:{eventDataAC.materiaal}')
+            print(f'{e} => id:{eventDataAC.id} product:{eventDataAC.product} materiaal:{eventDataAC.materiaal}')
 
     relation_processor.process_for_relations(otl_facility, lijst_otl_objecten)
 

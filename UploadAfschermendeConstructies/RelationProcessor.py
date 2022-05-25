@@ -69,6 +69,9 @@ class RelationProcessor:
 
                 if otl_asset_geom.touches(canditate_geom):
                     col = otl_asset_geom.intersection(canditate_geom)
+                    if col is None:
+                        continue
+
                     if isinstance(col, Point):
                         pass
                         first_candidate, last_candidate = canditate_geom.boundary
@@ -85,7 +88,8 @@ class RelationProcessor:
                             if bestaande_relatie is None:
                                 lijst_otl_objecten.append(relatie)
                             pass
-                    pass
+                    else:
+                        pass
 
                 # intersect => 1 punt
                 # touches and not overlaps
