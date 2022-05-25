@@ -37,12 +37,13 @@ if __name__ == '__main__':
         new_shape = shapely.ops.transform(lambda x, y, z: (x, y, z), shape)
         new_wkt = new_shape.wkt
         eventDataAC.wktLineStringZM = new_wkt
-        ogp.create_offset_geometry_from_eventdataAC(eventDataAC, round_precision=3)
+        # new_geometry = ogp.create_offset_geometry_from_eventdataAC(eventDataAC, round_precision=3)
+        # eventDataAC.wktLineStringZ = new_geometry.wkt
 
     lijst_otl_objecten = []
     mtp = MappingTableProcessor('analyse_afschermende_constructies.xlsx')
 
-    for index, eventDataAC in enumerate(listEventDataAC):
+    for eventDataAC in listEventDataAC:
         try:
             if eventDataAC.product == 'Duero H2W5 - copro 0634/0002':
                 pass
@@ -50,7 +51,7 @@ if __name__ == '__main__':
             otl_object = mtp.create_otl_object_from_eventDataAC(eventDataAC)
             if otl_object is None:
                 raise ValueError('Could not create an otl object so skipping...')
-            otl_object.assetId.identificator = str(index)
+            otl_object.assetId.identificator = eventDataAC.id
             otl_object.assetId.toegekendDoor = 'UploadAfschermendeConstructies'
 
             # verplaatsen naar jsoneventdataACProcessor

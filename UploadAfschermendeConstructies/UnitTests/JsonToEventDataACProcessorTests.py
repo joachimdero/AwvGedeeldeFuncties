@@ -126,3 +126,8 @@ class JsonToEventDataACProcessorTests(TestCase):
         processor = JsonToEventDataACProcessor()
         listEventDataAC = processor.processJson(JsonTestData.jsonLines)
         self.assertEqual('B', listEventDataAC[20].schokindex)
+
+    def test_assert_processJson_results_in_EventData_id(self):
+        processor = JsonToEventDataACProcessor()
+        listEventDataAC = processor.processJson(JsonTestData.jsonLines)
+        self.assertEqual('31327', listEventDataAC[0].id)

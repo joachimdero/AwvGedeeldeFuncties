@@ -9,6 +9,7 @@ class EventDataAC:
     afstand_rijbaan: float = -1.0
     ident8: str = ''
     wktLineStringZM: str = ''
+    wktLineStringZ: str = ''
     begin: WegLocatieData = WegLocatieData()
     eind: WegLocatieData = WegLocatieData()
     typeAC: str = ''
@@ -20,3 +21,4 @@ class EventDataAC:
     gebied: str = ''
     schokindex: str = ''
     begindatum: str = ''
+    id: str = ''
