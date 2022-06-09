@@ -1,9 +1,12 @@
+import logging
+
 import shapely
 import shapely.wkt
+from OTLMOW.OTLModel.Classes.Bevestiging import Bevestiging
 from OTLMOW.OTLModel.Classes.Eindstuk import Eindstuk
 from OTLMOW.OTLModel.Classes.RelatieObject import RelatieObject
 from OTLMOW.OTLModel.Classes.SluitAanOp import SluitAanOp
-from shapely.geometry import box, Point
+from shapely.geometry import box, Point, LineString
 from shapely.ops import shared_paths
 
 
@@ -67,37 +70,39 @@ class RelationProcessor:
                     continue
                 canditate_geom = candidate_object.eventDataAC.offset_geometry
 
-                if otl_asset_geom.touches(canditate_geom):
-                    col = otl_asset_geom.intersection(canditate_geom)
-                    if col is None:
-                        continue
+                intersected_geometry = otl_asset_geom.intersection(canditate_geom)
+                if intersected_geometry is None:
+                    continue
 
-                    if isinstance(col, Point):
-                        pass
-                        first_candidate, last_candidate = canditate_geom.boundary
-                        first_otl_asset, last_otl_asset = otl_asset_geom.boundary
+                # doorsnee = punt => nakijken of het begin- en eindpunt zijn, zo ja: SluitAanOp
+                if isinstance(intersected_geometry, Point):
+                    candidate_first_point = canditate_geom.coords[0]
+                    last_candidate = canditate_geom.coords[-1]
+                    otl_asset_first_point = otl_asset_geom.coords[0]
+                    otl_asset_last_point = otl_asset_geom.coords[-1]
 
-                        if (col.equals(first_candidate) and col.equals(last_otl_asset)) or (col.equals(last_candidate) and col.equals(first_otl_asset)):
-                            if isinstance(otl_asset, Eindstuk):
-                                relatie = otl_facility.relatie_creator.create_relation(candidate_object, otl_asset, SluitAanOp)
-                            else:
-                                relatie = otl_facility.relatie_creator.create_relation(otl_asset, candidate_object, SluitAanOp)
-                            bestaande_relatie = next((a for a in lijst_otl_objecten if isinstance(a, RelatieObject) and
-                                                      a.bronAssetId.identificator == relatie.bronAssetId.identificator and
-                                                      a.doelAssetId.identificator == relatie.doelAssetId.identificator), None)
-                            if bestaande_relatie is None:
-                                lijst_otl_objecten.append(relatie)
-                            pass
-                    else:
-                        pass
-
-                # intersect => 1 punt
-                # touches and not overlaps
-
-                pass
-
-            # een relatie aanmaken tussen die 2 objecten
-
-        # # eerst motorvangplanken filteren
-
-
+                    if (intersected_geometry.coords[0] == candidate_first_point and intersected_geometry.coords[0] == otl_asset_last_point) or \
+                            (intersected_geometry.coords[0] == last_candidate and intersected_geometry.coords[0] == otl_asset_first_point):
+                        if isinstance(otl_asset, Eindstuk):
+                            relatie = otl_facility.relatie_creator.create_relation(candidate_object, otl_asset, SluitAanOp)
+                        else:
+                            relatie = otl_facility.relatie_creator.create_relation(otl_asset, candidate_object, SluitAanOp)
+                        bestaande_relatie = next((a for a in lijst_otl_objecten if isinstance(a, RelatieObject) and
+                                                  a.bronAssetId.identificator == relatie.bronAssetId.identificator and
+                                                  a.doelAssetId.identificator == relatie.doelAssetId.identificator), None)
+                        if bestaande_relatie is None:
+                            lijst_otl_objecten.append(relatie)
+                # doorsnee = lijn => Bevestiging relatie
+                elif isinstance(intersected_geometry, LineString):
+                    try:
+                        if otl_asset.assetId.identificator < candidate_object.assetId.identificator:
+                            relatie = otl_facility.relatie_creator.create_relation(otl_asset, candidate_object, Bevestiging)
+                        else:
+                            relatie = otl_facility.relatie_creator.create_relation(candidate_object, otl_asset, Bevestiging)
+                        bestaande_relatie = next((a for a in lijst_otl_objecten if isinstance(a, RelatieObject) and
+                                                  a.bronAssetId.identificator == relatie.bronAssetId.identificator and
+                                                  a.doelAssetId.identificator == relatie.doelAssetId.identificator), None)
+                        if bestaande_relatie is None:
+                            lijst_otl_objecten.append(relatie)
+                    except:
+                        logging.error(f'Could not create a Bevestiging relation between assets: id: {otl_asset.assetId.identificator}, {candidate_object.assetId.identificator} types:{type(otl_asset)}, {type(candidate_object)}')

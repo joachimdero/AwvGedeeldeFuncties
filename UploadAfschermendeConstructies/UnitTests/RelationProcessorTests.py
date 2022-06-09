@@ -193,16 +193,13 @@ class JsonToEventDataACProcessorTests(TestCase):
         eind1.eventDataAC.offset_wkt = 'LINESTRING Z (0 1 0, 0 1.1 0)'
         eind1.eventDataAC.offset_geometry = shapely.wkt.loads(eind1.eventDataAC.offset_wkt)
 
-
-        lijst_otl_objecten = [
-            constructie1, eind1
-        ]
+        lijst_otl_objecten = [constructie1, eind1]
 
         relation_processor = RelationProcessor()
         relation_processor.process_for_relations(otl_facility, lijst_otl_objecten)
 
         otl_relaties = list(filter(lambda r: isinstance(r, RelatieObject), lijst_otl_objecten))
-        self.assertEqual(len(otl_relaties), 1)
+        self.assertEqual(1, len(otl_relaties))
         relatie = otl_relaties[0]
         self.assertIsInstance(relatie, SluitAanOp)
         self.assertTrue(relatie.bronAssetId.identificator == 'constructie1' and relatie.doelAssetId.identificator == 'eind1' or
@@ -220,21 +217,18 @@ class JsonToEventDataACProcessorTests(TestCase):
 
         motorvangplank1 = Motorvangplank()
         motorvangplank1.eventDataAC = EventDataAC()
-        motorvangplank1.assetId.identificator = 'eind1'
+        motorvangplank1.assetId.identificator = 'motorvangplank1'
         motorvangplank1.eventDataAC.candidates = ['constructie1']
         motorvangplank1.eventDataAC.offset_wkt = 'LINESTRING Z (0 1 0, 0 2 0)'
         motorvangplank1.eventDataAC.offset_geometry = shapely.wkt.loads(motorvangplank1.eventDataAC.offset_wkt)
 
-
-        lijst_otl_objecten = [
-            constructie1, motorvangplank1
-        ]
+        lijst_otl_objecten = [constructie1, motorvangplank1]
 
         relation_processor = RelationProcessor()
         relation_processor.process_for_relations(otl_facility, lijst_otl_objecten)
 
         otl_relaties = list(filter(lambda r: isinstance(r, RelatieObject), lijst_otl_objecten))
-        self.assertEqual(len(otl_relaties), 1)
+        self.assertEqual(1, len(otl_relaties))
         relatie = otl_relaties[0]
         self.assertIsInstance(relatie, Bevestiging)
         self.assertTrue(relatie.bronAssetId.identificator == 'constructie1' and relatie.doelAssetId.identificator == 'motorvangplank1' or
