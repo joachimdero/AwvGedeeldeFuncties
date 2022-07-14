@@ -1,17 +1,16 @@
 from unittest import TestCase
 
 import shapely
-from OTLMOW.OTLModel.Classes.AansluitendeConstructie import AansluitendeConstructie
-from OTLMOW.OTLModel.Classes.Bevestiging import Bevestiging
-from OTLMOW.OTLModel.Classes.Motorvangplank import Motorvangplank
-from shapely.wkt import loads
-from OTLMOW.Facility.AgentCollection import AgentCollection
 from OTLMOW.Facility.OTLFacility import OTLFacility
 from OTLMOW.Facility.RequesterFactory import RequesterFactory
+from OTLMOW.OTLModel.Classes.Bevestiging import Bevestiging
 from OTLMOW.OTLModel.Classes.Eindstuk import Eindstuk
 from OTLMOW.OTLModel.Classes.Geleideconstructie import Geleideconstructie
+from OTLMOW.OTLModel.Classes.GetesteBeginconstructie import GetesteBeginconstructie
+from OTLMOW.OTLModel.Classes.Motorvangplank import Motorvangplank
 from OTLMOW.OTLModel.Classes.RelatieObject import RelatieObject
 from OTLMOW.OTLModel.Classes.SluitAanOp import SluitAanOp
+from shapely.wkt import loads
 
 from UploadAfschermendeConstructies.EventDataAC import EventDataAC
 from UploadAfschermendeConstructies.JsonToEventDataACProcessor import JsonToEventDataACProcessor
@@ -182,28 +181,36 @@ class JsonToEventDataACProcessorTests(TestCase):
         constructie1 = Geleideconstructie()
         constructie1.eventDataAC = EventDataAC()
         constructie1.assetId.identificator = 'constructie1'
-        constructie1.eventDataAC.candidates = ['eind1']
-        constructie1.eventDataAC.offset_wkt = 'LINESTRING Z (0 0 0, 0 1 0)'
+        constructie1.eventDataAC.candidates = ['eind1', 'begin1']
+        constructie1.eventDataAC.offset_wkt = 'LINESTRING Z (0 1 0, 0 2 0)'
         constructie1.eventDataAC.offset_geometry = shapely.wkt.loads(constructie1.eventDataAC.offset_wkt)
 
         eind1 = Eindstuk()
         eind1.eventDataAC = EventDataAC()
         eind1.assetId.identificator = 'eind1'
         eind1.eventDataAC.candidates = ['constructie1']
-        eind1.eventDataAC.offset_wkt = 'LINESTRING Z (0 1 0, 0 1.1 0)'
+        eind1.eventDataAC.offset_wkt = 'LINESTRING Z (0 2 0, 0 2.1 0)'
         eind1.eventDataAC.offset_geometry = shapely.wkt.loads(eind1.eventDataAC.offset_wkt)
 
-        lijst_otl_objecten = [constructie1, eind1]
+        begin1 = GetesteBeginconstructie()
+        begin1.eventDataAC = EventDataAC()
+        begin1.assetId.identificator = 'begin1'
+        begin1.eventDataAC.candidates = ['constructie1']
+        begin1.eventDataAC.offset_wkt = 'LINESTRING Z (0 0.9 0, 0 1 0)'
+        begin1.eventDataAC.offset_geometry = shapely.wkt.loads(begin1.eventDataAC.offset_wkt)
+
+        lijst_otl_objecten = [constructie1, eind1, begin1]
 
         relation_processor = RelationProcessor()
         relation_processor.process_for_relations(otl_facility, lijst_otl_objecten)
 
         otl_relaties = list(filter(lambda r: isinstance(r, RelatieObject), lijst_otl_objecten))
-        self.assertEqual(1, len(otl_relaties))
-        relatie = otl_relaties[0]
-        self.assertIsInstance(relatie, SluitAanOp)
-        self.assertTrue(relatie.bronAssetId.identificator == 'constructie1' and relatie.doelAssetId.identificator == 'eind1' or
-                        relatie.doelAssetId.identificator == 'constructie1' and relatie.bronAssetId.identificator == 'eind1')
+        self.assertEqual(2, len(otl_relaties))
+        relatie_eind = next(r for r in otl_relaties if r.doelAssetId.identificator == 'eind1')
+        relatie_begin = next(r for r in otl_relaties if r.bronAssetId.identificator == 'begin1')
+        self.assertIsInstance(relatie_begin, SluitAanOp)
+        self.assertIsInstance(relatie_eind, SluitAanOp)
+        self.assertTrue(relatie_eind.bronAssetId.identificator == 'constructie1' and relatie_eind.doelAssetId.identificator == 'eind1')
 
     def test_process_for_relations_using_fake_data_common_line_segment(self):
         otl_facility = OTLFacility(logfile='', settings_path='C:\\resources\\settings_OTLMOW.json', enable_relation_features=True)
@@ -234,3 +241,28 @@ class JsonToEventDataACProcessorTests(TestCase):
         self.assertTrue(relatie.bronAssetId.identificator == 'constructie1' and relatie.doelAssetId.identificator == 'motorvangplank1' or
                         relatie.doelAssetId.identificator == 'constructie1' and relatie.bronAssetId.identificator == 'motorvangplank1')
 
+    def test_process_for_relations_using_fake_data_common_line_segment_wrong_types(self):
+        otl_facility = OTLFacility(logfile='', settings_path='C:\\resources\\settings_OTLMOW.json',
+                                   enable_relation_features=True)
+
+        eindstuk1 = Eindstuk()
+        eindstuk1.eventDataAC = EventDataAC()
+        eindstuk1.assetId.identificator = 'eindstuk1'
+        eindstuk1.eventDataAC.candidates = ['motorvangplank1']
+        eindstuk1.eventDataAC.offset_wkt = 'LINESTRING Z (0 0 0, 0 1 0, 0 2 0, 0 3 0)'
+        eindstuk1.eventDataAC.offset_geometry = shapely.wkt.loads(eindstuk1.eventDataAC.offset_wkt)
+
+        motorvangplank1 = Motorvangplank()
+        motorvangplank1.eventDataAC = EventDataAC()
+        motorvangplank1.assetId.identificator = 'motorvangplank1'
+        motorvangplank1.eventDataAC.candidates = ['eindstuk1']
+        motorvangplank1.eventDataAC.offset_wkt = 'LINESTRING Z (0 1 0, 0 2 0)'
+        motorvangplank1.eventDataAC.offset_geometry = shapely.wkt.loads(motorvangplank1.eventDataAC.offset_wkt)
+
+        lijst_otl_objecten = [eindstuk1, motorvangplank1]
+
+        relation_processor = RelationProcessor()
+        relation_processor.process_for_relations(otl_facility, lijst_otl_objecten)
+
+        otl_relaties = list(filter(lambda r: isinstance(r, RelatieObject), lijst_otl_objecten))
+        self.assertEqual(0, len(otl_relaties))

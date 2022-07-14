@@ -1,0 +1,64 @@
+16:01:49,310 shapely.geometry.base ERROR Failed to delete GEOS geom
+Traceback (most recent call last):
+  File "C:\Users\vlaminda\PycharmProjects\AwvGedeeldeFuncties\venv2\lib\site-packages\shapely\geometry\base.py", line 194, in _empty
+    self._lgeos.GEOSGeom_destroy(self.__geom__)
+AttributeError: 'LGEOS380' object has no attribute 'GEOSGeom_destroy'
+16:01:49,331 shapely.geometry.base ERROR Failed to delete GEOS geom
+Traceback (most recent call last):
+  File "C:\Users\vlaminda\PycharmProjects\AwvGedeeldeFuncties\venv2\lib\site-packages\shapely\geometry\base.py", line 194, in _empty
+    self._lgeos.GEOSGeom_destroy(self.__geom__)
+AttributeError: 'LGEOS380' object has no attribute 'GEOSGeom_destroy'
+16:01:49,332 shapely.geometry.base ERROR Failed to delete GEOS geom
+Traceback (most recent call last):
+  File "C:\Users\vlaminda\PycharmProjects\AwvGedeeldeFuncties\venv2\lib\site-packages\shapely\geometry\base.py", line 194, in _empty
+    self._lgeos.GEOSGeom_destroy(self.__geom__)
+AttributeError: 'LGEOS380' object has no attribute 'GEOSGeom_destroy'
+16:01:49,332 shapely.geometry.base ERROR Failed to delete GEOS geom
+Traceback (most recent call last):
+  File "C:\Users\vlaminda\PycharmProjects\AwvGedeeldeFuncties\venv2\lib\site-packages\shapely\geometry\base.py", line 194, in _empty
+    self._lgeos.GEOSGeom_destroy(self.__geom__)
+AttributeError: 'LGEOS380' object has no attribute 'GEOSGeom_destroy'
+16:01:49,333 shapely.geometry.base ERROR Failed to delete GEOS geom
+Traceback (most recent call last):
+  File "C:\Users\vlaminda\PycharmProjects\AwvGedeeldeFuncties\venv2\lib\site-packages\shapely\geometry\base.py", line 194, in _empty
+    self._lgeos.GEOSGeom_destroy(self.__geom__)
+AttributeError: 'LGEOS380' object has no attribute 'GEOSGeom_destroy'
+13:45:49,953 root ERROR Could not create a Bevestiging relation between assets: id: 45093, 45116 types:<class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>, <class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>
+13:45:49,955 root ERROR Could not create a Bevestiging relation between assets: id: 45137, 45144 types:<class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>, <class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>
+13:45:49,955 root ERROR Could not create a Bevestiging relation between assets: id: 45137, 45143 types:<class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>, <class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>
+13:45:49,957 root ERROR Could not create a Bevestiging relation between assets: id: 45136, 45144 types:<class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>, <class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>
+13:45:49,958 root ERROR Could not create a Bevestiging relation between assets: id: 45136, 45143 types:<class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>, <class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>
+13:45:49,958 root ERROR Could not create a Bevestiging relation between assets: id: 45135, 15679 types:<class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>, <class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>
+13:45:49,958 root ERROR Could not create a Bevestiging relation between assets: id: 45135, 15680 types:<class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>, <class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>
+13:45:49,959 root ERROR Could not create a Bevestiging relation between assets: id: 45135, 45142 types:<class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>, <class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>
+13:45:49,962 root ERROR Could not create a Bevestiging relation between assets: id: 45149, 45140 types:<class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>, <class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>
+13:45:49,964 root ERROR Could not create a Bevestiging relation between assets: id: 45148, 45140 types:<class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>, <class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>
+13:45:49,964 root ERROR Could not create a Bevestiging relation between assets: id: 45148, 45139 types:<class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>, <class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>
+13:45:49,966 root ERROR Could not create a Bevestiging relation between assets: id: 45146, 45145 types:<class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>, <class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>
+13:45:49,966 root ERROR Could not create a Bevestiging relation between assets: id: 45145, 45146 types:<class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>, <class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>
+13:45:49,966 root ERROR Could not create a Bevestiging relation between assets: id: 45144, 45137 types:<class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>, <class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>
+13:45:49,967 root ERROR Could not create a Bevestiging relation between assets: id: 45144, 45136 types:<class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>, <class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>
+13:45:49,967 root ERROR Could not create a Bevestiging relation between assets: id: 45144, 45138 types:<class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>, <class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>
+13:45:49,968 root ERROR Could not create a Bevestiging relation between assets: id: 45143, 45137 types:<class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>, <class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>
+13:45:49,968 root ERROR Could not create a Bevestiging relation between assets: id: 45143, 45136 types:<class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>, <class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>
+13:45:49,969 root ERROR Could not create a Bevestiging relation between assets: id: 15679, 45135 types:<class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>, <class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>
+13:45:49,970 root ERROR Could not create a Bevestiging relation between assets: id: 15680, 45135 types:<class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>, <class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>
+13:45:49,971 root ERROR Could not create a Bevestiging relation between assets: id: 15680, 45142 types:<class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>, <class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>
+13:45:49,972 root ERROR Could not create a Bevestiging relation between assets: id: 45142, 45135 types:<class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>, <class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>
+13:45:49,972 root ERROR Could not create a Bevestiging relation between assets: id: 45142, 15680 types:<class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>, <class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>
+13:45:49,972 root ERROR Could not create a Bevestiging relation between assets: id: 45090, 45114 types:<class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>, <class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>
+13:45:49,972 root ERROR Could not create a Bevestiging relation between assets: id: 45088, 45112 types:<class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>, <class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>
+13:45:49,973 root ERROR Could not create a Bevestiging relation between assets: id: 45086, 45110 types:<class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>, <class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>
+13:45:49,973 root ERROR Could not create a Bevestiging relation between assets: id: 45116, 45093 types:<class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>, <class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>
+13:45:49,973 root ERROR Could not create a Bevestiging relation between assets: id: 45114, 45090 types:<class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>, <class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>
+13:45:49,973 root ERROR Could not create a Bevestiging relation between assets: id: 45112, 45088 types:<class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>, <class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>
+13:45:49,974 root ERROR Could not create a Bevestiging relation between assets: id: 45110, 45086 types:<class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>, <class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>
+13:45:49,974 root ERROR Could not create a Bevestiging relation between assets: id: 45140, 45149 types:<class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>, <class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>
+13:45:49,974 root ERROR Could not create a Bevestiging relation between assets: id: 45140, 45148 types:<class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>, <class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>
+13:45:49,975 root ERROR Could not create a Bevestiging relation between assets: id: 45139, 45148 types:<class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>, <class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>
+13:45:49,977 root ERROR Could not create a Bevestiging relation between assets: id: 45138, 45144 types:<class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>, <class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>
+13:45:49,978 root ERROR Could not create a Bevestiging relation between assets: id: 28935, 28927 types:<class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>, <class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>
+13:45:50,476 root ERROR Could not create a Bevestiging relation between assets: id: constructie1, constructie2 types:<class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>, <class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>
+13:45:50,476 root ERROR Could not create a Bevestiging relation between assets: id: constructie2, constructie1 types:<class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>, <class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>
+13:46:57,669 root ERROR Could not create a Bevestiging relation between assets: id: 45093, 45116 types:<class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>, <class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>
+13:46:59,645 root ERROR Could not create a Bevestiging relation between assets: id: 45137, 45144 types:<class 'OTLMOW.OTLModel.Classes.Geleideconstructie.Geleideconstructie'>, <class 'OTLMOW.OTLModel.Classes.Eindstuk.Eindstuk'>

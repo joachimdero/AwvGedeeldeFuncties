@@ -3,7 +3,6 @@ from OTLMOW.Facility.FileFormats.JsonExporter import JsonExporter
 from OTLMOW.Facility.OTLFacility import OTLFacility
 from OTLMOW.Facility.RequesterFactory import RequesterFactory
 
-
 from UploadAfschermendeConstructies.FSConnector import FSConnector
 from UploadAfschermendeConstructies.JsonToEventDataACProcessor import JsonToEventDataACProcessor
 from UploadAfschermendeConstructies.MappingTableProcessor import MappingTableProcessor
@@ -12,21 +11,25 @@ from UploadAfschermendeConstructies.RelationProcessor import RelationProcessor
 from UploadAfschermendeConstructies.SettingsManager import SettingsManager
 
 if __name__ == '__main__':
+    # een aantal classes uit OTLMOW library gebruiken
     otl_facility = OTLFacility(logfile='', settings_path='C:\\resources\\settings_OTLMOW.json', enable_relation_features=True)
     settings_manager = SettingsManager(settings_path='C:\\resources\\settings_AWVGedeeldeFuncties.json')
     requester = RequesterFactory.create_requester(settings=settings_manager.settings, auth_type='cert', env='prd')
 
+    # haal x aantal afschermende constructies uit de feature server
     fs_c = FSConnector(requester)
-    raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies", lines=200)  # beperkt tot 20
+    raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies", lines=2000)  # beperkt tot 20
 
+    # verwerk de input van de feature server tot een lijst van EventDataAC objecten
     processor = JsonToEventDataACProcessor()
     listEventDataAC = processor.processJson(raw_output)
 
-    # use relation_processor to search for candidates
+    # gebruik RelationProcessor om kandidaten voor relaties alvast op te lijsten op de asset zelf
     relation_processor = RelationProcessor()
     relation_processor.store(listEventDataAC)
     relation_processor.process_for_candidates()
 
+    # gebruik OffsetGeometryProcessor om de geometrieën van de events te verschuiven, afhankelijk van de event data.
     ogp = OffsetGeometryProcessor()
     for eventDataAC in listEventDataAC:
         ogp.process_wkt_to_Z(eventDataAC)
@@ -35,14 +38,13 @@ if __name__ == '__main__':
             eventDataAC.offset_wkt = offset_geometry.wkt
             eventDataAC.offset_geometry = offset_geometry
         except:
-            pass
+            pass  # punten kunnen niet geoffset worden, moet nog oplossing voor gezocht worden
 
+    # gebruik MappingTableProcessor om de events om te zetten naar OTL conforme objecten adhv de mapping tabel in Excel
+    # vul zoveel mogelijk data in, inclusief attributen
     lijst_otl_objecten = []
     mtp = MappingTableProcessor('analyse_afschermende_constructies.xlsx')
 
-    # convert objects in listEventDataAC to OTL conform objects, using the mapping table
-    # fill in as much data as possible
-    # create heef
     for eventDataAC in listEventDataAC:
         try:
             otl_object = mtp.create_otl_object_from_eventDataAC(eventDataAC)
@@ -52,12 +54,13 @@ if __name__ == '__main__':
             otl_object.assetId.identificator = eventDataAC.id
             otl_object.assetId.toegekendDoor = 'UploadAfschermendeConstructies'
 
-            # verplaatsen naar jsoneventdataACProcessor
+            # zoek de beheerder op als Agent
             if 'Agentschap Wegen en Verkeer' in eventDataAC.gebied:
                 agent_name = eventDataAC.gebied[-6:]
                 agent_name = agent_name[0:3] + "_" + agent_name[-3:]
                 agent = AgentCollection(requester=requester).get_agent_by_fulltextsearch_name(agent_name)
 
+                # indien de Agent gevonden is: leg de relatie tussen asset en Agent rol berekende-beheerder
                 if agent is not None:
                     districtrelatie = otl_facility.relatie_creator.create_betrokkenerelation(bron=otl_object, doel=agent)
                     districtrelatie.rol = 'berekende-beheerder'
@@ -67,12 +70,14 @@ if __name__ == '__main__':
         except Exception as e:
             print(f'{e} => id:{eventDataAC.id} product:{eventDataAC.product} materiaal:{eventDataAC.materiaal}')
 
+    # gebruik RelationProcessor om relaties te leggen tussen de verschillende objecten
     relation_processor.process_for_relations(otl_facility, lijst_otl_objecten)
 
-    # clean up
+    # opkuis: tijdelijk attribuut eventDataAC op OTL conform object weghalen
     for otl_object in lijst_otl_objecten:
         if hasattr(otl_object, 'eventDataAC'):
             delattr(otl_object, 'eventDataAC')
 
+    # gebruik OTLMOW om de OTL conforme objecten weg te schrijven naar een export bestand
     JsonExporter().export_objects_to_json_file(list_of_objects=lijst_otl_objecten, file_path='DAVIE_export_file.json')
 
