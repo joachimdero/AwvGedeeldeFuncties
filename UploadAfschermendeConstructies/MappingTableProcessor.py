@@ -55,7 +55,8 @@ class MappingTableProcessor:
             else:
                 instance.notitie = 'brug:' + eventDataAC.brug
 
-        d = datetime.date(eventDataAC.begindatum)
+        dt = datetime.strptime(eventDataAC.begindatum, '%d/%m/%Y')
+        d = datetime.date(dt)
         instance.datumOprichtingObject = d
 
         if eventDataAC.schokindex is not None and isinstance(instance, SchokindexVoertuigkering):
