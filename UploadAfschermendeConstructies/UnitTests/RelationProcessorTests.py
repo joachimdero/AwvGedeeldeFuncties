@@ -3,13 +3,12 @@ from unittest import TestCase
 import shapely
 from OTLMOW.Facility.OTLFacility import OTLFacility
 from OTLMOW.Facility.RequesterFactory import RequesterFactory
-from OTLMOW.OTLModel.Classes.Bevestiging import Bevestiging
-from OTLMOW.OTLModel.Classes.Eindstuk import Eindstuk
-from OTLMOW.OTLModel.Classes.Geleideconstructie import Geleideconstructie
-from OTLMOW.OTLModel.Classes.GetesteBeginconstructie import GetesteBeginconstructie
-from OTLMOW.OTLModel.Classes.Motorvangplank import Motorvangplank
-from OTLMOW.OTLModel.Classes.RelatieObject import RelatieObject
-from OTLMOW.OTLModel.Classes.SluitAanOp import SluitAanOp
+from OTLMOW.OTLModel.Classes.ImplementatieElement.RelatieObject import RelatieObject
+from OTLMOW.OTLModel.Classes.Onderdeel.Bevestiging import Bevestiging
+from OTLMOW.OTLModel.Classes.Onderdeel.Eindstuk import Eindstuk
+from OTLMOW.OTLModel.Classes.Onderdeel.Geleideconstructie import Geleideconstructie
+from OTLMOW.OTLModel.Classes.Onderdeel.Motorvangplank import Motorvangplank
+from OTLMOW.OTLModel.Classes.Onderdeel.SluitAanOp import SluitAanOp
 from shapely.wkt import loads
 
 from UploadAfschermendeConstructies.EventDataAC import EventDataAC

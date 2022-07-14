@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from OTLMOW.Facility.AssetFactory import AssetFactory
-from OTLMOW.OTLModel.Classes.SchokindexVoertuigkering import SchokindexVoertuigkering
+from OTLMOW.OTLModel.Classes.Abstracten.SchokindexVoertuigkering import SchokindexVoertuigkering
 from openpyxl import load_workbook
 
 from UploadAfschermendeConstructies.EventDataAC import EventDataAC
@@ -33,7 +33,7 @@ class MappingTableProcessor:
             raise NotImplementedError('couldn\'t find a mapping record')
 
         otl_type = resultaten[0][0]
-        instance = AssetFactory().dynamic_create_instance_from_name(class_name=str.title(otl_type).replace(' ', ''))
+        instance = AssetFactory().dynamic_create_instance_from_ns_and_name(namespace='onderdeel', class_name=str.title(otl_type).replace(' ', ''))
 
         if instance is not None:
             if instance.materiaal is not None and not instance.materiaal.starts_with('beton'):
@@ -42,7 +42,8 @@ class MappingTableProcessor:
 
         return instance
 
-    def fill_instance(self, instance, eventDataAC):
+    @staticmethod
+    def fill_instance(instance, eventDataAC):
         instance.geometry = eventDataAC.offset_wkt
         if eventDataAC.fabrikant != 'onbekend':
             instance.productidentificatiecode.producent = eventDataAC.fabrikant
@@ -54,8 +55,8 @@ class MappingTableProcessor:
             else:
                 instance.notitie = 'brug:' + eventDataAC.brug
 
-        d = datetime.strptime(eventDataAC.begindatum, '%d/%m/%Y')
-        instance.datumOprichtingObject = datetime.strptime(eventDataAC.begindatum, '%d/%m/%Y')
+        d = datetime.date(eventDataAC.begindatum)
+        instance.datumOprichtingObject = d
 
         if eventDataAC.schokindex is not None and isinstance(instance, SchokindexVoertuigkering):
             instance.schokindex = str.lower(eventDataAC.schokindex)

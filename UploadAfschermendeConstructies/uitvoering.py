@@ -1,3 +1,7 @@
+from OTLMOW.OTLModel.Classes.ImplementatieElement.RelatieObject import RelatieObject
+
+from termcolor import colored
+
 from OTLMOW.Facility.AgentCollection import AgentCollection
 from OTLMOW.Facility.FileFormats.JsonExporter import JsonExporter
 from OTLMOW.Facility.OTLFacility import OTLFacility
@@ -18,11 +22,13 @@ if __name__ == '__main__':
 
     # haal x aantal afschermende constructies uit de feature server
     fs_c = FSConnector(requester)
-    raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies", lines=2000)  # beperkt tot 20
+    raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies", lines=200)  # beperkt tot 20
+    print(colored(f'Number of lines from Feature server: {len(raw_output)}', 'green'))
 
     # verwerk de input van de feature server tot een lijst van EventDataAC objecten
     processor = JsonToEventDataACProcessor()
     listEventDataAC = processor.processJson(raw_output)
+    print(colored(f'Number of event data objects: {len(listEventDataAC)}', 'green'))
 
     # gebruik RelationProcessor om kandidaten voor relaties alvast op te lijsten op de asset zelf
     relation_processor = RelationProcessor()
@@ -70,6 +76,9 @@ if __name__ == '__main__':
         except Exception as e:
             print(f'{e} => id:{eventDataAC.id} product:{eventDataAC.product} materiaal:{eventDataAC.materiaal}')
 
+    assets = list(filter(lambda a: not isinstance(a, RelatieObject), lijst_otl_objecten))
+    print(colored(f'Number of OTL compliant assets: {len(assets)}', 'green'))
+
     # gebruik RelationProcessor om relaties te leggen tussen de verschillende objecten
     relation_processor.process_for_relations(otl_facility, lijst_otl_objecten)
 
@@ -78,6 +87,8 @@ if __name__ == '__main__':
         if hasattr(otl_object, 'eventDataAC'):
             delattr(otl_object, 'eventDataAC')
 
+    print(colored(f'Number of OTL compliant object (assets + relations): {len(lijst_otl_objecten)}', 'green'))
+
     # gebruik OTLMOW om de OTL conforme objecten weg te schrijven naar een export bestand
-    JsonExporter().export_objects_to_json_file(list_of_objects=lijst_otl_objecten, file_path='DAVIE_export_file.json')
+    otl_facility.create_file_from_assets(list_of_objects=lijst_otl_objecten, filepath='DAVIE_export_file.json')
 

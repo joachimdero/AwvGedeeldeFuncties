@@ -1,8 +1,8 @@
 from unittest import TestCase
 import os
 
-from OTLMOW.OTLModel.Classes.Geleideconstructie import Geleideconstructie
-from OTLMOW.OTLModel.Classes.Obstakelbeveiliger import Obstakelbeveiliger
+from OTLMOW.OTLModel.Classes.Onderdeel.Geleideconstructie import Geleideconstructie
+from OTLMOW.OTLModel.Classes.Onderdeel.Obstakelbeveiliger import Obstakelbeveiliger
 
 from UploadAfschermendeConstructies.EventDataAC import EventDataAC
 from UploadAfschermendeConstructies.MappingTableProcessor import MappingTableProcessor
