@@ -1,6 +1,7 @@
 import unittest
 
 import shapely
+from shapely.geometry import LineString
 from shapely.wkt import loads
 
 from GeometryHelper import GeometryHelper
@@ -111,3 +112,49 @@ class OffsetGeometryProcessorTests(unittest.TestCase):
 
             min_buffer_size = GeometryHelper.find_min_buffersize_from_geometry_to_be_within_another(outputline, expected_result)
             self.assertLessEqual(min_buffer_size, 0.1)
+
+    def test_try_fixing_points_via_relations(self):
+        ogp = OffsetGeometryProcessor()
+        punt = EventDataAC()
+
+        verschoven_lijn_1 = EventDataAC()  # valid candidate
+        verschoven_lijn_1.offset_geometry = shapely.wkt.loads('LINESTRING Z (0 2 0, 0 5 0)')
+        verschoven_lijn_1.shape = shapely.wkt.loads('LINESTRING Z (0 0 0, 0 3 0)')
+
+        verschoven_lijn_2 = EventDataAC()  # invalid candidate
+        verschoven_lijn_2.offset_geometry = shapely.wkt.loads('LINESTRING Z (0 4 0, 0 7 0)')
+        verschoven_lijn_2.shape = shapely.wkt.loads('LINESTRING Z (0 1 0, 0 4 0)')
+
+        verschoven_lijn_3 = EventDataAC()  # valid candidate
+        verschoven_lijn_3.offset_geometry = shapely.wkt.loads('LINESTRING Z (0 -2 0, 0 -5 0)')
+        verschoven_lijn_3.shape = shapely.wkt.loads('LINESTRING Z (0 0 0, 0 -3 0)')
+
+        with self.subTest('no candidates'):
+            self.reset_punt_properties(punt)
+            punt.candidates = []
+            ogp.try_fixing_points_via_relations(punt)
+            self.assertTrue(punt.needs_offset)
+
+        with self.subTest('no valid candidates'):
+            self.reset_punt_properties(punt)
+            punt.candidates = [verschoven_lijn_2]
+            ogp.try_fixing_points_via_relations(punt)
+            self.assertTrue(punt.needs_offset)
+
+        with self.subTest('1 valid candidate'):
+            self.reset_punt_properties(punt)
+            punt.candidates = [verschoven_lijn_1, verschoven_lijn_2]
+            ogp.try_fixing_points_via_relations(punt)
+            self.assertFalse(punt.needs_offset)
+            self.assertEquals('LINESTRING Z (0 2 0, 0 2 0)', punt.offset_wkt)
+
+        with self.subTest('2 valid candidates'):
+            self.reset_punt_properties(punt)
+            punt.candidates = [verschoven_lijn_1, verschoven_lijn_3]
+            ogp.try_fixing_points_via_relations(punt)
+            self.assertTrue(punt.needs_offset)
+
+    def reset_punt_properties(self, punt):
+        punt.needs_offset = True
+        punt.offset_geometry = shapely.wkt.loads('LINESTRING Z (0 0 0, 0 0 0)')
+        punt.shape = shapely.wkt.loads('LINESTRING Z (0 0 0, 0 0 0)')

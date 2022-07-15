@@ -23,7 +23,7 @@ class RelationProcessor:
             eventDataAC.related_assets = []
             self.events.append(eventDataAC)
 
-    def process_for_candidates(self):
+    def process_for_candidates(self, print_number_of_candidates: bool = False):
         for eventDataAC in self.events:
             bounds = eventDataAC.shape.bounds
             bounding_box = box(bounds[0], bounds[1], bounds[2], bounds[3]).buffer(5)
@@ -33,7 +33,8 @@ class RelationProcessor:
                     continue
                 if bounding_box.intersects(other.shape):
                     reduced_group.append(other)
-            print(f'{eventDataAC.id} : {len(reduced_group)}')
+            if print_number_of_candidates:
+                print(f'{eventDataAC.id} : {len(reduced_group)}')
 
             eventDataAC.candidates = list(map(lambda x: x.id, reduced_group))
 

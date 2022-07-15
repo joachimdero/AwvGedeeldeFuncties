@@ -1,11 +1,10 @@
-from OTLMOW.OTLModel.Classes.ImplementatieElement.RelatieObject import RelatieObject
-
-from termcolor import colored
-
 from OTLMOW.Facility.AgentCollection import AgentCollection
-from OTLMOW.Facility.FileFormats.JsonExporter import JsonExporter
 from OTLMOW.Facility.OTLFacility import OTLFacility
 from OTLMOW.Facility.RequesterFactory import RequesterFactory
+from OTLMOW.OTLModel.Classes.ImplementatieElement.RelatieObject import RelatieObject
+from OTLMOW.OTLModel.Classes.Onderdeel.Bevestiging import Bevestiging
+from OTLMOW.OTLModel.Classes.Onderdeel.SluitAanOp import SluitAanOp
+from termcolor import colored
 
 from UploadAfschermendeConstructies.FSConnector import FSConnector
 from UploadAfschermendeConstructies.JsonToEventDataACProcessor import JsonToEventDataACProcessor
@@ -22,7 +21,8 @@ if __name__ == '__main__':
 
     # haal x aantal afschermende constructies uit de feature server
     fs_c = FSConnector(requester)
-    raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies", lines=200)  # beperkt tot 20
+    print(colored(f'Connecting to Feature server...', 'green'))
+    raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies", lines=2000)  # beperkt tot X aantal lijnen
     print(colored(f'Number of lines from Feature server: {len(raw_output)}', 'green'))
 
     # verwerk de input van de feature server tot een lijst van EventDataAC objecten
@@ -44,7 +44,16 @@ if __name__ == '__main__':
             eventDataAC.offset_wkt = offset_geometry.wkt
             eventDataAC.offset_geometry = offset_geometry
         except:
-            pass  # punten kunnen niet geoffset worden, moet nog oplossing voor gezocht worden
+            pass
+
+    # punten kunnen niet geoffset worden, wordt apart verschoven indien er exact 1 match voor de offset was
+    for eventDataAC in listEventDataAC:
+        if not eventDataAC.needs_offset:
+            continue
+        ogp.try_fixing_points_via_relations(eventDataAC)
+
+    offset_count = sum(1 for e in listEventDataAC if not e.needs_offset)
+    print(colored(f'Number of event data objects with an offset geometry: {offset_count}', 'green'))
 
     # gebruik MappingTableProcessor om de events om te zetten naar OTL conforme objecten adhv de mapping tabel in Excel
     # vul zoveel mogelijk data in, inclusief attributen
@@ -56,9 +65,11 @@ if __name__ == '__main__':
             otl_object = mtp.create_otl_object_from_eventDataAC(eventDataAC)
             if otl_object is None:
                 raise ValueError('Could not create an otl object so skipping...')
-            otl_object.eventDataAC = eventDataAC
             otl_object.assetId.identificator = eventDataAC.id
             otl_object.assetId.toegekendDoor = 'UploadAfschermendeConstructies'
+
+            # maak link naar event data op OTL conform object
+            otl_object.eventDataAC = eventDataAC
 
             # zoek de beheerder op als Agent
             if 'Agentschap Wegen en Verkeer' in eventDataAC.gebied:
@@ -88,7 +99,10 @@ if __name__ == '__main__':
             delattr(otl_object, 'eventDataAC')
 
     print(colored(f'Number of OTL compliant object (assets + relations): {len(lijst_otl_objecten)}', 'green'))
+    bevestiging_count = sum(1 for r in lijst_otl_objecten if isinstance(r, Bevestiging))
+    print(colored(f'Number of Bevestiging relations: {bevestiging_count}', 'green'))
+    sluit_aan_op_count = sum(1 for r in lijst_otl_objecten if isinstance(r, SluitAanOp))
+    print(colored(f'Number of SluitAanOp relations: {sluit_aan_op_count}', 'green'))
 
     # gebruik OTLMOW om de OTL conforme objecten weg te schrijven naar een export bestand
     otl_facility.create_file_from_assets(list_of_objects=lijst_otl_objecten, filepath='DAVIE_export_file.json')
-

@@ -1,7 +1,7 @@
 import shapely
 import shapely.ops
 from shapely.wkt import loads
-from shapely.geometry import LineString
+from shapely.geometry import LineString, Point
 from shapely.geometry.base import BaseGeometry
 
 from UploadAfschermendeConstructies.EventDataAC import EventDataAC
@@ -12,15 +12,21 @@ class OffsetGeometryProcessor:
     def create_offset_geometry_from_eventdataAC(self, eventData: EventDataAC, round_precision: int = -1) -> BaseGeometry:
         params = self.get_offset_params_from_eventdataAC(eventData)
         input_geom = shapely.wkt.loads(eventData.wktLineStringZ)
-        geom = self.apply_offset(geometry=input_geom, offset=params.offset, side=params.zijde)
-        if round_precision != -1:
-            new_wkt = shapely.wkt.dumps(geom, rounding_precision=round_precision)
+        if input_geom.length == 0:
+            # is a point, not a line
+            eventData.needs_offset = True
+            return input_geom
+        else:
+            geom = self.apply_offset(geometry=input_geom, offset=params.offset, side=params.zijde)
+            eventData.needs_offset = False
 
-            shape = shapely.wkt.loads(new_wkt)
-            new_shape = shapely.ops.transform(lambda x, y: (x, y, 0), shape)
-            new_wkt = new_shape.wkt
+            if round_precision != -1:
+                new_wkt = shapely.wkt.dumps(geom, rounding_precision=round_precision)
+                shape = shapely.wkt.loads(new_wkt)
+                new_shape = shapely.ops.transform(lambda x, y: (x, y, 0), shape)
+                new_wkt = new_shape.wkt
+                geom = shapely.wkt.loads(new_wkt)
 
-            geom = shapely.wkt.loads(new_wkt)
         return geom
 
     def apply_offset(self, geometry, offset, side):
@@ -80,3 +86,32 @@ class OffsetGeometryProcessor:
         new_shape = shapely.ops.transform(lambda x, y, z: (x, y, z), shape)
         new_wkt = new_shape.wkt
         eventDataAC.wktLineStringZ = new_wkt
+
+    def try_fixing_points_via_relations(self, eventDataAC):
+        valid_candidates = []
+        eventDataAC.shape = Point(eventDataAC.shape.coords[0])
+        for candidate in eventDataAC.candidates:
+            intersected_geometry = eventDataAC.shape.intersection(candidate.shape)
+
+            if intersected_geometry.is_empty:
+                continue
+
+            if isinstance(intersected_geometry, Point):
+                valid_candidates.append(candidate)
+
+        if len(valid_candidates) != 1:
+            return
+
+        valid_candidate = valid_candidates[0]
+        start = valid_candidate.shape.coords[0]
+        end = valid_candidate.shape.coords[-1]
+        if start == eventDataAC.shape.coords[0]:
+            new_start = valid_candidate.offset_geometry.coords[0]
+            eventDataAC.offset_geometry = LineString([new_start, new_start])
+            eventDataAC.offset_wkt = eventDataAC.offset_geometry.wkt
+            eventDataAC.needs_offset = False
+        elif end == eventDataAC.shape.coords[0]:
+            new_end = valid_candidate.offset_geometry.coords[-1]
+            eventDataAC.offset_geometry = LineString([new_end, new_end])
+            eventDataAC.offset_wkt = eventDataAC.offset_geometry.wkt
+            eventDataAC.needs_offset = False
