@@ -153,7 +153,8 @@ class JsonToEventDataACProcessorTests(TestCase):
             asset1 = next(a for a in otl_assets if a.assetId.identificator == '45135')
             self.assertTrue(isinstance(asset1, Geleideconstructie))
 
-            relaties = next((a for a in otl_relaties if isinstance(a, SluitAanOp) and (a.bronAssetId.identificator == '45135' or a.doelAssetId.identificator == '45135')), None)
+            relaties = next((a for a in otl_relaties if isinstance(a, SluitAanOp) and (
+                        a.bronAssetId.identificator == '45135' or a.doelAssetId.identificator == '45135')), None)
             self.assertIsNone(relaties)
 
         # 45142 / 15680 / 15679
@@ -162,15 +163,16 @@ class JsonToEventDataACProcessorTests(TestCase):
         # 45145 / 45146 / 45147
         with self.subTest('geleide moet één relatie hebben, naar eindstuk (45142 / 15680 / 15679)'):
             # zoeken naar assets
-            asset1 = next(a for a in otl_assets if a.assetId.identificator == '45142') # geleide
-            asset2 = next(a for a in otl_assets if a.assetId.identificator == '15680') # geleide
-            asset3 = next(a for a in otl_assets if a.assetId.identificator == '15679') # eind
+            asset1 = next(a for a in otl_assets if a.assetId.identificator == '45142')  # geleide
+            asset2 = next(a for a in otl_assets if a.assetId.identificator == '15680')  # geleide
+            asset3 = next(a for a in otl_assets if a.assetId.identificator == '15679')  # eind
             self.assertTrue(isinstance(asset1, Geleideconstructie))
             self.assertTrue(isinstance(asset2, Geleideconstructie))
             self.assertTrue(isinstance(asset3, Eindstuk))
 
             # zoeken naar relaties met één asset (15680)
-            relaties = list(filter(lambda r: isinstance(r, SluitAanOp) and (r.bronAssetId.identificator == '15680' or r.doelAssetId.identificator == '15680'), lijst_otl_objecten))
+            relaties = list(filter(lambda r: isinstance(r, SluitAanOp) and (
+                        r.bronAssetId.identificator == '15680' or r.doelAssetId.identificator == '15680'), lijst_otl_objecten))
             self.assertEqual(1, len(relaties))
             self.assertTrue(relaties[0].bronAssetId.identificator == '15679' or relaties[0].doelAssetId.identificator == '15679')
 
@@ -209,7 +211,8 @@ class JsonToEventDataACProcessorTests(TestCase):
         relatie_begin = next(r for r in otl_relaties if r.bronAssetId.identificator == 'begin1')
         self.assertIsInstance(relatie_begin, SluitAanOp)
         self.assertIsInstance(relatie_eind, SluitAanOp)
-        self.assertTrue(relatie_eind.bronAssetId.identificator == 'constructie1' and relatie_eind.doelAssetId.identificator == 'eind1')
+        self.assertTrue(
+            relatie_eind.bronAssetId.identificator == 'constructie1' and relatie_eind.doelAssetId.identificator == 'eind1')
 
     def test_process_for_relations_using_fake_data_common_line_segment(self):
         otl_facility = OTLFacility(logfile='', settings_path='C:\\resources\\settings_OTLMOW.json', enable_relation_features=True)
@@ -237,8 +240,9 @@ class JsonToEventDataACProcessorTests(TestCase):
         self.assertEqual(1, len(otl_relaties))
         relatie = otl_relaties[0]
         self.assertIsInstance(relatie, Bevestiging)
-        self.assertTrue(relatie.bronAssetId.identificator == 'constructie1' and relatie.doelAssetId.identificator == 'motorvangplank1' or
-                        relatie.doelAssetId.identificator == 'constructie1' and relatie.bronAssetId.identificator == 'motorvangplank1')
+        self.assertTrue(
+            relatie.bronAssetId.identificator == 'constructie1' and relatie.doelAssetId.identificator == 'motorvangplank1' or
+            relatie.doelAssetId.identificator == 'constructie1' and relatie.bronAssetId.identificator == 'motorvangplank1')
 
     def test_process_for_relations_using_fake_data_common_line_segment_wrong_types(self):
         otl_facility = OTLFacility(logfile='', settings_path='C:\\resources\\settings_OTLMOW.json',

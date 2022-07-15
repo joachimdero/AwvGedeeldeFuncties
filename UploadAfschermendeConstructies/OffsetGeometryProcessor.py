@@ -17,15 +17,19 @@ class OffsetGeometryProcessor:
             eventData.needs_offset = True
             return input_geom
         else:
-            geom = self.apply_offset(geometry=input_geom, offset=params.offset, side=params.zijde)
-            eventData.needs_offset = False
+            try:
+                geom = self.apply_offset(geometry=input_geom, offset=params.offset, side=params.zijde)
+                eventData.needs_offset = False
 
-            if round_precision != -1:
-                new_wkt = shapely.wkt.dumps(geom, rounding_precision=round_precision)
-                shape = shapely.wkt.loads(new_wkt)
-                new_shape = shapely.ops.transform(lambda x, y: (x, y, 0), shape)
-                new_wkt = new_shape.wkt
-                geom = shapely.wkt.loads(new_wkt)
+                if round_precision != -1:
+                    new_wkt = shapely.wkt.dumps(geom, rounding_precision=round_precision)
+                    shape = shapely.wkt.loads(new_wkt)
+                    new_shape = shapely.ops.transform(lambda x, y: (x, y, 0), shape)
+                    new_wkt = new_shape.wkt
+                    geom = shapely.wkt.loads(new_wkt)
+            except Exception as e:
+                print(e)
+                eventData.needs_offset = True
 
         return geom
 
@@ -59,8 +63,15 @@ class OffsetGeometryProcessor:
             (0, 0, 1, 1, 0): 2.0,
             (0, 0, 1, 0, 1): 1.5,
         }
+        try:
+            offset = mappingtabel[(is_hoofdweg, is_af_oprit_hoofdweg, is_n_weg, is_zijde_rijbaan_R, is_zijde_rijbaan_L)]
+            return eventData.afstand_rijbaan + offset
+        except Exception as e:
+            print(f'missing mapping for determine_offset, id {eventData.id}: (is_hoofdweg={is_hoofdweg}, '
+                  f'is_af_oprit_hoofdweg={is_af_oprit_hoofdweg}, is_n_weg={is_n_weg}, is_zijde_rijbaan_R={is_zijde_rijbaan_R}, '
+                  f'is_zijde_rijbaan_L={is_zijde_rijbaan_L})')
 
-        return eventData.afstand_rijbaan + mappingtabel[(is_hoofdweg, is_af_oprit_hoofdweg, is_n_weg, is_zijde_rijbaan_R, is_zijde_rijbaan_L)]
+        return eventData.afstand_rijbaan
 
 
     def determine_zijde(self, eventData):
@@ -78,7 +89,13 @@ class OffsetGeometryProcessor:
             (0, 1, 0, 1): 'right',
         }
 
-        return mappingtabel[(is_zijde_rijbaan_R, is_zijde_rijbaan_L, is_wegnr_1, is_wegnr_2)]
+        try:
+            return mappingtabel[(is_zijde_rijbaan_R, is_zijde_rijbaan_L, is_wegnr_1, is_wegnr_2)]
+        except Exception as e:
+            print(f'missing mapping for determine_zijde, id {eventData.id}: (is_zijde_rijbaan_R={is_zijde_rijbaan_R}, '
+                  f'is_zijde_rijbaan_L={is_zijde_rijbaan_L}, is_wegnr_1={is_wegnr_1}, is_wegnr_2={is_wegnr_2})')
+
+        return None
 
     def process_wkt_to_Z(self, eventDataAC):
         wktString = eventDataAC.wktLineStringZM

@@ -13,6 +13,18 @@ from UploadAfschermendeConstructies.OffsetGeometryProcessor import OffsetGeometr
 from UploadAfschermendeConstructies.RelationProcessor import RelationProcessor
 from UploadAfschermendeConstructies.SettingsManager import SettingsManager
 
+
+def print_overview_assets(lijst_otl_objecten):
+    overview = {}
+    for asset in lijst_otl_objecten:
+        if asset.typeURI not in overview:
+            overview[asset.typeURI] = 1
+        else:
+            overview[asset.typeURI] += 1
+    for k, v in overview.items():
+        print(colored(f'created {str(v)} assets of type {k}', 'blue'))
+
+
 if __name__ == '__main__':
     # een aantal classes uit OTLMOW library gebruiken
     otl_facility = OTLFacility(logfile='', settings_path='C:\\resources\\settings_OTLMOW.json', enable_relation_features=True)
@@ -22,7 +34,7 @@ if __name__ == '__main__':
     # haal x aantal afschermende constructies uit de feature server
     fs_c = FSConnector(requester)
     print(colored(f'Connecting to Feature server...', 'green'))
-    raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies", lines=2000)  # beperkt tot X aantal lijnen
+    raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies", lines=1000)  # beperkt tot X aantal lijnen
     print(colored(f'Number of lines from Feature server: {len(raw_output)}', 'green'))
 
     # verwerk de input van de feature server tot een lijst van EventDataAC objecten
@@ -99,10 +111,8 @@ if __name__ == '__main__':
             delattr(otl_object, 'eventDataAC')
 
     print(colored(f'Number of OTL compliant object (assets + relations): {len(lijst_otl_objecten)}', 'green'))
-    bevestiging_count = sum(1 for r in lijst_otl_objecten if isinstance(r, Bevestiging))
-    print(colored(f'Number of Bevestiging relations: {bevestiging_count}', 'green'))
-    sluit_aan_op_count = sum(1 for r in lijst_otl_objecten if isinstance(r, SluitAanOp))
-    print(colored(f'Number of SluitAanOp relations: {sluit_aan_op_count}', 'green'))
+
+    print_overview_assets(lijst_otl_objecten)
 
     # gebruik OTLMOW om de OTL conforme objecten weg te schrijven naar een export bestand
     otl_facility.create_file_from_assets(list_of_objects=lijst_otl_objecten, filepath='DAVIE_export_file.json')
