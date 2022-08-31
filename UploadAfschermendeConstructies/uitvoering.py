@@ -1,3 +1,5 @@
+import platform
+
 from OTLMOW.Facility.AgentCollection import AgentCollection
 from OTLMOW.Facility.OTLFacility import OTLFacility
 from OTLMOW.Facility.RequesterFactory import RequesterFactory
@@ -26,9 +28,16 @@ def print_overview_assets(lijst_otl_objecten):
 
 
 if __name__ == '__main__':
+    if platform.system() == 'Linux':
+        OTLMOW_settings_path = '/home/davidlinux/Documents/AWV/resources/settings_OTLMOW.json'
+        this_settings_path = '/home/davidlinux/Documents/AWV/resources/settings_AWVGedeeldeFuncties.json'
+    else:
+        OTLMOW_settings_path = 'C:\\resources\\settings_OTLMOW.json'
+        this_settings_path = 'C:\\resources\\settings_AWVGedeeldeFuncties.json'
+
     # een aantal classes uit OTLMOW library gebruiken
-    otl_facility = OTLFacility(logfile='', settings_path='C:\\resources\\settings_OTLMOW.json', enable_relation_features=True)
-    settings_manager = SettingsManager(settings_path='C:\\resources\\settings_AWVGedeeldeFuncties.json')
+    otl_facility = OTLFacility(logfile='', settings_path=OTLMOW_settings_path, enable_relation_features=True)
+    settings_manager = SettingsManager(settings_path=this_settings_path)
     requester = RequesterFactory.create_requester(settings=settings_manager.settings, auth_type='cert', env='prd')
 
     # haal x aantal afschermende constructies uit de feature server
