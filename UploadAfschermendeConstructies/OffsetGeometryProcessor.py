@@ -123,6 +123,9 @@ class OffsetGeometryProcessor:
             return
 
         valid_candidate = valid_candidates[0]
+        if not hasattr(valid_candidate, 'offset_geometry'):
+            return
+
         start = valid_candidate.shape.coords[0]
         end = valid_candidate.shape.coords[-1]
         if start == eventDataAC.shape.coords[0]:

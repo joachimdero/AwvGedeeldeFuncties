@@ -43,21 +43,26 @@ if __name__ == '__main__':
     # haal x aantal afschermende constructies uit de feature server
     fs_c = FSConnector(requester)
     print(colored(f'Connecting to Feature server...', 'green'))
-    raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies", lines=1000)  # beperkt tot X aantal lijnen
+    raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies", lines=30000)  # beperkt tot X aantal lijnen
     print(colored(f'Number of lines from Feature server: {len(raw_output)}', 'green'))
 
     # verwerk de input van de feature server tot een lijst van EventDataAC objecten
     processor = JsonToEventDataACProcessor()
     listEventDataAC = processor.processJson(raw_output)
+
+    #filter_ids = ['8797', '8796', '8798']
+    #listEventDataAC = list(filter(lambda x: x.id in filter_ids, listEventDataAC))
+
     print(colored(f'Number of event data objects: {len(listEventDataAC)}', 'green'))
 
     # gebruik RelationProcessor om kandidaten voor relaties alvast op te lijsten op de asset zelf
     relation_processor = RelationProcessor()
     relation_processor.store(listEventDataAC)
-    relation_processor.process_for_candidates()
+    relation_processor.process_for_candidates(print_number_of_candidates=False)
 
     # gebruik OffsetGeometryProcessor om de geometrieën van de events te verschuiven, afhankelijk van de event data.
     ogp = OffsetGeometryProcessor()
+    offset_gefaald_teller = 0
     for eventDataAC in listEventDataAC:
         ogp.process_wkt_to_Z(eventDataAC)
         try:
@@ -65,7 +70,8 @@ if __name__ == '__main__':
             eventDataAC.offset_wkt = offset_geometry.wkt
             eventDataAC.offset_geometry = offset_geometry
         except:
-            pass
+            offset_gefaald_teller += 1
+    print(colored(f'Aantal gefaalde offsets: {offset_gefaald_teller}', 'red'))
 
     # punten kunnen niet geoffset worden, wordt apart verschoven indien er exact 1 match voor de offset was
     for eventDataAC in listEventDataAC:
@@ -112,7 +118,8 @@ if __name__ == '__main__':
     print(colored(f'Number of OTL compliant assets: {len(assets)}', 'green'))
 
     # gebruik RelationProcessor om relaties te leggen tussen de verschillende objecten
-    relation_processor.process_for_relations(otl_facility, lijst_otl_objecten)
+    # relation_processor.process_for_relations(otl_facility, lijst_otl_objecten)
+    # dit wordt gedaan in uitvoering2.py
 
     # opkuis: tijdelijk attribuut eventDataAC op OTL conform object weghalen
     for otl_object in lijst_otl_objecten:
@@ -124,4 +131,4 @@ if __name__ == '__main__':
     print_overview_assets(lijst_otl_objecten)
 
     # gebruik OTLMOW om de OTL conforme objecten weg te schrijven naar een export bestand
-    otl_facility.create_file_from_assets(list_of_objects=lijst_otl_objecten, filepath='DAVIE_export_file.json')
+    otl_facility.create_file_from_assets(list_of_objects=lijst_otl_objecten, filepath='DAVIE_export_file_20220913.json')

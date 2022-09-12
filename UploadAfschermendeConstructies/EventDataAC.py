@@ -24,5 +24,6 @@ class EventDataAC:
     id: str = ''
     candidates: list = None
     offset_wkt: str = ''
+    needs_offset: bool = True
 
 

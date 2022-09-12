@@ -74,5 +74,5 @@ if __name__ == '__main__':
         except Exception as e:
             print(f'{e} => product:{eventDataAC.product} materiaal:{eventDataAC.materiaal}')
 
-    DavieExporter().export_objects_to_json_file(list_of_objects=lijst_otl_objecten, file_path='DAVIE_export_file.json')
+    DavieExporter().export_objects_to_json_file(list_of_objects=lijst_otl_objecten, file_path='DAVIE_export_file_20220912.json')
 
