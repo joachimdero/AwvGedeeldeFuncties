@@ -46,7 +46,7 @@ class OffsetGeometryProcessor:
             eventData.afstand_rijbaan = 0
         wegtype = eventData.ident8[0]
 
-        is_hoofdweg = ((wegtype == 'A' or eventData.ident8.startswith('R00')) and eventData.ident8[4:7] == '000')
+        is_hoofdweg = ((wegtype in ['A', 'B'] or eventData.ident8.startswith('R00')) and eventData.ident8[4:7] == '000')
         is_af_oprit_hoofdweg = ((wegtype == 'A' or eventData.ident8.startswith('R00')) and eventData.ident8[4:7] != '000')
         is_n_weg = (wegtype == 'N' or (eventData.ident8.startswith('R') and not eventData.ident8.startswith('R00')))
         is_zijde_rijbaan_R = (eventData.zijde_rijbaan == 'R')
@@ -88,6 +88,9 @@ class OffsetGeometryProcessor:
             (0, 1, 1, 0): 'left',
             (0, 1, 0, 1): 'right',
         }
+
+        if eventData.zijde_rijbaan == 'M':
+            raise NotImplementedError('zijde rijbaan == M ==> object wordt niet gemapt')
 
         try:
             return mappingtabel[(is_zijde_rijbaan_R, is_zijde_rijbaan_L, is_wegnr_1, is_wegnr_2)]
