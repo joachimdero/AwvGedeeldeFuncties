@@ -52,3 +52,52 @@ def LsControleerBestaanIdent8Nieuw(request_handler, ident8, retries=10):
             print(str(ex))
     if status is None:
         return 'error onbekend'
+
+
+
+def LsGetRelatieveWegLocatieFromXYSingle(x,y,opener):
+##    Message = 'Locaties:%s' %Locaties;PrintMessage(Message)
+    # vraag positie, paal en afstand op, op basis van coordinaten
+    # legacy true = maak gebruik van relatieve hmlocaties indien er geen palen zijn
+    # benader true =  snap naar eindpunten indien de locatie niet loodrecht geprojecteerd kan worden op de route
+
+    import json,urllib2
+    #vraag locatie op
+    teller = 0 # teller telt aantal pogingen tot opvragen van de positie
+    status = -1 # default waarde
+#https://apps.mow.vlaanderen.be/locatieservices/rest/locatie/weglocatie/relatief/via/xy?y=166734.290&x=137608.885&bronCrs=31370&doelCrs=31370
+
+
+    Url = "https://services.apps.mow.vlaanderen.be/locatieservices/cert/rest/locatie/weglocatie/via/xy?x=%s&y=%s&bronCrs=31370&doelCrs=31370" % (x,y)
+    print (Url)
+
+    status = -1 # default waarde
+
+    while status not in (200,404) and teller < 10:# probeer meerdere malen indien  ls niet reageerd
+##                PrintMessage('voer request uit')
+
+        if teller > 0:
+            Message = 'poging %s' %teller
+##            PrintMessage(Message)
+
+        # voer request uit
+##        PrintMessage('voer request uit')
+        req = urllib2.Request(Url, headers={"Content-Type": "application/vnd.awv.wdb-v3.0+json"})
+        print (str(req))
+##                req = urllib2.Request("https://services.apps.mow.vlaanderen.be/locatieservices/cert/rest/weglocatie/")
+
+
+        Leesfunctie = opener.open(req)
+        status = (Leesfunctie.getcode())
+##                PrintMessage(('status:',str(status)))
+        if status == 200:
+##            PrintMessage("status ok")
+            OpgevraagdeLocaties = json.loads(Leesfunctie.read())  # OK
+
+            Ident8 = OpgevraagdeLocaties["ident8"]
+            Positie = OpgevraagdeLocaties["positie"]
+            Opschrift = OpgevraagdeLocaties["opschrift"]
+            Afstand = OpgevraagdeLocaties["afstand"]
+
+
+    return OpgevraagdeLocaties
