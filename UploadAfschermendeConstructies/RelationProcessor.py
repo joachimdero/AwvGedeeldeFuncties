@@ -65,13 +65,14 @@ class RelationProcessor:
             a.candidates = []
             a.geom = shapely.wkt.loads(a.geometry)
 
-        # loopen door lijst_otl_objecten
-        # voor elke object:
-        # zijn er candidates?
+        # gebruik combinations om de candidates voor elk asset vast te leggen
         for a1, a2 in combinations(assets, 2):
             if a1.geom.intersects(a2.geom):
                 a1.candidates.append(a2)
 
+        # loopen door assets
+        # voor elke object:
+        # zijn er candidates?
         for otl_asset in assets:
             if len(otl_asset.candidates) == 0:
                 continue
