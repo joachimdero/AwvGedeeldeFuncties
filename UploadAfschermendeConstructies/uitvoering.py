@@ -50,8 +50,8 @@ if __name__ == '__main__':
     processor = JsonToEventDataACProcessor()
     listEventDataAC = processor.processJson(raw_output)
 
-    #filter_ids = ['8797', '8796', '8798']
-    #listEventDataAC = list(filter(lambda x: x.id in filter_ids, listEventDataAC))
+    filter_ids = ['8797', '8796', '8798']
+    listEventDataAC = list(filter(lambda x: x.id in filter_ids, listEventDataAC))
 
     print(colored(f'Number of event data objects: {len(listEventDataAC)}', 'green'))
 
@@ -89,28 +89,30 @@ if __name__ == '__main__':
 
     for eventDataAC in listEventDataAC:
         try:
-            otl_object = mtp.create_otl_object_from_eventDataAC(eventDataAC)
-            if otl_object is None:
+            otl_object_list = mtp.create_otl_objects_from_eventDataAC(eventDataAC)
+            if len(otl_object_list) == 0:
                 raise ValueError('Could not create an otl object so skipping...')
-            otl_object.assetId.identificator = eventDataAC.id
-            otl_object.assetId.toegekendDoor = 'UploadAfschermendeConstructies'
 
-            # maak link naar event data op OTL conform object
-            otl_object.eventDataAC = eventDataAC
+            for otl_object in otl_object_list:
+                otl_object.assetId.identificator = eventDataAC.id
+                otl_object.assetId.toegekendDoor = 'UploadAfschermendeConstructies'
 
-            # zoek de beheerder op als Agent
-            if 'Agentschap Wegen en Verkeer' in eventDataAC.gebied:
-                agent_name = eventDataAC.gebied[-6:]
-                agent_name = agent_name[0:3] + "_" + agent_name[-3:]
-                agent = AgentCollection(requester=requester).get_agent_by_fulltextsearch_name(agent_name)
+                # maak link naar event data op OTL conform object
+                otl_object.eventDataAC = eventDataAC
 
-                # indien de Agent gevonden is: leg de relatie tussen asset en Agent rol berekende-beheerder
-                if agent is not None:
-                    districtrelatie = otl_facility.relatie_creator.create_betrokkenerelation(bron=otl_object, doel=agent)
-                    districtrelatie.rol = 'berekende-beheerder'
-                    lijst_otl_objecten.append(districtrelatie)
+                # zoek de beheerder op als Agent
+                if 'Agentschap Wegen en Verkeer' in eventDataAC.gebied:
+                    agent_name = eventDataAC.gebied[-6:]
+                    agent_name = agent_name[0:3] + "_" + agent_name[-3:]
+                    agent = AgentCollection(requester=requester).get_agent_by_fulltextsearch_name(agent_name)
 
-            lijst_otl_objecten.append(otl_object)
+                    # indien de Agent gevonden is: leg de relatie tussen asset en Agent rol berekende-beheerder
+                    if agent is not None:
+                        districtrelatie = otl_facility.relatie_creator.create_betrokkenerelation(bron=otl_object, doel=agent)
+                        districtrelatie.rol = 'berekende-beheerder'
+                        lijst_otl_objecten.append(districtrelatie)
+
+                lijst_otl_objecten.append(otl_object)
         except Exception as e:
             print(f'{e} => id:{eventDataAC.id} product:{eventDataAC.product} materiaal:{eventDataAC.materiaal}')
 

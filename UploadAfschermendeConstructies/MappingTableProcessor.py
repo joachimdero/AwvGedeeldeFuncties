@@ -22,7 +22,7 @@ class MappingTableProcessor:
         for c1, c2, c3, c4, c5 in cells:
             self.mapping_table.append([c1.value, c2.value, c3.value, c4.value, c5.value])
 
-    def create_otl_object_from_eventDataAC(self, eventDataAC: EventDataAC):
+    def create_otl_objects_from_eventDataAC(self, eventDataAC: EventDataAC) -> []:
         resultaten = list(
             filter(lambda mappingrecord: mappingrecord[2] == eventDataAC.product,
                    self.mapping_table))
@@ -33,14 +33,29 @@ class MappingTableProcessor:
             raise NotImplementedError('couldn\'t find a mapping record')
 
         otl_type = resultaten[0][0]
-        instance = AssetFactory().dynamic_create_instance_from_ns_and_name(namespace='onderdeel', class_name=str.title(otl_type).replace(' ', ''))
+        instance_list = []
 
-        if instance is not None:
-            if instance.materiaal is not None and not instance.materiaal.starts_with('beton'):
-                instance.materiaal = resultaten[0][1]
-            self.fill_instance(instance=instance, eventDataAC=eventDataAC)
+        if '/' in otl_type:
+            for otl_type in otl_type.split('/'):
+                instance = AssetFactory().dynamic_create_instance_from_ns_and_name(namespace='onderdeel',
+                                                                                   class_name=str.title(otl_type).replace(' ', ''))
 
-        return instance
+                if instance is not None:
+                    if instance.materiaal is not None and not instance.materiaal.starts_with('beton'):
+                        instance.materiaal = resultaten[0][1]
+                    self.fill_instance(instance=instance, eventDataAC=eventDataAC)
+                    instance_list.append(instance)
+        else:
+            instance = AssetFactory().dynamic_create_instance_from_ns_and_name(namespace='onderdeel',
+                                                                               class_name=str.title(otl_type).replace(' ', ''))
+
+            if instance is not None:
+                if instance.materiaal is not None and not instance.materiaal.starts_with('beton'):
+                    instance.materiaal = resultaten[0][1]
+                self.fill_instance(instance=instance, eventDataAC=eventDataAC)
+                instance_list.append(instance)
+
+        return instance_list
 
     @staticmethod
     def fill_instance(instance, eventDataAC):

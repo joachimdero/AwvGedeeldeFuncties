@@ -53,7 +53,7 @@ if __name__ == '__main__':
             if eventDataAC.product == 'Duero H2W5 - copro 0634/0002':
                 pass
 
-            otl_object = mtp.create_otl_object_from_eventDataAC(eventDataAC)
+            otl_object = mtp.create_otl_objects_from_eventDataAC(eventDataAC)
             if otl_object is None:
                 raise ValueError('Could not create an otl object so skipping...')
             otl_object.assetId.identificator = str(index)

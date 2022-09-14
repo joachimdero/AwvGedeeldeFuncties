@@ -26,9 +26,9 @@ class MappingTableProcessorTests(TestCase):
         eventDataAC.product = 'Delta Bloc 80'
         eventDataAC.materiaal = 'beton'
 
-        output = processor.create_otl_object_from_eventDataAC(eventDataAC)
+        output = processor.create_otl_objects_from_eventDataAC(eventDataAC)
 
-        self.assertTrue(isinstance(output, Geleideconstructie))
+        self.assertTrue(isinstance(output[0], Geleideconstructie))
 
     def test_EventDataAC_RimobCrashguard_output_obstakelbeveilger(self):
         filelocation = os.path.abspath(os.path.join(os.sep, ROOT_DIR, 'test_mapping_tabel.xlsx'))
@@ -38,6 +38,6 @@ class MappingTableProcessorTests(TestCase):
         eventDataAC.product = 'Rimob Crashguard P800-6S: 0620/3008'
         eventDataAC.materiaal = 'staal'
 
-        output = processor.create_otl_object_from_eventDataAC(eventDataAC)
+        output = processor.create_otl_objects_from_eventDataAC(eventDataAC)
 
-        self.assertTrue(isinstance(output, Obstakelbeveiliger))
+        self.assertTrue(isinstance(output[0], Obstakelbeveiliger))

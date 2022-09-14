@@ -132,7 +132,7 @@ class JsonToEventDataACProcessorTests(TestCase):
         # ceate otl objects
         for eventDataAC in listEventDataAC:
             try:
-                otl_object = mtp.create_otl_object_from_eventDataAC(eventDataAC)
+                otl_object = mtp.create_otl_objects_from_eventDataAC(eventDataAC)
                 if otl_object is None:
                     raise ValueError('Could not create an otl object so skipping...')
                 otl_object.eventDataAC = eventDataAC
