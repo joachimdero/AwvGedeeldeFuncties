@@ -1,5 +1,6 @@
 import logging
 from itertools import combinations
+import geopandas as gpd
 
 import shapely
 import shapely.wkt
@@ -60,20 +61,30 @@ class RelationProcessor:
         pass
 
     def process_for_relations(self, otl_facility, lijst_otl_objecten):
-        assets = list(filter(lambda x: x.typeURI not in ['https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#HeeftBetrokkene'], lijst_otl_objecten))
+        assets = list(filter(
+            lambda x: x.typeURI not in ['https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#HeeftBetrokkene'],
+            lijst_otl_objecten))
         for a in assets:
             a.candidates = []
             a.geom = shapely.wkt.loads(a.geometry)
+
+        print('assets now have geometries in .geom')
 
         # gebruik combinations om de candidates voor elk asset vast te leggen
         for a1, a2 in combinations(assets, 2):
             if a1.geom.intersects(a2.geom):
                 a1.candidates.append(a2)
 
+        print('assets now have candidates')
+
         # loopen door assets
         # voor elke object:
         # zijn er candidates?
+        counter = 0
         for otl_asset in assets:
+            counter += 1
+            if counter % 100 == 0:
+                print(f'proccesed {counter} assets')
             if len(otl_asset.candidates) == 0:
                 continue
 
@@ -109,12 +120,15 @@ class RelationProcessor:
                             return
                         bestaande_relatie = next((a for a in lijst_otl_objecten if isinstance(a, RelatieObject) and
                                                   a.bronAssetId.identificator == relatie.bronAssetId.identificator and
-                                                  a.doelAssetId.identificator == relatie.doelAssetId.identificator), None)
+                                                  a.doelAssetId.identificator == relatie.doelAssetId.identificator),
+                                                 None)
                         if bestaande_relatie is None:
                             lijst_otl_objecten.append(relatie)
                 # doorsnee = lijn => Bevestiging relatie
                 elif isinstance(intersected_geometry, LineString):
-                    if not ((otl_asset.typeURI == Motorvangplank.typeURI and candidate.typeURI == Geleideconstructie.typeURI) or (otl_asset.typeURI == Geleideconstructie.typeURI and candidate.typeURI == Motorvangplank.typeURI)):
+                    if not ((
+                                    otl_asset.typeURI == Motorvangplank.typeURI and candidate.typeURI == Geleideconstructie.typeURI) or (
+                                    otl_asset.typeURI == Geleideconstructie.typeURI and candidate.typeURI == Motorvangplank.typeURI)):
                         return
                     try:
                         if otl_asset.assetId.identificator < candidate.assetId.identificator:
@@ -123,7 +137,8 @@ class RelationProcessor:
                             relatie = otl_facility.relatie_creator.create_relation(candidate, otl_asset, Bevestiging)
                         bestaande_relatie = next((a for a in lijst_otl_objecten if isinstance(a, RelatieObject) and
                                                   a.bronAssetId.identificator == relatie.bronAssetId.identificator and
-                                                  a.doelAssetId.identificator == relatie.doelAssetId.identificator), None)
+                                                  a.doelAssetId.identificator == relatie.doelAssetId.identificator),
+                                                 None)
                         if bestaande_relatie is None:
                             lijst_otl_objecten.append(relatie)
                     except:
