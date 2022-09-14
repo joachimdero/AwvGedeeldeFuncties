@@ -27,20 +27,23 @@ class RelationProcessor:
             self.events.append(eventDataAC)
 
     def process_for_candidates(self, print_number_of_candidates: bool = False):
-        for eventDataAC in self.events:
-            bounds = eventDataAC.shape.bounds
-            bounding_box = box(bounds[0], bounds[1], bounds[2], bounds[3]).buffer(5)
-            reduced_group = []
-            for other in self.events:
-                if other == eventDataAC:
-                    continue
-                if bounding_box.intersects(other.shape):
-                    reduced_group.append(other)
-            if print_number_of_candidates:
-                print(f'{eventDataAC.id} : {len(reduced_group)}')
+        idx = index.Index()
 
-            # eventDataAC.candidates = list(map(lambda x: x.id, reduced_group))
-            eventDataAC.candidates = reduced_group
+        for i, eventDataAC in enumerate(self.events):
+            eventDataAC.index = i
+            bb = eventDataAC.shape.bounds
+            idx.insert(i, bb)
+
+        for eventDataAC in self.events:
+            eventDataAC.candidates = []
+            candidate_indeces = list(idx.intersection(eventDataAC.shape.bounds, objects=True))
+            for c in candidate_indeces:
+                if eventDataAC.id == self.events[c.id].id:
+                    continue
+                eventDataAC.candidates.append(self.events[c.id])
+
+            if print_number_of_candidates:
+                print(f'{eventDataAC.id} : {len(eventDataAC.candidates)}')
 
             # door geen offset te gebruiken, risico op verkeerde match tussen gedeelde geometriën waarbij de zijde van de rijbaan verschillend is
             # eventueel oplossen door ident8 te filteren
