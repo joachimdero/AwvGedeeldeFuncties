@@ -8,6 +8,7 @@ from OTLMOW.OTLModel.Classes.Onderdeel.Bevestiging import Bevestiging
 from OTLMOW.OTLModel.Classes.Onderdeel.SluitAanOp import SluitAanOp
 from termcolor import colored
 
+
 from UploadAfschermendeConstructies.FSConnector import FSConnector
 from UploadAfschermendeConstructies.JsonToEventDataACProcessor import JsonToEventDataACProcessor
 from UploadAfschermendeConstructies.MappingTableProcessor import MappingTableProcessor
@@ -54,6 +55,8 @@ if __name__ == '__main__':
             delattr(otl_object, 'candidates')
         if hasattr(otl_object, 'geom'):
             delattr(otl_object, 'geom')
+        if hasattr(otl_object, 'index'):
+            delattr(otl_object, 'index')
 
     print(colored(f'Number of OTL compliant object (assets + relations): {len(lijst_otl_objecten)}', 'green'))
 

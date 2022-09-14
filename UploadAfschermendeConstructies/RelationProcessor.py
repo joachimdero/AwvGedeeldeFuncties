@@ -11,6 +11,7 @@ from OTLMOW.OTLModel.Classes.Onderdeel.Eindstuk import Eindstuk
 from OTLMOW.OTLModel.Classes.Onderdeel.Geleideconstructie import Geleideconstructie
 from OTLMOW.OTLModel.Classes.Onderdeel.Motorvangplank import Motorvangplank
 from OTLMOW.OTLModel.Classes.Onderdeel.SluitAanOp import SluitAanOp
+from rtree import index
 from shapely.geometry import box, Point, LineString
 from shapely.ops import shared_paths
 
@@ -61,35 +62,40 @@ class RelationProcessor:
         pass
 
     def process_for_relations(self, otl_facility, lijst_otl_objecten):
+        idx = index.Index()
+
         assets = list(filter(
             lambda x: x.typeURI not in ['https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#HeeftBetrokkene'],
             lijst_otl_objecten))
-        for a in assets:
+        for i, a in enumerate(assets):
             a.candidates = []
+            a.index = i
             a.geom = shapely.wkt.loads(a.geometry)
+            bb = a.geom.bounds
+            idx.insert(i, bb)
 
         print('assets now have geometries in .geom')
 
         # gebruik combinations om de candidates voor elk asset vast te leggen
-        for a1, a2 in combinations(assets, 2):
-            if a1.geom.intersects(a2.geom):
-                a1.candidates.append(a2)
+        for asset in assets:
+            asset.candidates = list(idx.intersection(asset.geom.bounds, objects=True))
 
         print('assets now have candidates')
 
         # loopen door assets
         # voor elke object:
         # zijn er candidates?
-        counter = 0
-        for otl_asset in assets:
-            counter += 1
+        for counter, otl_asset in enumerate(assets):
             if counter % 100 == 0:
-                print(f'proccesed {counter} assets')
+                print(f'processed {counter} assets')
             if len(otl_asset.candidates) == 0:
                 continue
 
             # heeft otl_object en 1 van de candidates een gemeenschappelijk punt?
-            for candidate in otl_asset.candidates:
+            for candidate_index in otl_asset.candidates:
+                candidate = assets[candidate_index.id]
+                if candidate.assetId.identificator == otl_asset.assetId.identificator:
+                    continue
                 canditate_geom = candidate.geom
 
                 intersected_geometry = otl_asset.geom.intersection(canditate_geom)
@@ -117,19 +123,20 @@ class RelationProcessor:
                         elif isinstance(candidate, Beginstuk) and otl_asset.typeURI == Geleideconstructie.typeURI:
                             relatie = otl_facility.relatie_creator.create_relation(otl_asset, candidate, SluitAanOp)
                         if relatie is None:
-                            return
+                            continue
                         bestaande_relatie = next((a for a in lijst_otl_objecten if isinstance(a, RelatieObject) and
                                                   a.bronAssetId.identificator == relatie.bronAssetId.identificator and
                                                   a.doelAssetId.identificator == relatie.doelAssetId.identificator),
                                                  None)
                         if bestaande_relatie is None:
                             lijst_otl_objecten.append(relatie)
+                            print(f'added relation of type {relatie.typeURI} between {otl_asset.assetId.identificator} and {candidate.assetId.identificator}')
                 # doorsnee = lijn => Bevestiging relatie
                 elif isinstance(intersected_geometry, LineString):
                     if not ((
                                     otl_asset.typeURI == Motorvangplank.typeURI and candidate.typeURI == Geleideconstructie.typeURI) or (
                                     otl_asset.typeURI == Geleideconstructie.typeURI and candidate.typeURI == Motorvangplank.typeURI)):
-                        return
+                        continue
                     try:
                         if otl_asset.assetId.identificator < candidate.assetId.identificator:
                             relatie = otl_facility.relatie_creator.create_relation(otl_asset, candidate, Bevestiging)
@@ -141,6 +148,7 @@ class RelationProcessor:
                                                  None)
                         if bestaande_relatie is None:
                             lijst_otl_objecten.append(relatie)
+                            print(f'added relation of type {relatie.typeURI} between {otl_asset.assetId.identificator} and {candidate.assetId.identificator}')
                     except:
                         logging.error(
                             f'Could not create a Bevestiging relation between assets: id: {otl_asset.assetId.identificator}, {candidate.assetId.identificator} types:{type(otl_asset)}, {type(candidate)}')
