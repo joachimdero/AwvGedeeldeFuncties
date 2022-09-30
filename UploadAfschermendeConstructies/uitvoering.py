@@ -43,15 +43,15 @@ if __name__ == '__main__':
     # haal x aantal afschermende constructies uit de feature server
     fs_c = FSConnector(requester)
     print(colored(f'Connecting to Feature server...', 'green'))
-    raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies", lines=30000)  # beperkt tot X aantal lijnen
+    raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies", lines=300)  # beperkt tot X aantal lijnen
     print(colored(f'Number of lines from Feature server: {len(raw_output)}', 'green'))
 
     # verwerk de input van de feature server tot een lijst van EventDataAC objecten
     processor = JsonToEventDataACProcessor()
     listEventDataAC = processor.processJson(raw_output)
 
-    filter_ids = ['8797', '8796', '8798']
-    listEventDataAC = list(filter(lambda x: x.id in filter_ids, listEventDataAC))
+    #filter_ids = ['8797', '8796', '8798']
+    #listEventDataAC = list(filter(lambda x: x.id in filter_ids, listEventDataAC))
 
     print(colored(f'Number of event data objects: {len(listEventDataAC)}', 'green'))
 
@@ -85,7 +85,7 @@ if __name__ == '__main__':
     # gebruik MappingTableProcessor om de events om te zetten naar OTL conforme objecten adhv de mapping tabel in Excel
     # vul zoveel mogelijk data in, inclusief attributen
     lijst_otl_objecten = []
-    mtp = MappingTableProcessor('analyse_afschermende_constructies.xlsx')
+    mtp = MappingTableProcessor('Afschermende_constructie_WDB_OTL_conform.xlsx')
 
     for eventDataAC in listEventDataAC:
         try:

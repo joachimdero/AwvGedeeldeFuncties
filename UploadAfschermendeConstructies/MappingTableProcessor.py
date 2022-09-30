@@ -15,16 +15,16 @@ class MappingTableProcessor:
     def _load_file(self, file_path: str):
 
         wb = load_workbook(filename=file_path)
-        sheet = wb['analyse_afschermende_constructi']
+        sheet = wb['mapping']
 
-        cells = sheet['A1': 'E188']
+        cells = sheet['A2': 'H153']
 
-        for c1, c2, c3, c4, c5 in cells:
-            self.mapping_table.append([c1.value, c2.value, c3.value, c4.value, c5.value])
+        for c1, c2, c3, c4, c5, c6, c7, c8 in cells:
+            self.mapping_table.append([c1.value, c2.value, c3.value, c4.value, c5.value, c6.value, c7.value, c8.value])
 
     def create_otl_objects_from_eventDataAC(self, eventDataAC: EventDataAC) -> []:
         resultaten = list(
-            filter(lambda mappingrecord: mappingrecord[2] == eventDataAC.product,
+            filter(lambda mappingrecord: mappingrecord[0] == eventDataAC.product,
                    self.mapping_table))
 
         if len(resultaten) > 1:
@@ -32,28 +32,35 @@ class MappingTableProcessor:
         elif len(resultaten) == 0:
             raise NotImplementedError('couldn\'t find a mapping record')
 
-        otl_type = resultaten[0][0]
+        resultaat_mapping = resultaten[0]
         instance_list = []
+        otl_type = resultaat_mapping[2]
 
-        if '/' in otl_type:
-            for otl_type in otl_type.split('/'):
-                instance = AssetFactory().dynamic_create_instance_from_ns_and_name(namespace='onderdeel',
-                                                                                   class_name=str.title(otl_type).replace(' ', ''))
-
-                if instance is not None:
-                    if instance.materiaal is not None and not instance.materiaal.starts_with('beton'):
-                        instance.materiaal = resultaten[0][1]
-                    self.fill_instance(instance=instance, eventDataAC=eventDataAC)
-                    instance_list.append(instance)
+        if resultaat_mapping[3] is not None and 'en' in resultaat_mapping[3]:
+            instance = AssetFactory().dynamic_create_instance_from_ns_and_name(namespace='onderdeel',
+                                                                               class_name=str.title(otl_type).replace(' ', ''))
+            instance_list.append(instance)
+            instance = AssetFactory().dynamic_create_instance_from_ns_and_name(namespace='onderdeel',
+                                                                               class_name=str.title(resultaat_mapping[4]).replace(
+                                                                                   ' ', ''))
+            instance_list.append(instance)
+        elif resultaat_mapping[3] is not None and 'of' in resultaat_mapping[3]:
+            instance = AssetFactory().dynamic_create_instance_from_ns_and_name(namespace='onderdeel',
+                                                                               class_name=str.title(resultaat_mapping[4]).replace(
+                                                                                   ' ', ''))
+            instance_list.append(instance)
         else:
             instance = AssetFactory().dynamic_create_instance_from_ns_and_name(namespace='onderdeel',
                                                                                class_name=str.title(otl_type).replace(' ', ''))
-
             if instance is not None:
-                if instance.materiaal is not None and not instance.materiaal.starts_with('beton'):
-                    instance.materiaal = resultaten[0][1]
-                self.fill_instance(instance=instance, eventDataAC=eventDataAC)
                 instance_list.append(instance)
+
+        for instance in instance_list:
+            if instance.materiaal is not None and not instance.materiaal.starts_with('beton'):
+                instance.materiaal = resultaat_mapping[5]
+            if resultaat_mapping[7] is not None and str(resultaat_mapping[7]) != 'None':
+                instance.productidentificatiecode.productidentificatiecode = resultaat_mapping[7]
+            self.fill_instance(instance=instance, eventDataAC=eventDataAC)
 
         return instance_list
 
@@ -74,7 +81,7 @@ class MappingTableProcessor:
         d = datetime.date(dt)
         instance.datumOprichtingObject = d
 
-        if eventDataAC.schokindex is not None and isinstance(instance, SchokindexVoertuigkering):
+        if eventDataAC.schokindex != '' and eventDataAC.schokindex is not None and isinstance(instance, SchokindexVoertuigkering):
             instance.schokindex = str.lower(eventDataAC.schokindex)
 
 
