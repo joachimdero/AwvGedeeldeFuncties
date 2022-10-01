@@ -1,3 +1,4 @@
+import concurrent.futures
 import logging
 
 import shapely
@@ -66,16 +67,16 @@ class RelationProcessor:
         # loopen door assets
         # voor elke object:
         # zijn er candidates?
-        for counter, otl_asset in enumerate(assets):
-            if counter % 100 == 0:
-                print(f'processed {counter} assets')
-            if len(otl_asset.candidates) == 0:
-                continue
 
-            self.process_asset_to_create_relation(assets, lijst_otl_objecten, otl_asset, otl_facility)
+        executor = concurrent.futures.ProcessPoolExecutor(10)
+        futures = [executor.submit(self.process_asset_to_create_relation, assets, lijst_otl_objecten, otl_asset, otl_facility) for otl_asset in assets]
+        concurrent.futures.wait(futures)
 
     @staticmethod
     def process_asset_to_create_relation(assets, lijst_otl_objecten, otl_asset, otl_facility):
+        if len(otl_asset.candidates) == 0:
+            return
+
         # heeft otl_object en 1 van de candidates een gemeenschappelijk punt?
         for candidate_index in otl_asset.candidates:
             candidate = assets[candidate_index.id]
