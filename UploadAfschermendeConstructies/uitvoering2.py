@@ -1,4 +1,5 @@
 import platform
+import time
 
 from OTLMOW.Facility.AgentCollection import AgentCollection
 from OTLMOW.Facility.OTLFacility import OTLFacility
@@ -41,13 +42,17 @@ if __name__ == '__main__':
     settings_manager = SettingsManager(settings_path=this_settings_path)
     requester = RequesterFactory.create_requester(settings=settings_manager.settings, auth_type='cert', env='prd')
 
-        # gebruik RelationProcessor om kandidaten voor relaties alvast op te lijsten op de asset zelf
-    relation_processor = RelationProcessor()
-
+    start = time.time()
     lijst_otl_objecten = otl_facility.create_assets_from_file(filepath='DAVIE_export_file_20220912.json')
+    end = time.time()
+    print(colored(f'Time to load otl {len(lijst_otl_objecten)} assets: {round(end - start, 2)}', 'yellow'))
 
     # gebruik RelationProcessor om relaties te leggen tussen de verschillende objecten
+    start = time.time()
+    relation_processor = RelationProcessor()
     relation_processor.process_for_relations(otl_facility, lijst_otl_objecten)
+    end = time.time()
+    print(colored(f'Time to process for relations: {round(end - start, 2)}', 'yellow'))
 
     # opkuis: tijdelijk attribuut eventDataAC op OTL conform object weghalen
     for otl_object in lijst_otl_objecten:
@@ -63,4 +68,4 @@ if __name__ == '__main__':
     print_overview_assets(lijst_otl_objecten)
 
     # gebruik OTLMOW om de OTL conforme objecten weg te schrijven naar een export bestand
-    otl_facility.create_file_from_assets(list_of_objects=lijst_otl_objecten, filepath='DAVIE_export_file_20220913.json')
+    otl_facility.create_file_from_assets(list_of_objects=lijst_otl_objecten, filepath='DAVIE_export_file_20220914.json')

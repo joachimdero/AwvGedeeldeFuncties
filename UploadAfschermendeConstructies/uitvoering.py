@@ -1,4 +1,5 @@
 import platform
+import time
 
 from OTLMOW.Facility.AgentCollection import AgentCollection
 from OTLMOW.Facility.OTLFacility import OTLFacility
@@ -42,13 +43,19 @@ if __name__ == '__main__':
 
     # haal x aantal afschermende constructies uit de feature server
     fs_c = FSConnector(requester)
+    start = time.time()
     print(colored(f'Connecting to Feature server...', 'green'))
     raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies", lines=300)  # beperkt tot X aantal lijnen
+    end = time.time()
     print(colored(f'Number of lines from Feature server: {len(raw_output)}', 'green'))
+    print(colored(f'Time to get input from feature server: {round(end - start, 2)}', 'yellow'))
 
     # verwerk de input van de feature server tot een lijst van EventDataAC objecten
+    start = time.time()
     processor = JsonToEventDataACProcessor()
     listEventDataAC = processor.processJson(raw_output)
+    end = time.time()
+    print(colored(f'Time to process feature server lines to Python dataclass objects: {round(end - start, 2)}', 'yellow'))
 
     #filter_ids = ['8797', '8796', '8798']
     #listEventDataAC = list(filter(lambda x: x.id in filter_ids, listEventDataAC))
@@ -56,11 +63,17 @@ if __name__ == '__main__':
     print(colored(f'Number of event data objects: {len(listEventDataAC)}', 'green'))
 
     # gebruik RelationProcessor om kandidaten voor relaties alvast op te lijsten op de asset zelf
+    start = time.time()
     relation_processor = RelationProcessor()
     relation_processor.store(listEventDataAC)
     relation_processor.process_for_candidates(print_number_of_candidates=False)
+    end = time.time()
+    print(
+        colored(f'Time to process objects for candidates (optimize creating relations later): {round(end - start, 2)}',
+                'yellow'))
 
     # gebruik OffsetGeometryProcessor om de geometrieën van de events te verschuiven, afhankelijk van de event data.
+    start = time.time()
     ogp = OffsetGeometryProcessor()
     offset_gefaald_teller = 0
     for eventDataAC in listEventDataAC:
@@ -72,21 +85,31 @@ if __name__ == '__main__':
         except:
             offset_gefaald_teller += 1
     print(colored(f'Aantal gefaalde offsets: {offset_gefaald_teller}', 'red'))
+    end = time.time()
+    print(colored(f'Time to offset lines depending on event data: {round(end - start, 2)}', 'yellow'))
 
     # punten kunnen niet geoffset worden, wordt apart verschoven indien er exact 1 match voor de offset was
+    start = time.time()
     for eventDataAC in listEventDataAC:
         if not eventDataAC.needs_offset:
             continue
         ogp.try_fixing_points_via_relations(eventDataAC)
 
     offset_count = sum(1 for e in listEventDataAC if not e.needs_offset)
+    end = time.time()
+    print(colored(f'Time to offset points using offset of a related asset: {round(end - start, 2)}', 'yellow'))
     print(colored(f'Number of event data objects with an offset geometry: {offset_count}', 'green'))
+
 
     # gebruik MappingTableProcessor om de events om te zetten naar OTL conforme objecten adhv de mapping tabel in Excel
     # vul zoveel mogelijk data in, inclusief attributen
+    start = time.time()
     lijst_otl_objecten = []
     mtp = MappingTableProcessor('Afschermende_constructie_WDB_OTL_conform.xlsx')
+    end = time.time()
+    print(colored(f'Time to create MappingTableProcessor: {round(end - start, 2)}', 'yellow'))
 
+    start = time.time()
     for eventDataAC in listEventDataAC:
         try:
             otl_object_list = mtp.create_otl_objects_from_eventDataAC(eventDataAC)
@@ -115,6 +138,8 @@ if __name__ == '__main__':
                 lijst_otl_objecten.append(otl_object)
         except Exception as e:
             print(f'{e} => id:{eventDataAC.id} product:{eventDataAC.product} materiaal:{eventDataAC.materiaal}')
+    end = time.time()
+    print(colored(f'Time to create OTL compliant assets and betrokkene relations: {round(end - start, 2)}', 'yellow'))
 
     assets = list(filter(lambda a: not isinstance(a, RelatieObject), lijst_otl_objecten))
     print(colored(f'Number of OTL compliant assets: {len(assets)}', 'green'))
