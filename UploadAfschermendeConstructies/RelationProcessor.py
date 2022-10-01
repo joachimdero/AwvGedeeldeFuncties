@@ -16,6 +16,9 @@ from shapely.geometry import Point, LineString
 
 class RelationProcessor:
     def __init__(self):
+        self.otl_facility = None
+        self.assets = None
+        self.lijst_otl_objecten = None
         self.events = []
 
     def store(self, listEventDataAC):
@@ -64,22 +67,30 @@ class RelationProcessor:
 
         print('assets now have candidates')
 
-        # loopen door assets
-        # voor elke object:
-        # zijn er candidates?
+        self.lijst_otl_objecten = lijst_otl_objecten
+        self.assets = assets
+        self.otl_facility = otl_facility
+        self.new_relations = []
 
-        executor = concurrent.futures.ProcessPoolExecutor(10)
-        futures = [executor.submit(self.process_asset_to_create_relation, assets, lijst_otl_objecten, otl_asset, otl_facility) for otl_asset in assets]
+        # use multithreading
+        executor = concurrent.futures.ThreadPoolExecutor()
+        futures = [executor.submit(self.process_asset_to_create_relation, otl_asset=otl_asset) for otl_asset in assets]
         concurrent.futures.wait(futures)
 
-    @staticmethod
-    def process_asset_to_create_relation(assets, lijst_otl_objecten, otl_asset, otl_facility):
+        # for otl_asset in assets:
+        #     self.process_asset_to_create_relation(otl_asset)
+
+        self.new_relations = self.clean_double_relations(self.new_relations)
+
+        self.lijst_otl_objecten.extend(self.new_relations)
+
+    def process_asset_to_create_relation(self, otl_asset):
         if len(otl_asset.candidates) == 0:
             return
 
         # heeft otl_object en 1 van de candidates een gemeenschappelijk punt?
         for candidate_index in otl_asset.candidates:
-            candidate = assets[candidate_index.id]
+            candidate = self.assets[candidate_index.id]
             if candidate.assetId.identificator == otl_asset.assetId.identificator:
                 continue
             canditate_geom = candidate.geom
@@ -101,23 +112,17 @@ class RelationProcessor:
                             0] == otl_asset_first_point):
                     relatie = None
                     if otl_asset.typeURI == Eindstuk.typeURI and candidate.typeURI == Geleideconstructie.typeURI:
-                        relatie = otl_facility.relatie_creator.create_relation(candidate, otl_asset, SluitAanOp)
+                        relatie = self.otl_facility.relatie_creator.create_relation(candidate, otl_asset, SluitAanOp)
                     elif otl_asset.typeURI == Geleideconstructie.typeURI and candidate.typeURI == Eindstuk.typeURI:
-                        relatie = otl_facility.relatie_creator.create_relation(otl_asset, candidate, SluitAanOp)
+                        relatie = self.otl_facility.relatie_creator.create_relation(otl_asset, candidate, SluitAanOp)
                     elif otl_asset.typeURI == Geleideconstructie.typeURI and isinstance(candidate, Beginstuk):
-                        relatie = otl_facility.relatie_creator.create_relation(candidate, otl_asset, SluitAanOp)
+                        relatie = self.otl_facility.relatie_creator.create_relation(candidate, otl_asset, SluitAanOp)
                     elif isinstance(candidate, Beginstuk) and otl_asset.typeURI == Geleideconstructie.typeURI:
-                        relatie = otl_facility.relatie_creator.create_relation(otl_asset, candidate, SluitAanOp)
+                        relatie = self.otl_facility.relatie_creator.create_relation(otl_asset, candidate, SluitAanOp)
                     if relatie is None:
                         continue
-                    bestaande_relatie = next((a for a in lijst_otl_objecten if isinstance(a, RelatieObject) and
-                                              a.bronAssetId.identificator == relatie.bronAssetId.identificator and
-                                              a.doelAssetId.identificator == relatie.doelAssetId.identificator),
-                                             None)
-                    if bestaande_relatie is None:
-                        lijst_otl_objecten.append(relatie)
-                        print(
-                            f'added relation of type {relatie.typeURI} between {otl_asset.assetId.identificator} and {candidate.assetId.identificator}')
+
+                    self.new_relations.append(relatie)
             # doorsnee = lijn => Bevestiging relatie
             elif isinstance(intersected_geometry, LineString):
                 if not ((
@@ -126,17 +131,20 @@ class RelationProcessor:
                     continue
                 try:
                     if otl_asset.assetId.identificator < candidate.assetId.identificator:
-                        relatie = otl_facility.relatie_creator.create_relation(otl_asset, candidate, Bevestiging)
+                        relatie = self.otl_facility.relatie_creator.create_relation(otl_asset, candidate, Bevestiging)
                     else:
-                        relatie = otl_facility.relatie_creator.create_relation(candidate, otl_asset, Bevestiging)
-                    bestaande_relatie = next((a for a in lijst_otl_objecten if isinstance(a, RelatieObject) and
-                                              a.bronAssetId.identificator == relatie.bronAssetId.identificator and
-                                              a.doelAssetId.identificator == relatie.doelAssetId.identificator),
-                                             None)
-                    if bestaande_relatie is None:
-                        lijst_otl_objecten.append(relatie)
-                        print(
-                            f'added relation of type {relatie.typeURI} between {otl_asset.assetId.identificator} and {candidate.assetId.identificator}')
+                        relatie = self.otl_facility.relatie_creator.create_relation(candidate, otl_asset, Bevestiging)
+
+                    self.new_relations.append(relatie)
                 except:
                     logging.error(
                         f'Could not create a Bevestiging relation between assets: id: {otl_asset.assetId.identificator}, {candidate.assetId.identificator} types:{type(otl_asset)}, {type(candidate)}')
+
+    def clean_double_relations(self, new_relations):
+        for relation in new_relations:
+            if relation.bronAssetId.identificator < relation.doelAssetId.identificator:
+                relation.relation_id = relation.bronAssetId.identificator + relation.doelAssetId.identificator + relation.typeURI
+            else:
+                relation.relation_id = relation.doelAssetId.identificator + relation.bronAssetId.identificator + relation.typeURI
+
+        return {r.relation_id: r for r in new_relations}.values()
