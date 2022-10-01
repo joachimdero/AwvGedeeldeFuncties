@@ -45,7 +45,7 @@ if __name__ == '__main__':
     fs_c = FSConnector(requester)
     start = time.time()
     print(colored(f'Connecting to Feature server...', 'green'))
-    raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies", lines=300)  # beperkt tot X aantal lijnen
+    raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies", lines=30000)  # beperkt tot X aantal lijnen
     end = time.time()
     print(colored(f'Number of lines from Feature server: {len(raw_output)}', 'green'))
     print(colored(f'Time to get input from feature server: {round(end - start, 2)}', 'yellow'))

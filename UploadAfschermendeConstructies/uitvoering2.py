@@ -1,19 +1,10 @@
 import platform
 import time
 
-from OTLMOW.Facility.AgentCollection import AgentCollection
 from OTLMOW.Facility.OTLFacility import OTLFacility
 from OTLMOW.Facility.RequesterFactory import RequesterFactory
-from OTLMOW.OTLModel.Classes.ImplementatieElement.RelatieObject import RelatieObject
-from OTLMOW.OTLModel.Classes.Onderdeel.Bevestiging import Bevestiging
-from OTLMOW.OTLModel.Classes.Onderdeel.SluitAanOp import SluitAanOp
 from termcolor import colored
 
-
-from UploadAfschermendeConstructies.FSConnector import FSConnector
-from UploadAfschermendeConstructies.JsonToEventDataACProcessor import JsonToEventDataACProcessor
-from UploadAfschermendeConstructies.MappingTableProcessor import MappingTableProcessor
-from UploadAfschermendeConstructies.OffsetGeometryProcessor import OffsetGeometryProcessor
 from UploadAfschermendeConstructies.RelationProcessor import RelationProcessor
 from UploadAfschermendeConstructies.SettingsManager import SettingsManager
 
@@ -43,7 +34,7 @@ if __name__ == '__main__':
     requester = RequesterFactory.create_requester(settings=settings_manager.settings, auth_type='cert', env='prd')
 
     start = time.time()
-    lijst_otl_objecten = otl_facility.create_assets_from_file(filepath='DAVIE_export_file_20220912.json')
+    lijst_otl_objecten = otl_facility.create_assets_from_file(filepath='DAVIE_export_file_20220914.json')
     end = time.time()
     print(colored(f'Time to load otl {len(lijst_otl_objecten)} assets: {round(end - start, 2)}', 'yellow'))
 
@@ -62,10 +53,12 @@ if __name__ == '__main__':
             delattr(otl_object, 'geom')
         if hasattr(otl_object, 'index'):
             delattr(otl_object, 'index')
+        if hasattr(otl_object, 'relation_id'):
+            delattr(otl_object, 'relation_id')
 
     print(colored(f'Number of OTL compliant object (assets + relations): {len(lijst_otl_objecten)}', 'green'))
 
     print_overview_assets(lijst_otl_objecten)
 
     # gebruik OTLMOW om de OTL conforme objecten weg te schrijven naar een export bestand
-    otl_facility.create_file_from_assets(list_of_objects=lijst_otl_objecten, filepath='DAVIE_export_file_20220914.json')
+    otl_facility.create_file_from_assets(list_of_objects=lijst_otl_objecten, filepath='DAVIE_export_file_20221001.json')

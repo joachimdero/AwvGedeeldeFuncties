@@ -48,10 +48,19 @@ class MappingTableProcessor:
                 instance_list.append(instance)
 
         for instance in instance_list:
-            if instance.materiaal is not None and not instance.materiaal.starts_with('beton'):
-                instance.materiaal = resultaat_mapping[5]
-            if resultaat_mapping[7] is not None and str(resultaat_mapping[7]) != 'None':
-                instance.productidentificatiecode.productidentificatiecode = resultaat_mapping[7]
+            if instance.typeURI == 'https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#SchampkantStd':
+                if resultaat_mapping[5] == 'beton':
+                    instance.soort = 'betonnen schampkant'
+            else:
+                if resultaat_mapping[5] == 'in situ beton':
+                    instance.materiaal = 'in-situ-beton'
+                elif resultaat_mapping[5] == 'geprefabriceerde beton':
+                    instance.materiaal = 'geprefabriceerde-beton'
+                else:
+                    instance.materiaal = resultaat_mapping[5]
+
+                if resultaat_mapping[7] is not None and str(resultaat_mapping[7]) != 'None':
+                    instance.productidentificatiecode.productidentificatiecode = resultaat_mapping[7]
             self.fill_instance(instance=instance, eventDataAC=eventDataAC)
 
         return instance_list
@@ -59,7 +68,7 @@ class MappingTableProcessor:
     @staticmethod
     def fill_instance(instance, eventDataAC):
         instance.geometry = eventDataAC.offset_wkt
-        if eventDataAC.fabrikant != 'onbekend':
+        if eventDataAC.fabrikant != 'onbekend' and instance.typeURI != 'https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#SchampkantStd':
             instance.productidentificatiecode.producent = eventDataAC.fabrikant
         if eventDataAC.opmerking != '':
             instance.notitie = eventDataAC.opmerking
@@ -93,7 +102,7 @@ class MappingTableProcessor:
         elif len(resultaten) == 0:
             if product.strip() != product:
                 return self.find_mapping_record_based_on_product(product.strip())
-            raise NotImplementedError('couldn\'t find a mapping record')
+            raise NotImplementedError('could not find a mapping record')
 
         return resultaten[0]
 
