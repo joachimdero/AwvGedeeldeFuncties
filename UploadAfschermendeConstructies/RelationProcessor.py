@@ -1,5 +1,4 @@
 import concurrent.futures
-import logging
 
 import shapely
 import shapely.wkt
@@ -22,6 +21,35 @@ class RelationProcessor:
         self.assets = None
         self.lijst_otl_objecten = None
         self.events = []
+        self.relation_mapping = {
+            (Geleideconstructie.typeURI, Eindstuk.typeURI, 'point'): (1, 2, SluitAanOp),
+            (Eindstuk.typeURI, Geleideconstructie.typeURI, 'point'): (2, 1, SluitAanOp),
+
+            # TODO https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#NietConformBegin
+            (GetesteBeginconstructie.typeURI, Geleideconstructie.typeURI, 'point'): (1, 2, SluitAanOp),
+            (Geleideconstructie.typeURI, GetesteBeginconstructie.typeURI, 'point'): (2, 1, SluitAanOp),
+            (NietGetestBeginstuk.typeURI, Geleideconstructie.typeURI, 'point'): (1, 2, SluitAanOp),
+            (Geleideconstructie.typeURI, NietGetestBeginstuk.typeURI, 'point'): (2, 1, SluitAanOp),
+
+            # TODO https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#NietConformBegin
+            (GetesteBeginconstructie.typeURI, Overgangsconstructie.typeURI, 'point'): (1, 2, SluitAanOp),
+            (Overgangsconstructie.typeURI, GetesteBeginconstructie.typeURI, 'point'): (2, 1, SluitAanOp),
+            (NietGetestBeginstuk.typeURI, Overgangsconstructie.typeURI, 'point'): (1, 2, SluitAanOp),
+            (Overgangsconstructie.typeURI, NietGetestBeginstuk.typeURI, 'point'): (2, 1, SluitAanOp),
+
+            (Overgangsconstructie.typeURI, Geleideconstructie.typeURI, 'point'): (1, 2, SluitAanOp),
+            (Geleideconstructie.typeURI, Overgangsconstructie.typeURI, 'point'): (1, 2, SluitAanOp),
+
+            (Geleideconstructie.typeURI, Obstakelbeveiliger.typeURI, 'point'): (1, 2, SluitAanOp),
+            (Obstakelbeveiliger.typeURI, Geleideconstructie.typeURI, 'point'): (2, 1, SluitAanOp),
+            (Overgangsconstructie.typeURI, Obstakelbeveiliger.typeURI, 'point'): (1, 2, SluitAanOp),
+            (Obstakelbeveiliger.typeURI, Overgangsconstructie.typeURI, 'point'): (2, 1, SluitAanOp),
+
+            (Geleideconstructie.typeURI, Motorvangplank.typeURI, 'line'): (1, 2, Bevestiging),
+            (Motorvangplank.typeURI, Geleideconstructie.typeURI, 'line'): (2, 1, Bevestiging),
+            (Overgangsconstructie.typeURI, Motorvangplank.typeURI, 'line'): (1, 2, Bevestiging),
+            (Motorvangplank.typeURI, Overgangsconstructie.typeURI, 'line'): (2, 1, Bevestiging),
+        }
 
     def store(self, listEventDataAC):
         for eventDataAC in listEventDataAC:
@@ -78,12 +106,9 @@ class RelationProcessor:
         futures = [executor.submit(self.process_asset_to_create_relation, otl_asset=otl_asset) for otl_asset in assets]
         concurrent.futures.wait(futures)
 
-        # for otl_asset in assets:
-        #     self.process_asset_to_create_relation(otl_asset)
+        cleaned_relations = self.clean_double_relations(self.new_relations)
 
-        self.new_relations = self.clean_double_relations(self.new_relations)
-
-        self.lijst_otl_objecten.extend(self.new_relations)
+        self.lijst_otl_objecten.extend(cleaned_relations)
 
     def process_asset_to_create_relation(self, otl_asset):
         if len(otl_asset.candidates) == 0:
@@ -136,40 +161,12 @@ class RelationProcessor:
         return {r.relation_id: r for r in new_relations}.values()
 
     def create_relation_based_on_types(self, asset1, asset2, intersected_geometry):
-        relation_mapping = {
-            (Geleideconstructie.typeURI, Eindstuk.typeURI, 'point'): (asset1, asset2, SluitAanOp),
-            (Eindstuk.typeURI, Geleideconstructie.typeURI, 'point'): (asset2, asset1, SluitAanOp),
-
-            # TODO https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#NietConformBegin
-            (GetesteBeginconstructie.typeURI, Geleideconstructie.typeURI, 'point'): (asset1, asset2, SluitAanOp),
-            (Geleideconstructie.typeURI, GetesteBeginconstructie.typeURI, 'point'): (asset2, asset1, SluitAanOp),
-            (NietGetestBeginstuk.typeURI, Geleideconstructie.typeURI, 'point'): (asset1, asset2, SluitAanOp),
-            (Geleideconstructie.typeURI, NietGetestBeginstuk.typeURI, 'point'): (asset2, asset1, SluitAanOp),
-
-            # TODO https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#NietConformBegin
-            (GetesteBeginconstructie.typeURI, Overgangsconstructie.typeURI, 'point'): (asset1, asset2, SluitAanOp),
-            (Overgangsconstructie.typeURI, GetesteBeginconstructie.typeURI, 'point'): (asset2, asset1, SluitAanOp),
-            (NietGetestBeginstuk.typeURI, Overgangsconstructie.typeURI, 'point'): (asset1, asset2, SluitAanOp),
-            (Overgangsconstructie.typeURI, NietGetestBeginstuk.typeURI, 'point'): (asset2, asset1, SluitAanOp),
-
-            (Overgangsconstructie.typeURI, Geleideconstructie.typeURI, 'point'): (asset1, asset2, SluitAanOp),
-            (Geleideconstructie.typeURI, Overgangsconstructie.typeURI, 'point'): (asset1, asset2, SluitAanOp),
-
-            (Geleideconstructie.typeURI, Obstakelbeveiliger.typeURI, 'point'): (asset1, asset2, SluitAanOp),
-            (Obstakelbeveiliger.typeURI, Geleideconstructie.typeURI, 'point'): (asset2, asset1, SluitAanOp),
-            (Overgangsconstructie.typeURI, Obstakelbeveiliger.typeURI, 'point'): (asset1, asset2, SluitAanOp),
-            (Obstakelbeveiliger.typeURI, Overgangsconstructie.typeURI, 'point'): (asset2, asset1, SluitAanOp),
-
-            (Geleideconstructie.typeURI, Motorvangplank.typeURI, 'line'): (asset1, asset2, Bevestiging),
-            (Motorvangplank.typeURI, Geleideconstructie.typeURI, 'line'): (asset2, asset1, Bevestiging),
-            (Overgangsconstructie.typeURI, Motorvangplank.typeURI, 'line'): (asset1, asset2, Bevestiging),
-            (Motorvangplank.typeURI, Overgangsconstructie.typeURI, 'line'): (asset2, asset1, Bevestiging),
-        }
-
         try:
-            relation_params = relation_mapping[(asset1.typeURI, asset2.typeURI, intersected_geometry)]
-            return self.otl_facility.relatie_creator.create_relation(relation_params[0], relation_params[1],
-                                                                     relation_params[2])
+            relation_params = self.relation_mapping[(asset1.typeURI, asset2.typeURI, intersected_geometry)]
+            if relation_params[0] == 1:
+                return self.otl_facility.relatie_creator.create_relation(asset1, asset2, relation_params[2])
+            else:
+                return self.otl_facility.relatie_creator.create_relation(asset2, asset1, relation_params[2])
         except KeyError:
             pass
 
