@@ -2,17 +2,19 @@ import concurrent.futures
 
 import shapely
 import shapely.wkt
-from OTLMOW.OTLModel.Classes.Onderdeel.Bevestiging import Bevestiging
-from OTLMOW.OTLModel.Classes.Onderdeel.Eindstuk import Eindstuk
-from OTLMOW.OTLModel.Classes.Onderdeel.Geleideconstructie import Geleideconstructie
-from OTLMOW.OTLModel.Classes.Onderdeel.GetesteBeginconstructie import GetesteBeginconstructie
-from OTLMOW.OTLModel.Classes.Onderdeel.Motorvangplank import Motorvangplank
-from OTLMOW.OTLModel.Classes.Onderdeel.NietGetestBeginstuk import NietGetestBeginstuk
-from OTLMOW.OTLModel.Classes.Onderdeel.Obstakelbeveiliger import Obstakelbeveiliger
-from OTLMOW.OTLModel.Classes.Onderdeel.Overgangsconstructie import Overgangsconstructie
-from OTLMOW.OTLModel.Classes.Onderdeel.SluitAanOp import SluitAanOp
+from otlmow_model.Classes.Onderdeel.Bevestiging import Bevestiging
+from otlmow_model.Classes.Onderdeel.Eindstuk import Eindstuk
+from otlmow_model.Classes.Onderdeel.Geleideconstructie import Geleideconstructie
+from otlmow_model.Classes.Onderdeel.GetesteBeginconstructie import GetesteBeginconstructie
+from otlmow_model.Classes.Onderdeel.Motorvangplank import Motorvangplank
+from otlmow_model.Classes.Onderdeel.NietGetestBeginstuk import NietGetestBeginstuk
+from otlmow_model.Classes.Onderdeel.Obstakelbeveiliger import Obstakelbeveiliger
+from otlmow_model.Classes.Onderdeel.Overgangsconstructie import Overgangsconstructie
+from otlmow_model.Classes.Onderdeel.SluitAanOp import SluitAanOp
 from rtree import index
 from shapely.geometry import Point, LineString
+
+from UploadAfschermendeConstructies.OTLMOW_Helpers.RelationCreator import RelationCreator
 
 
 class RelationProcessor:
@@ -21,6 +23,7 @@ class RelationProcessor:
         self.assets = None
         self.lijst_otl_objecten = None
         self.events = []
+
         self.relation_mapping = {
             (Geleideconstructie.typeURI, Eindstuk.typeURI, 'point'): (1, 2, SluitAanOp),
             (Eindstuk.typeURI, Geleideconstructie.typeURI, 'point'): (2, 1, SluitAanOp),
@@ -164,9 +167,9 @@ class RelationProcessor:
         try:
             relation_params = self.relation_mapping[(asset1.typeURI, asset2.typeURI, intersected_geometry)]
             if relation_params[0] == 1:
-                return self.otl_facility.relatie_creator.create_relation(asset1, asset2, relation_params[2])
+                return RelationCreator.create_relation(asset1, asset2, relation_params[2])
             else:
-                return self.otl_facility.relatie_creator.create_relation(asset2, asset1, relation_params[2])
+                return RelationCreator.create_relation(asset2, asset1, relation_params[2])
         except KeyError:
             pass
 

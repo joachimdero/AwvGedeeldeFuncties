@@ -1,16 +1,19 @@
 import concurrent.futures
 import platform
 import time
+from pathlib import Path
 
-from OTLMOW.Facility.AgentCollection import AgentCollection
-from OTLMOW.Facility.OTLFacility import OTLFacility
-from OTLMOW.Facility.RequesterFactory import RequesterFactory
-from OTLMOW.OTLModel.Classes.ImplementatieElement.RelatieObject import RelatieObject
+from otlmow_converter.AssetFactory import AssetFactory
+from otlmow_converter.FileExporter import FileExporter
+from otlmow_model.Classes.ImplementatieElement.RelatieObject import RelatieObject
 from termcolor import colored
 
 from UploadAfschermendeConstructies.FSConnector import FSConnector
 from UploadAfschermendeConstructies.JsonToEventDataACProcessor import JsonToEventDataACProcessor
 from UploadAfschermendeConstructies.MappingTableProcessor import MappingTableProcessor
+from UploadAfschermendeConstructies.OTLMOW_Helpers.AgentCollection import AgentCollection
+from UploadAfschermendeConstructies.OTLMOW_Helpers.RelationCreator import RelationCreator
+from UploadAfschermendeConstructies.OTLMOW_Helpers.RequesterFactory import RequesterFactory
 from UploadAfschermendeConstructies.OffsetGeometryProcessor import OffsetGeometryProcessor
 from UploadAfschermendeConstructies.RelationProcessor import RelationProcessor
 from UploadAfschermendeConstructies.SettingsManager import SettingsManager
@@ -45,7 +48,7 @@ def from_eventDataAC_create_asset_and_betrokkene_relation(event_data_ac):
 
                 # indien de Agent gevonden is: leg de relatie tussen asset en Agent rol berekende-beheerder
                 if agent is not None:
-                    districtrelatie = otl_facility.relatie_creator.create_betrokkenerelation(bron=created_otl_object,
+                    districtrelatie = RelationCreator.create_betrokkenerelation(bron=created_otl_object,
                                                                                              doel=agent)
                     districtrelatie.rol = 'berekende-beheerder'
                     lijst_otl_objecten.append(districtrelatie)
@@ -58,13 +61,12 @@ def from_eventDataAC_create_asset_and_betrokkene_relation(event_data_ac):
 if __name__ == '__main__':
     if platform.system() == 'Linux':
         OTLMOW_settings_path = '/home/davidlinux/Documents/AWV/resources/settings_OTLMOW.json'
-        this_settings_path = '/home/davidlinux/Documents/AWV/resources/settings_AWVGedeeldeFuncties.json'
+        this_settings_path = 'settings_OTLMOW_linux.json'
     else:
         OTLMOW_settings_path = 'C:\\resources\\settings_OTLMOW.json'
         this_settings_path = 'C:\\resources\\settings_AWVGedeeldeFuncties.json'
 
     # een aantal classes uit OTLMOW library gebruiken
-    otl_facility = OTLFacility(logfile='', settings_path=OTLMOW_settings_path, enable_relation_features=True)
     settings_manager = SettingsManager(settings_path=this_settings_path)
     requester = RequesterFactory.create_requester(settings=settings_manager.settings, auth_type='cert', env='prd')
 
@@ -163,4 +165,5 @@ if __name__ == '__main__':
     print_overview_assets(lijst_otl_objecten)
 
     # gebruik OTLMOW om de OTL conforme objecten weg te schrijven naar een export bestand
-    otl_facility.create_file_from_assets(list_of_objects=lijst_otl_objecten, filepath='DAVIE_export_file_20221003.json')
+    exporter = FileExporter(settings=settings_manager.settings)
+    exporter.create_file_from_assets(list_of_objects=lijst_otl_objecten, filepath=Path('DAVIE_export_file_20221003_2.json'))

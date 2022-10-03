@@ -1,8 +1,8 @@
 from datetime import datetime
 
-from OTLMOW.Facility.AssetFactory import AssetFactory
-from OTLMOW.OTLModel.Classes.Abstracten.SchokindexVoertuigkering import SchokindexVoertuigkering
 from openpyxl import load_workbook
+from otlmow_converter.AssetFactory import AssetFactory
+from otlmow_model.Classes.Abstracten.SchokindexVoertuigkering import SchokindexVoertuigkering
 
 from UploadAfschermendeConstructies.EventDataAC import EventDataAC
 
@@ -29,28 +29,27 @@ class MappingTableProcessor:
         otl_type = resultaat_mapping[2]
 
         if resultaat_mapping[3] is not None and 'en' in resultaat_mapping[3]:
-            instance = AssetFactory().dynamic_create_instance_from_ns_and_name(namespace='onderdeel',
+            instance = AssetFactory.dynamic_create_instance_from_ns_and_name(namespace='onderdeel',
                                                                                class_name=self.get_class_name(otl_type))
             instance_list.append(instance)
             instance.assetId.identificator = eventDataAC.id + '_1'
-            instance2 = AssetFactory().dynamic_create_instance_from_ns_and_name(namespace='onderdeel',
-                                                                               class_name=self.get_class_name(
-                                                                                   resultaat_mapping[4]))
+            instance2 = AssetFactory.dynamic_create_instance_from_ns_and_name(namespace='onderdeel',
+                                                                                class_name=self.get_class_name(
+                                                                                    resultaat_mapping[4]))
             instance_list.append(instance2)
             instance2.assetId.identificator = eventDataAC.id + '_2'
         elif resultaat_mapping[3] is not None and 'of' in resultaat_mapping[3]:
-            instance = AssetFactory().dynamic_create_instance_from_ns_and_name(namespace='onderdeel',
+            instance = AssetFactory.dynamic_create_instance_from_ns_and_name(namespace='onderdeel',
                                                                                class_name=self.get_class_name(
                                                                                    resultaat_mapping[4]))
             instance_list.append(instance)
             instance.assetId.identificator = eventDataAC.id
         else:
-            instance = AssetFactory().dynamic_create_instance_from_ns_and_name(namespace='onderdeel',
+            instance = AssetFactory.dynamic_create_instance_from_ns_and_name(namespace='onderdeel',
                                                                                class_name=self.get_class_name(otl_type))
             if instance is not None:
                 instance_list.append(instance)
             instance.assetId.identificator = eventDataAC.id
-
 
         for instance in instance_list:
             instance.assetId.toegekendDoor = 'UploadAfschermendeConstructies'
