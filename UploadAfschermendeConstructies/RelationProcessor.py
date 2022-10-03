@@ -29,7 +29,6 @@ class RelationProcessor:
 
     def process_for_candidates(self, print_number_of_candidates: bool = False):
         idx = index.Index()
-
         for i, eventDataAC in enumerate(self.events):
             eventDataAC.index = i
             bb = eventDataAC.shape.bounds
