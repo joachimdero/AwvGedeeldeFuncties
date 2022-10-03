@@ -4,7 +4,7 @@ Number of lines from Feature server: 23211
 Time to get input from feature server: 9.27
 Time to process feature server lines to Python dataclass objects: 8.09
 Number of event data objects: 23211
-Time to process objects for candidates (optimize creating relations later): 36.96
+Time to process objects for candidates (optimize offset points): 36.96
 missing mapping for determine_offset, id 42316: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=False, is_zijde_rijbaan_L=True)
 OffsetGeometryProcessor.create_offset_geometry_from_eventdataAC.<locals>.<lambda>() takes 2 positional arguments but 3 were given
 missing mapping for determine_offset, id 46145: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=True, is_zijde_rijbaan_L=False)
@@ -69,7 +69,7 @@ Aantal gefaalde offsets: 26
 Time to offset lines depending on event data: 27.75
 Time to offset points using offset of a related asset: 0.4
 Number of event data objects with an offset geometry: 22882
-Time to create MappingTableProcessor: 77.28
+Time to create MappingTableProcessor: 0.06
  is not a valid WKT string for geometry => id:38133 product:type C4 materiaal:staal
  is not a valid WKT string for geometry => id:34587 product:onbekend beton materiaal:beton
 MULTILINESTRING Z ((173075.059 214749.196 0, 173074.537 214748.445 0, 173074.171 214747.687 0, 173074.355 214747.385 0, 173075.486 214744.088 0, 173077.224 214739.018 0, 173077.501 214729.516 0, 173076.912 214727.011 0), (173075.157 214749.731 0, 173074.939 214749.28 0)) is not a valid WKT string for geometry => id:46165 product:type A4 materiaal:staal
