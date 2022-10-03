@@ -3,12 +3,14 @@ import logging
 
 import shapely
 import shapely.wkt
-from OTLMOW.OTLModel.Classes.Abstracten.Beginstuk import Beginstuk
-from OTLMOW.OTLModel.Classes.ImplementatieElement.RelatieObject import RelatieObject
 from OTLMOW.OTLModel.Classes.Onderdeel.Bevestiging import Bevestiging
 from OTLMOW.OTLModel.Classes.Onderdeel.Eindstuk import Eindstuk
 from OTLMOW.OTLModel.Classes.Onderdeel.Geleideconstructie import Geleideconstructie
+from OTLMOW.OTLModel.Classes.Onderdeel.GetesteBeginconstructie import GetesteBeginconstructie
 from OTLMOW.OTLModel.Classes.Onderdeel.Motorvangplank import Motorvangplank
+from OTLMOW.OTLModel.Classes.Onderdeel.NietGetestBeginstuk import NietGetestBeginstuk
+from OTLMOW.OTLModel.Classes.Onderdeel.Obstakelbeveiliger import Obstakelbeveiliger
+from OTLMOW.OTLModel.Classes.Onderdeel.Overgangsconstructie import Overgangsconstructie
 from OTLMOW.OTLModel.Classes.Onderdeel.SluitAanOp import SluitAanOp
 from rtree import index
 from shapely.geometry import Point, LineString
@@ -98,7 +100,7 @@ class RelationProcessor:
             if intersected_geometry is None:
                 continue
 
-            # doorsnee = punt => nakijken of het begin- en eindpunt zijn, zo ja: SluitAanOp
+            # doorsnee = punt => nakijken of het begin- of eindpunt is, zo ja: SluitAanOp
             if isinstance(intersected_geometry, Point):
                 candidate_first_point = canditate_geom.coords[0]
                 last_candidate = canditate_geom.coords[-1]
@@ -109,35 +111,20 @@ class RelationProcessor:
                     0] == otl_asset_last_point) or \
                         (intersected_geometry.coords[0] == last_candidate and intersected_geometry.coords[
                             0] == otl_asset_first_point):
-                    relatie = None
-                    if otl_asset.typeURI == Eindstuk.typeURI and candidate.typeURI == Geleideconstructie.typeURI:
-                        relatie = self.otl_facility.relatie_creator.create_relation(candidate, otl_asset, SluitAanOp)
-                    elif otl_asset.typeURI == Geleideconstructie.typeURI and candidate.typeURI == Eindstuk.typeURI:
-                        relatie = self.otl_facility.relatie_creator.create_relation(otl_asset, candidate, SluitAanOp)
-                    elif otl_asset.typeURI == Geleideconstructie.typeURI and isinstance(candidate, Beginstuk):
-                        relatie = self.otl_facility.relatie_creator.create_relation(candidate, otl_asset, SluitAanOp)
-                    elif isinstance(candidate, Beginstuk) and otl_asset.typeURI == Geleideconstructie.typeURI:
-                        relatie = self.otl_facility.relatie_creator.create_relation(otl_asset, candidate, SluitAanOp)
+
+                    relatie = self.create_relation_based_on_types(asset1=otl_asset, asset2=candidate,
+                                                                  intersected_geometry='point')
                     if relatie is None:
                         continue
-
                     self.new_relations.append(relatie)
+
             # doorsnee = lijn => Bevestiging relatie
             elif isinstance(intersected_geometry, LineString):
-                if not ((
-                                otl_asset.typeURI == Motorvangplank.typeURI and candidate.typeURI == Geleideconstructie.typeURI) or (
-                                otl_asset.typeURI == Geleideconstructie.typeURI and candidate.typeURI == Motorvangplank.typeURI)):
+                relatie = self.create_relation_based_on_types(asset1=otl_asset, asset2=candidate,
+                                                              intersected_geometry='line')
+                if relatie is None:
                     continue
-                try:
-                    if otl_asset.assetId.identificator < candidate.assetId.identificator:
-                        relatie = self.otl_facility.relatie_creator.create_relation(otl_asset, candidate, Bevestiging)
-                    else:
-                        relatie = self.otl_facility.relatie_creator.create_relation(candidate, otl_asset, Bevestiging)
-
-                    self.new_relations.append(relatie)
-                except:
-                    logging.error(
-                        f'Could not create a Bevestiging relation between assets: id: {otl_asset.assetId.identificator}, {candidate.assetId.identificator} types:{type(otl_asset)}, {type(candidate)}')
+                self.new_relations.append(relatie)
 
     def clean_double_relations(self, new_relations):
         for relation in new_relations:
@@ -147,3 +134,43 @@ class RelationProcessor:
                 relation.relation_id = relation.doelAssetId.identificator + relation.bronAssetId.identificator + relation.typeURI
 
         return {r.relation_id: r for r in new_relations}.values()
+
+    def create_relation_based_on_types(self, asset1, asset2, intersected_geometry):
+        relation_mapping = {
+            (Geleideconstructie.typeURI, Eindstuk.typeURI, 'point'): (asset1, asset2, SluitAanOp),
+            (Eindstuk.typeURI, Geleideconstructie.typeURI, 'point'): (asset2, asset1, SluitAanOp),
+
+            # TODO https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#NietConformBegin
+            (GetesteBeginconstructie.typeURI, Geleideconstructie.typeURI, 'point'): (asset1, asset2, SluitAanOp),
+            (Geleideconstructie.typeURI, GetesteBeginconstructie.typeURI, 'point'): (asset2, asset1, SluitAanOp),
+            (NietGetestBeginstuk.typeURI, Geleideconstructie.typeURI, 'point'): (asset1, asset2, SluitAanOp),
+            (Geleideconstructie.typeURI, NietGetestBeginstuk.typeURI, 'point'): (asset2, asset1, SluitAanOp),
+
+            # TODO https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#NietConformBegin
+            (GetesteBeginconstructie.typeURI, Overgangsconstructie.typeURI, 'point'): (asset1, asset2, SluitAanOp),
+            (Overgangsconstructie.typeURI, GetesteBeginconstructie.typeURI, 'point'): (asset2, asset1, SluitAanOp),
+            (NietGetestBeginstuk.typeURI, Overgangsconstructie.typeURI, 'point'): (asset1, asset2, SluitAanOp),
+            (Overgangsconstructie.typeURI, NietGetestBeginstuk.typeURI, 'point'): (asset2, asset1, SluitAanOp),
+
+            (Overgangsconstructie.typeURI, Geleideconstructie.typeURI, 'point'): (asset1, asset2, SluitAanOp),
+            (Geleideconstructie.typeURI, Overgangsconstructie.typeURI, 'point'): (asset1, asset2, SluitAanOp),
+
+            (Geleideconstructie.typeURI, Obstakelbeveiliger.typeURI, 'point'): (asset1, asset2, SluitAanOp),
+            (Obstakelbeveiliger.typeURI, Geleideconstructie.typeURI, 'point'): (asset2, asset1, SluitAanOp),
+            (Overgangsconstructie.typeURI, Obstakelbeveiliger.typeURI, 'point'): (asset1, asset2, SluitAanOp),
+            (Obstakelbeveiliger.typeURI, Overgangsconstructie.typeURI, 'point'): (asset2, asset1, SluitAanOp),
+
+            (Geleideconstructie.typeURI, Motorvangplank.typeURI, 'line'): (asset1, asset2, Bevestiging),
+            (Motorvangplank.typeURI, Geleideconstructie.typeURI, 'line'): (asset2, asset1, Bevestiging),
+            (Overgangsconstructie.typeURI, Motorvangplank.typeURI, 'line'): (asset1, asset2, Bevestiging),
+            (Motorvangplank.typeURI, Overgangsconstructie.typeURI, 'line'): (asset2, asset1, Bevestiging),
+        }
+
+        try:
+            relation_params = relation_mapping[(asset1.typeURI, asset2.typeURI, intersected_geometry)]
+            return self.otl_facility.relatie_creator.create_relation(relation_params[0], relation_params[1],
+                                                                     relation_params[2])
+        except KeyError:
+            pass
+
+        return None
