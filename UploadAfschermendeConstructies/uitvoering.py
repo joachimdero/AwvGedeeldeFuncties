@@ -5,8 +5,6 @@ from OTLMOW.Facility.AgentCollection import AgentCollection
 from OTLMOW.Facility.OTLFacility import OTLFacility
 from OTLMOW.Facility.RequesterFactory import RequesterFactory
 from OTLMOW.OTLModel.Classes.ImplementatieElement.RelatieObject import RelatieObject
-from OTLMOW.OTLModel.Classes.Onderdeel.Bevestiging import Bevestiging
-from OTLMOW.OTLModel.Classes.Onderdeel.SluitAanOp import SluitAanOp
 from termcolor import colored
 
 from UploadAfschermendeConstructies.FSConnector import FSConnector
@@ -69,7 +67,7 @@ if __name__ == '__main__':
     relation_processor.process_for_candidates(print_number_of_candidates=False)
     end = time.time()
     print(
-        colored(f'Time to process objects for candidates (optimize creating relations later): {round(end - start, 2)}',
+        colored(f'Time to process objects for candidates (optimize offset points): {round(end - start, 2)}',
                 'yellow'))
 
     # gebruik OffsetGeometryProcessor om de geometrieën van de events te verschuiven, afhankelijk van de event data.
@@ -117,9 +115,6 @@ if __name__ == '__main__':
                 raise ValueError('Could not create an otl object so skipping...')
 
             for otl_object in otl_object_list:
-                otl_object.assetId.identificator = eventDataAC.id
-                otl_object.assetId.toegekendDoor = 'UploadAfschermendeConstructies'
-
                 # maak link naar event data op OTL conform object
                 otl_object.eventDataAC = eventDataAC
 
