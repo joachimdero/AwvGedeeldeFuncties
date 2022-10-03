@@ -78,7 +78,7 @@ class RelationProcessor:
             if print_number_of_candidates:
                 print(f'{eventDataAC.id} : {len(eventDataAC.candidates)}')
 
-    def process_for_relations(self, otl_facility, lijst_otl_objecten):
+    def process_for_relations(self, lijst_otl_objecten):
         idx = index.Index()
 
         assets = list(filter(
@@ -101,7 +101,6 @@ class RelationProcessor:
 
         self.lijst_otl_objecten = lijst_otl_objecten
         self.assets = assets
-        self.otl_facility = otl_facility
         self.new_relations = []
 
         # use multithreading

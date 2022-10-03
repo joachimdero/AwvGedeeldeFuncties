@@ -48,7 +48,7 @@ class OffsetGeometryProcessor:
 
         is_hoofdweg = ((wegtype in ['A', 'B'] or eventData.ident8.startswith('R00')) and eventData.ident8[4:7] == '000')
         is_af_oprit_hoofdweg = ((wegtype == 'A' or eventData.ident8.startswith('R00')) and eventData.ident8[4:7] != '000')
-        is_n_weg = (wegtype == 'N' or (eventData.ident8.startswith('R') and not eventData.ident8.startswith('R00')))
+        is_n_weg = (wegtype == 'N' or wegtype == 'T' or (eventData.ident8.startswith('R') and not eventData.ident8.startswith('R00')))
         is_zijde_rijbaan_R = (eventData.zijde_rijbaan == 'R')
         is_zijde_rijbaan_L = (eventData.zijde_rijbaan == 'L')
 

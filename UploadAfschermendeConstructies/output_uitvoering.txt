@@ -1,35 +1,19 @@
 /home/davidlinux/PycharmProjects/AwvGedeeldeFuncties/venv/bin/python /home/davidlinux/PycharmProjects/AwvGedeeldeFuncties/UploadAfschermendeConstructies/uitvoering.py
 Connecting to Feature server...
 Number of lines from Feature server: 23211
-Time to get input from feature server: 7.91
-Time to process feature server lines to Python dataclass objects: 2.38
+Time to get input from feature server: 26.09
+Time to process feature server lines to Python dataclass objects: 2.56
 Number of event data objects: 23211
-Time to process objects for candidates (optimize offset points): 12.9
-missing mapping for determine_offset, id 42316: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=False, is_zijde_rijbaan_L=True)
-OffsetGeometryProcessor.create_offset_geometry_from_eventdataAC.<locals>.<lambda>() takes 2 positional arguments but 3 were given
-missing mapping for determine_offset, id 46145: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=True, is_zijde_rijbaan_L=False)
-missing mapping for determine_offset, id 15754: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=True, is_zijde_rijbaan_L=False)
-OffsetGeometryProcessor.create_offset_geometry_from_eventdataAC.<locals>.<lambda>() takes 2 positional arguments but 3 were given
+Time to process objects for candidates (optimize offset points): 16.21
 missing mapping for determine_offset, id 7498: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=False, is_zijde_rijbaan_L=True)
 OffsetGeometryProcessor.create_offset_geometry_from_eventdataAC.<locals>.<lambda>() takes 2 positional arguments but 3 were given
 missing mapping for determine_offset, id 7527: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=False, is_zijde_rijbaan_L=True)
 OffsetGeometryProcessor.create_offset_geometry_from_eventdataAC.<locals>.<lambda>() takes 2 positional arguments but 3 were given
 missing mapping for determine_offset, id 7533: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=True, is_zijde_rijbaan_L=False)
 OffsetGeometryProcessor.create_offset_geometry_from_eventdataAC.<locals>.<lambda>() takes 2 positional arguments but 3 were given
-missing mapping for determine_offset, id 42312: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=False, is_zijde_rijbaan_L=True)
-OffsetGeometryProcessor.create_offset_geometry_from_eventdataAC.<locals>.<lambda>() takes 2 positional arguments but 3 were given
 missing mapping for determine_offset, id 7535: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=False, is_zijde_rijbaan_L=True)
 OffsetGeometryProcessor.create_offset_geometry_from_eventdataAC.<locals>.<lambda>() takes 2 positional arguments but 3 were given
-missing mapping for determine_offset, id 42310: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=False, is_zijde_rijbaan_L=True)
-missing mapping for determine_offset, id 42317: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=False, is_zijde_rijbaan_L=True)
 missing mapping for determine_offset, id 7497: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=False, is_zijde_rijbaan_L=True)
-OffsetGeometryProcessor.create_offset_geometry_from_eventdataAC.<locals>.<lambda>() takes 2 positional arguments but 3 were given
-missing mapping for determine_offset, id 42296: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=True, is_zijde_rijbaan_L=False)
-missing mapping for determine_offset, id 42297: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=True, is_zijde_rijbaan_L=False)
-OffsetGeometryProcessor.create_offset_geometry_from_eventdataAC.<locals>.<lambda>() takes 2 positional arguments but 3 were given
-missing mapping for determine_offset, id 15752: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=True, is_zijde_rijbaan_L=False)
-OffsetGeometryProcessor.create_offset_geometry_from_eventdataAC.<locals>.<lambda>() takes 2 positional arguments but 3 were given
-missing mapping for determine_offset, id 42315: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=False, is_zijde_rijbaan_L=True)
 OffsetGeometryProcessor.create_offset_geometry_from_eventdataAC.<locals>.<lambda>() takes 2 positional arguments but 3 were given
 missing mapping for determine_offset, id 7529: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=True, is_zijde_rijbaan_L=False)
 OffsetGeometryProcessor.create_offset_geometry_from_eventdataAC.<locals>.<lambda>() takes 2 positional arguments but 3 were given
@@ -38,26 +22,9 @@ missing mapping for determine_offset, id 7526: (is_hoofdweg=False, is_af_oprit_h
 OffsetGeometryProcessor.create_offset_geometry_from_eventdataAC.<locals>.<lambda>() takes 2 positional arguments but 3 were given
 missing mapping for determine_offset, id 7532: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=True, is_zijde_rijbaan_L=False)
 OffsetGeometryProcessor.create_offset_geometry_from_eventdataAC.<locals>.<lambda>() takes 2 positional arguments but 3 were given
-missing mapping for determine_offset, id 46128: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=True, is_zijde_rijbaan_L=False)
-missing mapping for determine_offset, id 15750: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=True, is_zijde_rijbaan_L=False)
-OffsetGeometryProcessor.create_offset_geometry_from_eventdataAC.<locals>.<lambda>() takes 2 positional arguments but 3 were given
-missing mapping for determine_offset, id 42295: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=True, is_zijde_rijbaan_L=False)
-OffsetGeometryProcessor.create_offset_geometry_from_eventdataAC.<locals>.<lambda>() takes 2 positional arguments but 3 were given
-missing mapping for determine_offset, id 15751: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=True, is_zijde_rijbaan_L=False)
-OffsetGeometryProcessor.create_offset_geometry_from_eventdataAC.<locals>.<lambda>() takes 2 positional arguments but 3 were given
 missing mapping for determine_offset, id 7528: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=True, is_zijde_rijbaan_L=False)
 OffsetGeometryProcessor.create_offset_geometry_from_eventdataAC.<locals>.<lambda>() takes 2 positional arguments but 3 were given
-missing mapping for determine_offset, id 33846: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=True, is_zijde_rijbaan_L=False)
-missing mapping for determine_offset, id 33847: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=True, is_zijde_rijbaan_L=False)
 missing mapping for determine_offset, id 7525: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=True, is_zijde_rijbaan_L=False)
-OffsetGeometryProcessor.create_offset_geometry_from_eventdataAC.<locals>.<lambda>() takes 2 positional arguments but 3 were given
-missing mapping for determine_offset, id 42314: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=False, is_zijde_rijbaan_L=True)
-OffsetGeometryProcessor.create_offset_geometry_from_eventdataAC.<locals>.<lambda>() takes 2 positional arguments but 3 were given
-missing mapping for determine_offset, id 33848: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=True, is_zijde_rijbaan_L=False)
-missing mapping for determine_offset, id 42313: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=False, is_zijde_rijbaan_L=True)
-missing mapping for determine_offset, id 15753: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=True, is_zijde_rijbaan_L=False)
-OffsetGeometryProcessor.create_offset_geometry_from_eventdataAC.<locals>.<lambda>() takes 2 positional arguments but 3 were given
-missing mapping for determine_offset, id 15749: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=True, is_zijde_rijbaan_L=False)
 OffsetGeometryProcessor.create_offset_geometry_from_eventdataAC.<locals>.<lambda>() takes 2 positional arguments but 3 were given
 missing mapping for determine_offset, id 7530: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=False, is_zijde_rijbaan_L=True)
 OffsetGeometryProcessor.create_offset_geometry_from_eventdataAC.<locals>.<lambda>() takes 2 positional arguments but 3 were given
@@ -66,10 +33,10 @@ OffsetGeometryProcessor.create_offset_geometry_from_eventdataAC.<locals>.<lambda
 missing mapping for determine_offset, id 7534: (is_hoofdweg=False, is_af_oprit_hoofdweg=False, is_n_weg=False, is_zijde_rijbaan_R=False, is_zijde_rijbaan_L=True)
 OffsetGeometryProcessor.create_offset_geometry_from_eventdataAC.<locals>.<lambda>() takes 2 positional arguments but 3 were given
 Aantal gefaalde offsets: 26
-Time to offset lines depending on event data: 13.67
-Time to offset points using offset of a related asset: 0.13
-Number of event data objects with an offset geometry: 22882
-Time to create MappingTableProcessor: 0.06
+Time to offset lines depending on event data: 17.33
+Time to offset points using offset of a related asset: 0.15
+Number of event data objects with an offset geometry: 22888
+Time to create MappingTableProcessor: 0.08
 /home/davidlinux/PycharmProjects/AwvGedeeldeFuncties/venv/lib/python3.10/site-packages/otlmow_model/BaseClasses/WKTField.py:33: WrongGeometryWarning: Asset type Obstakelbeveiliger shouldn't be assigned a LINESTRING Z as geometry, valid types are POLYGON Z
   warnings.warn(error_msg, WrongGeometryWarning)
  is not a valid WKT string for geometry => id:38133 product:type C4 materiaal:staal
@@ -96,7 +63,7 @@ LINESTRING EMPTY is not a valid WKT string for geometry => id:43737 product:type
  is not a valid WKT string for geometry => id:34601 product:Ter plaatse gestorte type H2 materiaal:None
  is not a valid WKT string for geometry => id:39680 product:onbekend beton materiaal:beton
  is not a valid WKT string for geometry => id:34588 product:onbekend beton prefab materiaal:beton
-Time to create OTL compliant assets and betrokkene relations: 271.2
+Time to create OTL compliant assets and betrokkene relations: 256.04
 Number of OTL compliant assets: 23189
 Number of OTL compliant object (assets + relations): 46035
 created 22846 assets of type https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#HeeftBetrokkene
@@ -107,3 +74,5 @@ created 263 assets of type https://wegenenverkeer.data.vlaanderen.be/ns/onderdee
 created 116 assets of type https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#SchampkantStd
 created 93 assets of type https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#GetesteBeginconstructie
 created 68 assets of type https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#Obstakelbeveiliger
+
+Process finished with exit code 0

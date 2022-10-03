@@ -1,10 +1,12 @@
 import platform
 import time
+from pathlib import Path
 
-from OTLMOW.Facility.OTLFacility import OTLFacility
-from OTLMOW.Facility.RequesterFactory import RequesterFactory
+from otlmow_converter.FileExporter import FileExporter
+from otlmow_converter.FileImporter import FileImporter
 from termcolor import colored
 
+from UploadAfschermendeConstructies.OTLMOW_Helpers.RequesterFactory import RequesterFactory
 from UploadAfschermendeConstructies.RelationProcessor import RelationProcessor
 from UploadAfschermendeConstructies.SettingsManager import SettingsManager
 
@@ -23,25 +25,25 @@ def print_overview_assets(lijst_otl_objecten):
 if __name__ == '__main__':
     if platform.system() == 'Linux':
         OTLMOW_settings_path = '/home/davidlinux/Documents/AWV/resources/settings_OTLMOW.json'
-        this_settings_path = '/home/davidlinux/Documents/AWV/resources/settings_AWVGedeeldeFuncties.json'
+        this_settings_path = 'settings_OTLMOW_linux.json'
     else:
         OTLMOW_settings_path = 'C:\\resources\\settings_OTLMOW.json'
         this_settings_path = 'C:\\resources\\settings_AWVGedeeldeFuncties.json'
 
     # een aantal classes uit OTLMOW library gebruiken
-    otl_facility = OTLFacility(logfile='', settings_path=OTLMOW_settings_path, enable_relation_features=True)
     settings_manager = SettingsManager(settings_path=this_settings_path)
     requester = RequesterFactory.create_requester(settings=settings_manager.settings, auth_type='cert', env='prd')
 
     start = time.time()
-    lijst_otl_objecten = otl_facility.create_assets_from_file(filepath='DAVIE_export_file_20221003.json')
+    importer = FileImporter(settings=settings_manager.settings)
+    lijst_otl_objecten = importer.create_assets_from_file(filepath=Path('DAVIE_export_file_20221003_2.json'))
     end = time.time()
     print(colored(f'Time to load otl {len(lijst_otl_objecten)} assets: {round(end - start, 2)}', 'yellow'))
 
     # gebruik RelationProcessor om relaties te leggen tussen de verschillende objecten
     start = time.time()
     relation_processor = RelationProcessor()
-    relation_processor.process_for_relations(otl_facility, lijst_otl_objecten)
+    relation_processor.process_for_relations(lijst_otl_objecten)
     end = time.time()
     print(colored(f'Time to process for relations: {round(end - start, 2)}', 'yellow'))
 
@@ -61,4 +63,6 @@ if __name__ == '__main__':
     print_overview_assets(lijst_otl_objecten)
 
     # gebruik OTLMOW om de OTL conforme objecten weg te schrijven naar een export bestand
-    otl_facility.create_file_from_assets(list_of_objects=lijst_otl_objecten, filepath='DAVIE_export_file_20221001.json')
+    exporter = FileExporter(settings=settings_manager.settings)
+    exporter.create_file_from_assets(list_of_objects=lijst_otl_objecten,
+                                     filepath=Path('DAVIE_export_file_20221003_3.json'))

@@ -23,9 +23,8 @@ mypy-extensions==0.4.3
 networkx==2.6.3
 numpy==1.22.2
 openpyxl==3.0.10
-OTLMOW==0.5a3
 packaging==21.3
-pandas==1.4.1
+pandas>=1.4.1
 parso==0.8.3
 pathspec==0.9.0
 pexpect==4.8.0
