@@ -34,7 +34,7 @@ if __name__ == '__main__':
     requester = RequesterFactory.create_requester(settings=settings_manager.settings, auth_type='cert', env='prd')
 
     start = time.time()
-    lijst_otl_objecten = otl_facility.create_assets_from_file(filepath='DAVIE_export_file_20220914.json')
+    lijst_otl_objecten = otl_facility.create_assets_from_file(filepath='DAVIE_export_file_20221003.json')
     end = time.time()
     print(colored(f'Time to load otl {len(lijst_otl_objecten)} assets: {round(end - start, 2)}', 'yellow'))
 
