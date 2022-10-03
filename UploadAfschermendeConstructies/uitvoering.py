@@ -1,3 +1,4 @@
+import concurrent.futures
 import platform
 import time
 
@@ -24,6 +25,34 @@ def print_overview_assets(lijst_otl_objecten):
             overview[asset.typeURI] += 1
     for k, v in overview.items():
         print(colored(f'created {str(v)} assets of type {k}', 'blue'))
+
+
+def from_eventDataAC_create_asset_and_betrokkene_relation(event_data_ac):
+    try:
+        created_otl_objects = mtp.create_otl_objects_from_eventDataAC(event_data_ac)
+        if len(created_otl_objects) == 0:
+            raise ValueError('Could not create an otl object so skipping...')
+
+        for created_otl_object in created_otl_objects:
+            # maak link naar event data op OTL conform object
+            created_otl_object.eventDataAC = event_data_ac
+
+            # zoek de beheerder op als Agent
+            if 'Agentschap Wegen en Verkeer' in event_data_ac.gebied:
+                agent_name = event_data_ac.gebied[-6:]
+                agent_name = agent_name[0:3] + "_" + agent_name[-3:]
+                agent = AgentCollection(requester=requester).get_agent_by_fulltextsearch_name(agent_name)
+
+                # indien de Agent gevonden is: leg de relatie tussen asset en Agent rol berekende-beheerder
+                if agent is not None:
+                    districtrelatie = otl_facility.relatie_creator.create_betrokkenerelation(bron=created_otl_object,
+                                                                                             doel=agent)
+                    districtrelatie.rol = 'berekende-beheerder'
+                    lijst_otl_objecten.append(districtrelatie)
+
+            lijst_otl_objecten.append(created_otl_object)
+    except Exception as e:
+        print(f'{e} => id:{event_data_ac.id} product:{event_data_ac.product} materiaal:{event_data_ac.materiaal}')
 
 
 if __name__ == '__main__':
@@ -107,32 +136,13 @@ if __name__ == '__main__':
     end = time.time()
     print(colored(f'Time to create MappingTableProcessor: {round(end - start, 2)}', 'yellow'))
 
+    # using multithreading
     start = time.time()
-    for eventDataAC in listEventDataAC:
-        try:
-            otl_object_list = mtp.create_otl_objects_from_eventDataAC(eventDataAC)
-            if len(otl_object_list) == 0:
-                raise ValueError('Could not create an otl object so skipping...')
+    executor = concurrent.futures.ThreadPoolExecutor()
+    futures = [executor.submit(from_eventDataAC_create_asset_and_betrokkene_relation, event_data_ac=eventDataAC)
+               for eventDataAC in listEventDataAC]
+    concurrent.futures.wait(futures)
 
-            for otl_object in otl_object_list:
-                # maak link naar event data op OTL conform object
-                otl_object.eventDataAC = eventDataAC
-
-                # zoek de beheerder op als Agent
-                if 'Agentschap Wegen en Verkeer' in eventDataAC.gebied:
-                    agent_name = eventDataAC.gebied[-6:]
-                    agent_name = agent_name[0:3] + "_" + agent_name[-3:]
-                    agent = AgentCollection(requester=requester).get_agent_by_fulltextsearch_name(agent_name)
-
-                    # indien de Agent gevonden is: leg de relatie tussen asset en Agent rol berekende-beheerder
-                    if agent is not None:
-                        districtrelatie = otl_facility.relatie_creator.create_betrokkenerelation(bron=otl_object, doel=agent)
-                        districtrelatie.rol = 'berekende-beheerder'
-                        lijst_otl_objecten.append(districtrelatie)
-
-                lijst_otl_objecten.append(otl_object)
-        except Exception as e:
-            print(f'{e} => id:{eventDataAC.id} product:{eventDataAC.product} materiaal:{eventDataAC.materiaal}')
     end = time.time()
     print(colored(f'Time to create OTL compliant assets and betrokkene relations: {round(end - start, 2)}', 'yellow'))
 
@@ -153,4 +163,4 @@ if __name__ == '__main__':
     print_overview_assets(lijst_otl_objecten)
 
     # gebruik OTLMOW om de OTL conforme objecten weg te schrijven naar een export bestand
-    otl_facility.create_file_from_assets(list_of_objects=lijst_otl_objecten, filepath='DAVIE_export_file_20220914.json')
+    otl_facility.create_file_from_assets(list_of_objects=lijst_otl_objecten, filepath='DAVIE_export_file_20221003.json')
