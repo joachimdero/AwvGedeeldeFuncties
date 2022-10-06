@@ -34,19 +34,19 @@ class JsonTestData:
 class JsonToEventDataACProcessorTests(TestCase):
     def test_assert_types_of_result_method_processJson(self):
         processor = JsonToEventDataACProcessor()
-        listEventDataAC = processor.processJson(JsonTestData.jsonLines)
+        listEventDataAC = processor.process_json_to_list_event_data_ac(JsonTestData.jsonLines)
         self.assertGreater(len(listEventDataAC), 0)
         self.assertTrue(isinstance(listEventDataAC[0], EventDataAC))
 
     def test_assert_processJson_results_in_EventDataAC_ident8_values(self):
         processor = JsonToEventDataACProcessor()
-        listEventDataAC = processor.processJson(JsonTestData.jsonLines)
+        listEventDataAC = processor.process_json_to_list_event_data_ac(JsonTestData.jsonLines)
         self.assertEqual("A0040002", listEventDataAC[0].ident8)
         self.assertEqual("N0180001", listEventDataAC[1].ident8)
 
     def test_assert_processJson_results_in_EventDataAC_wkt_values(self):
         processor = JsonToEventDataACProcessor()
-        listEventDataAC = processor.processJson(JsonTestData.jsonLines)
+        listEventDataAC = processor.process_json_to_list_event_data_ac(JsonTestData.jsonLines)
         self.assertEqual(
             "LINESTRING ZM (161468.378768416 160252.040726318 0 12.054, 161473.488399997 160248.7412 0 12.0601500000048, 161485.656400003 160239.505199999 0 12.0755499999941, 161497.47762291 160231.46343517 0 12.09)",
             listEventDataAC[0].wktLineStringZM)
@@ -64,7 +64,7 @@ class JsonToEventDataACProcessorTests(TestCase):
 
     def test_assert_processJson_results_in_EventDataAC_begin_values(self):
         processor = JsonToEventDataACProcessor()
-        listEventDataAC = processor.processJson(JsonTestData.jsonLines)
+        listEventDataAC = processor.process_json_to_list_event_data_ac(JsonTestData.jsonLines)
         self.assertTrue(isinstance(listEventDataAC[0].begin, WegLocatieData))
         self.assertEqual(12.054, listEventDataAC[0].begin.positie)
         self.assertEqual('gps', listEventDataAC[0].begin.bron)
@@ -72,7 +72,7 @@ class JsonToEventDataACProcessorTests(TestCase):
 
     def test_assert_processJson_results_in_EventDataAC_eind_values(self):
         processor = JsonToEventDataACProcessor()
-        listEventDataAC = processor.processJson(JsonTestData.jsonLines)
+        listEventDataAC = processor.process_json_to_list_event_data_ac(JsonTestData.jsonLines)
         self.assertTrue(isinstance(listEventDataAC[0].eind, WegLocatieData))
         self.assertEqual(12.09, listEventDataAC[0].eind.positie)
         self.assertEqual('gps', listEventDataAC[0].eind.bron)
@@ -86,48 +86,48 @@ class JsonToEventDataACProcessorTests(TestCase):
 
     def test_assert_processJson_results_in_EventDataAC_afstand_en_zijde_rijbaan_values(self):
         processor = JsonToEventDataACProcessor()
-        listEventDataAC = processor.processJson(JsonTestData.jsonLines)
+        listEventDataAC = processor.process_json_to_list_event_data_ac(JsonTestData.jsonLines)
         self.assertEqual('L', listEventDataAC[0].zijde_rijbaan)
         self.assertEqual(0.20, listEventDataAC[0].afstand_rijbaan)
 
     def test_assert_processJson_results_in_EventData_ACproduct_materiaal_en_typeAc_values(self):
         processor = JsonToEventDataACProcessor()
-        listEventDataAC = processor.processJson(JsonTestData.jsonLines)
+        listEventDataAC = processor.process_json_to_list_event_data_ac(JsonTestData.jsonLines)
         self.assertEqual('geleideconstructie', listEventDataAC[0].typeAC)
         self.assertEqual("onbekend beton", listEventDataAC[0].product)
         self.assertEqual("beton", listEventDataAC[0].materiaal)
 
     def test_assert_processJson_results_in_EventData_fabrikant(self):
         processor = JsonToEventDataACProcessor()
-        listEventDataAC = processor.processJson(JsonTestData.jsonLines)
+        listEventDataAC = processor.process_json_to_list_event_data_ac(JsonTestData.jsonLines)
         self.assertEqual('OmniBeton', listEventDataAC[20].fabrikant)
 
     def test_assert_processJson_results_in_EventData_opmerking(self):
         processor = JsonToEventDataACProcessor()
-        listEventDataAC = processor.processJson(JsonTestData.jsonLines)
+        listEventDataAC = processor.process_json_to_list_event_data_ac(JsonTestData.jsonLines)
         self.assertEqual('beginconstructie lopende in de grond', listEventDataAC[4].opmerking)
 
     def test_assert_processJson_results_in_EventData_brug(self):
         processor = JsonToEventDataACProcessor()
-        listEventDataAC = processor.processJson(JsonTestData.jsonLines)
+        listEventDataAC = processor.process_json_to_list_event_data_ac(JsonTestData.jsonLines)
         self.assertEqual('Ja', listEventDataAC[5].brug)
 
     def test_assert_processJson_results_in_EventData_begindatum(self):
         processor = JsonToEventDataACProcessor()
-        listEventDataAC = processor.processJson(JsonTestData.jsonLines)
+        listEventDataAC = processor.process_json_to_list_event_data_ac(JsonTestData.jsonLines)
         self.assertEqual('10/05/2013', listEventDataAC[0].begindatum)
 
     def test_assert_processJson_results_in_EventData_gebied(self):
         processor = JsonToEventDataACProcessor()
-        listEventDataAC = processor.processJson(JsonTestData.jsonLines)
+        listEventDataAC = processor.process_json_to_list_event_data_ac(JsonTestData.jsonLines)
         self.assertEqual('Agentschap Wegen en Verkeer - AWV212', listEventDataAC[0].gebied)
 
     def test_assert_processJson_results_in_EventData_schokindex(self):
         processor = JsonToEventDataACProcessor()
-        listEventDataAC = processor.processJson(JsonTestData.jsonLines)
+        listEventDataAC = processor.process_json_to_list_event_data_ac(JsonTestData.jsonLines)
         self.assertEqual('B', listEventDataAC[20].schokindex)
 
     def test_assert_processJson_results_in_EventData_id(self):
         processor = JsonToEventDataACProcessor()
-        listEventDataAC = processor.processJson(JsonTestData.jsonLines)
+        listEventDataAC = processor.process_json_to_list_event_data_ac(JsonTestData.jsonLines)
         self.assertEqual('31327', listEventDataAC[0].id)

@@ -74,15 +74,16 @@ if __name__ == '__main__':
     fs_c = FSConnector(requester)
     start = time.time()
     print(colored(f'Connecting to Feature server...', 'green'))
-    raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies", lines=30000)  # beperkt tot X aantal lijnen
+    raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies", lines=500)  # beperkt tot X aantal lijnen
     end = time.time()
-    print(colored(f'Number of lines from Feature server: {len(raw_output)}', 'green'))
+    print(colored(f'Number of lines (afschermendeconstructies) from Feature server: {len(raw_output)}', 'green'))
     print(colored(f'Time to get input from feature server: {round(end - start, 2)}', 'yellow'))
+
+    processor = JsonToEventDataACProcessor()
 
     # verwerk de input van de feature server tot een lijst van EventDataAC objecten
     start = time.time()
-    processor = JsonToEventDataACProcessor()
-    listEventDataAC = processor.processJson(raw_output)
+    listEventDataAC = processor.process_json_to_list_event_data_ac(raw_output)
     end = time.time()
     print(colored(f'Time to process feature server lines to Python dataclass objects: {round(end - start, 2)}', 'yellow'))
 
@@ -90,6 +91,30 @@ if __name__ == '__main__':
     #listEventDataAC = list(filter(lambda x: x.id in filter_ids, listEventDataAC))
 
     print(colored(f'Number of event data objects: {len(listEventDataAC)}', 'green'))
+
+    # haal x aantal rijbanen uit de feature server
+    start = time.time()
+    print(colored(f'Connecting to Feature server...', 'green'))
+    raw_output_rijbanen = fs_c.get_raw_lines(layer="rijbanen", lines=5000)  # beperkt tot X aantal lijnen
+    end = time.time()
+    print(colored(f'Number of lines (rijbanen) from Feature server: {len(raw_output_rijbanen)}', 'green'))
+    print(colored(f'Time to get input from feature server: {round(end - start, 2)}', 'yellow'))
+
+    # verwerk de input van de feature server tot een lijst van EventDataAC objecten
+    start = time.time()
+    list_rijbanen = processor.process_json_to_list_event_rijbaan(raw_output_rijbanen)
+    end = time.time()
+    print(
+        colored(f'Time to process feature server lines to Python dataclass objects: {round(end - start, 2)}', 'yellow'))
+
+    print(colored(f'Number of event data objects: {len(list_rijbanen)}', 'green'))
+
+    start = time.time()
+    ogp = OffsetGeometryProcessor()
+    ogp.add_rijstrook_info_to_event_data_ac(listEventDataAC, list_rijbanen)
+    end = time.time()
+    print(colored(f'Time to add rijstrook info to ac events: {round(end - start, 2)}', 'yellow'))
+
 
     # gebruik RelationProcessor om kandidaten voor relaties alvast op te lijsten op de asset zelf
     start = time.time()
@@ -103,7 +128,7 @@ if __name__ == '__main__':
 
     # gebruik OffsetGeometryProcessor om de geometrieën van de events te verschuiven, afhankelijk van de event data.
     start = time.time()
-    ogp = OffsetGeometryProcessor()
+
     offset_gefaald_teller = 0
     for eventDataAC in listEventDataAC:
         ogp.process_wkt_to_Z(eventDataAC)

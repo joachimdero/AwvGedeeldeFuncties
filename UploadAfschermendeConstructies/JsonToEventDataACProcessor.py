@@ -1,20 +1,21 @@
 import json
 
+from UploadAfschermendeConstructies.EventRijbaan import EventRijbaan
 from UploadAfschermendeConstructies.EventDataAC import EventDataAC
 from UploadAfschermendeConstructies.WegLocatieData import WegLocatieData
 
 
 class JsonToEventDataACProcessor:
-    def processJsonObjectOrList(self, dict_list, is_list=False):
+    def process_json_object_or_list_ac(self, dict_list, is_list=False):
         if not is_list:
-            return self.processJsonObject(dict_list)
+            return self.process_json_to_event_data_ac(dict_list)
 
         l = []
         for obj in dict_list:
-            l.append(self.processJsonObject(obj))
+            l.append(self.process_json_to_event_data_ac(obj))
         return l
 
-    def processJsonObject(self, dict_list):
+    def process_json_to_event_data_ac(self, dict_list):
         eventDataAC = EventDataAC()
         eventDataAC.ident8 = dict_list["properties"]["ident8"]
         eventDataAC.wktLineStringZM = self.FSInputToWktLineStringZM(dict_list["geometry"]["coordinates"])
@@ -46,13 +47,13 @@ class JsonToEventDataACProcessor:
 
         return eventDataAC
 
-    def processJson(self, jsonList) -> [EventDataAC]:
+    def process_json_to_list_event_data_ac(self, jsonList) -> [EventDataAC]:
         returnlist = []
 
         for el in jsonList:
             dict_list = json.loads(el.replace('\n', ''))
-            eventDataAC = self.processJsonObjectOrList(dict_list)
-            returnlist.append(eventDataAC)
+            event_data_ac = self.process_json_object_or_list_ac(dict_list)
+            returnlist.append(event_data_ac)
 
         return returnlist
 
@@ -69,3 +70,43 @@ class JsonToEventDataACProcessor:
         s = ' '.join(list(map(str, FSInput)))
         return f'POINT ({s})'
 
+    def process_json_to_list_event_rijbaan(self, jsonList) -> [EventRijbaan]:
+        returnlist = []
+
+        for el in jsonList:
+            dict_list = json.loads(el.replace('\n', ''))
+            event_rijbaan = self.process_json_object_or_list_rb(dict_list)
+            returnlist.append(event_rijbaan)
+
+        return returnlist
+
+    def process_json_object_or_list_rb(self, dict_list, is_list=False):
+        if not is_list:
+            return self.process_json_to_event_rijbaan(dict_list)
+
+        l = []
+        for obj in dict_list:
+            l.append(self.process_json_to_event_rijbaan(obj))
+        return l
+
+    def process_json_to_event_rijbaan(self, dict_list):
+        event_rijbaan = EventRijbaan()
+        event_rijbaan.wegcategorie = dict_list["properties"].get("wegcategorie", '')
+        event_rijbaan.ident8 = dict_list["properties"]["ident8"]
+        event_rijbaan.aantal_rijstroken = dict_list["properties"]["aantalrijstroken"]
+        event_rijbaan.rijrichting = dict_list["properties"]["rijrichting"]
+        event_rijbaan.id = dict_list["properties"]["id"]
+        event_rijbaan.breedte_rijbaan = dict_list["properties"]["breedterijbaan"]
+        event_rijbaan.opmerking = dict_list["properties"]["opmerking"]
+        event_rijbaan.wktLineStringZM = self.FSInputToWktLineStringZM(dict_list["geometry"]["coordinates"])
+        event_rijbaan.begin = WegLocatieData()
+        event_rijbaan.begin.positie = dict_list["properties"]["locatie"]["begin"]["positie"]
+        event_rijbaan.begin.bron = dict_list["properties"]["locatie"]["begin"]["bron"]
+        event_rijbaan.begin.wktPoint = self.FSInputToWktPoint(
+            dict_list["properties"]["locatie"]["begin"]["geometry"]["coordinates"])
+        event_rijbaan.eind = WegLocatieData()
+        event_rijbaan.eind.positie = dict_list["properties"]["locatie"]["eind"]["positie"]
+        event_rijbaan.eind.bron = dict_list["properties"]["locatie"]["eind"]["bron"]
+        event_rijbaan.eind.wktPoint = self.FSInputToWktPoint(dict_list["properties"]["locatie"]["eind"]["geometry"]["coordinates"])
+
+        return event_rijbaan

@@ -64,18 +64,18 @@ class JsonTestData:
 class JsonToEventDataACProcessorTests(TestCase):
     def test_processJson(self):
         processor = JsonToEventDataACProcessor()
-        listEventDataAC = processor.processJson(JsonTestData.jsonLines)
+        listEventDataAC = processor.process_json_to_list_event_data_ac(JsonTestData.jsonLines)
         self.assertGreater(len(listEventDataAC), 0)
         self.assertTrue(isinstance(listEventDataAC[0], EventDataAC))
 
-        listEventDataAC = processor.processJson(JsonTestData.jsonLines2)
+        listEventDataAC = processor.process_json_to_list_event_data_ac(JsonTestData.jsonLines2)
         self.assertGreater(len(listEventDataAC), 0)
         self.assertTrue(isinstance(listEventDataAC[0], EventDataAC))
 
     def test_create_shapes(self):
         processor = JsonToEventDataACProcessor()
-        listEventDataAC = processor.processJson(JsonTestData.jsonLines)
-        listEventDataAC.extend(processor.processJson(JsonTestData.jsonLines2))
+        listEventDataAC = processor.process_json_to_list_event_data_ac(JsonTestData.jsonLines)
+        listEventDataAC.extend(processor.process_json_to_list_event_data_ac(JsonTestData.jsonLines2))
 
         relation_processor = RelationProcessor()
         relation_processor.store(listEventDataAC)
@@ -83,8 +83,8 @@ class JsonToEventDataACProcessorTests(TestCase):
 
     def test_process_for_candidates(self):
         processor = JsonToEventDataACProcessor()
-        listEventDataAC = processor.processJson(JsonTestData.jsonLines)
-        listEventDataAC.extend(processor.processJson(JsonTestData.jsonLines2))
+        listEventDataAC = processor.process_json_to_list_event_data_ac(JsonTestData.jsonLines)
+        listEventDataAC.extend(processor.process_json_to_list_event_data_ac(JsonTestData.jsonLines2))
 
         relation_processor = RelationProcessor()
         relation_processor.store(listEventDataAC)
@@ -107,8 +107,8 @@ class JsonToEventDataACProcessorTests(TestCase):
 
         # create list of EventDataAC from test data
         processor = JsonToEventDataACProcessor()
-        listEventDataAC = processor.processJson(JsonTestData.jsonLines)
-        listEventDataAC.extend(processor.processJson(JsonTestData.jsonLines2))
+        listEventDataAC = processor.process_json_to_list_event_data_ac(JsonTestData.jsonLines)
+        listEventDataAC.extend(processor.process_json_to_list_event_data_ac(JsonTestData.jsonLines2))
 
         # use relation_processor to search for candidates
         relation_processor = RelationProcessor()

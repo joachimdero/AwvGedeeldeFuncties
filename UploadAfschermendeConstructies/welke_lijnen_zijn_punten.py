@@ -28,7 +28,7 @@ if __name__ == '__main__':
     raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies", lines=20)  # beperkt tot 20
 
     processor = JsonToEventDataACProcessor()
-    listEventDataAC = processor.processJson(raw_output)
+    listEventDataAC = processor.process_json_to_list_event_data_ac(raw_output)
 
     ogp = OffsetGeometryProcessor()
     for eventDataAC in listEventDataAC:

@@ -5,6 +5,7 @@ from shapely.geometry import LineString, Point
 from shapely.geometry.base import BaseGeometry
 
 from UploadAfschermendeConstructies.EventDataAC import EventDataAC
+from UploadAfschermendeConstructies.EventRijbaan import EventRijbaan
 from UploadAfschermendeConstructies.OffsetParameters import OffsetParameters
 
 
@@ -138,3 +139,58 @@ class OffsetGeometryProcessor:
             eventDataAC.offset_geometry = LineString([new_end, new_end])
             eventDataAC.offset_wkt = eventDataAC.offset_geometry.wkt
             eventDataAC.needs_offset = False
+
+    def add_rijstrook_info_to_event_data_ac(self, list_event_data_ac: [EventDataAC], list_rijbanen: [EventRijbaan]):
+        for event_ac in list_event_data_ac:
+            rijbanen = list(filter(lambda r: r.ident8 == event_ac.ident8, list_rijbanen))
+            if len(rijbanen) == 0:
+                continue
+            begin_rijbaan = list(filter(lambda r: r.begin.positie <= event_ac.begin.positie <= r.eind.positie, rijbanen))
+            midden_rijbaan = list(filter(lambda r: event_ac.begin.positie <= r.begin.positie <= r.eind.positie <= event_ac.eind.positie, rijbanen))
+            eind_rijbaan = list(filter(lambda r: r.begin.positie <= event_ac.eind.positie <= r.eind.positie, rijbanen))
+            if len(begin_rijbaan) + len(midden_rijbaan) + len(eind_rijbaan) == 0:
+                continue
+
+            rijbanen_dict = {}
+            for r in begin_rijbaan:
+                rijbanen_dict[r.id] = r
+            for r in midden_rijbaan:
+                rijbanen_dict[r.id] = r
+            for r in eind_rijbaan:
+                rijbanen_dict[r.id] = r
+
+            if len(rijbanen_dict.values()) == 1:
+                rijbaan_to_use = list(rijbanen_dict.values())[0]
+                if rijbaan_to_use.breedte_rijbaan is not None:
+                    event_ac.breedte_rijbaan = rijbaan_to_use.breedte_rijbaan
+                else:
+                    event_ac.breedte_rijbaan = (rijbaan_to_use.aantal_rijstroken, rijbaan_to_use.wegcategorie)
+
+                print(f'event ac {event_ac.id} now has breedte_rijbaan: {event_ac.breedte_rijbaan}')
+            else:
+                calc_breedte = 0.0
+                lengte = event_ac.eind.positie - event_ac.begin.positie
+                used_lengte = 0.0
+                for rijbaan_to_use in rijbanen_dict.values():
+
+                    if rijbaan_to_use.breedte_rijbaan is None:
+                        rijbaan_to_use.breedte_rijbaan = 600  # TODO needs to come from mapping
+
+                    print(f'using rijbaan with width {rijbaan_to_use.breedte_rijbaan} and length {round(rijbaan_to_use.eind.positie - rijbaan_to_use.begin.positie, 3)}')
+
+                    if rijbaan_to_use.begin.positie <= event_ac.begin.positie:
+                        calc_breedte += rijbaan_to_use.breedte_rijbaan * (rijbaan_to_use.eind.positie - event_ac.begin.positie)
+                        used_lengte += rijbaan_to_use.eind.positie - event_ac.begin.positie
+                    elif rijbaan_to_use.eind.positie >= event_ac.eind.positie:
+                        calc_breedte += rijbaan_to_use.breedte_rijbaan * (event_ac.eind.positie - rijbaan_to_use.begin.positie)
+                        used_lengte += event_ac.eind.positie - rijbaan_to_use.begin.positie
+                    else:
+                        calc_breedte += rijbaan_to_use.breedte_rijbaan * (rijbaan_to_use.eind.positie - rijbaan_to_use.begin.positie)
+                        used_lengte += rijbaan_to_use.eind.positie - rijbaan_to_use.begin.positie
+
+                if used_lengte < lengte:
+                    calc_breedte = int(calc_breedte / used_lengte)  # TODO OK? or have a %?
+                else:
+                    calc_breedte = int(calc_breedte / lengte)
+                print(f'calculated result breedte_rijbaan: {calc_breedte}')
+                pass

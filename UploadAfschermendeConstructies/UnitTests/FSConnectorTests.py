@@ -19,7 +19,7 @@ class FSConnectorTests(unittest.TestCase):
         raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies",  lines=20,
                                         cert_path = r'C:\resources\datamanager_eminfra_prd.awv.vlaanderen.be.crt',
                                         key_path = r'C:\resources\datamanager_eminfra_prd.awv.vlaanderen.be.key')
-        processed_output = JsonToEventDataACProcessor().processJson(raw_output)
+        processed_output = JsonToEventDataACProcessor().process_json_to_list_event_data_ac(raw_output)
 
         self.assertEqual(20, len(processed_output))
         self.assertTrue(isinstance(processed_output[0], EventDataAC))

@@ -15,6 +15,6 @@ class BeginEnEindProcessorTests(TestCase):
 
         with open(filelocation) as datafile:
             jsonData = json.load(datafile)
-        listEventDataAC = processor.processJsonObjectOrList(jsonData, is_list=True)
+        listEventDataAC = processor.process_json_object_or_list_ac(jsonData, is_list=True)
 
         self.assertGreater(len(listEventDataAC), 0)
