@@ -25,5 +25,6 @@ class EventDataAC:
     candidates: list = None
     offset_wkt: str = ''
     needs_offset: bool = True
+    breedte_rijbaan: int = -1
 
 

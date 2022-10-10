@@ -74,7 +74,7 @@ if __name__ == '__main__':
     fs_c = FSConnector(requester)
     start = time.time()
     print(colored(f'Connecting to Feature server...', 'green'))
-    raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies", lines=500)  # beperkt tot X aantal lijnen
+    raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies", lines=50000)  # beperkt tot X aantal lijnen
     end = time.time()
     print(colored(f'Number of lines (afschermendeconstructies) from Feature server: {len(raw_output)}', 'green'))
     print(colored(f'Time to get input from feature server: {round(end - start, 2)}', 'yellow'))
@@ -95,7 +95,7 @@ if __name__ == '__main__':
     # haal x aantal rijbanen uit de feature server
     start = time.time()
     print(colored(f'Connecting to Feature server...', 'green'))
-    raw_output_rijbanen = fs_c.get_raw_lines(layer="rijbanen", lines=5000)  # beperkt tot X aantal lijnen
+    raw_output_rijbanen = fs_c.get_raw_lines(layer="rijbanen", lines=50000)  # beperkt tot X aantal lijnen
     end = time.time()
     print(colored(f'Number of lines (rijbanen) from Feature server: {len(raw_output_rijbanen)}', 'green'))
     print(colored(f'Time to get input from feature server: {round(end - start, 2)}', 'yellow'))
@@ -111,9 +111,9 @@ if __name__ == '__main__':
 
     start = time.time()
     ogp = OffsetGeometryProcessor()
-    ogp.add_rijstrook_info_to_event_data_ac(listEventDataAC, list_rijbanen)
+    ogp.add_rijbaan_breedte_to_event_data_ac(listEventDataAC, list_rijbanen)
     end = time.time()
-    print(colored(f'Time to add rijstrook info to ac events: {round(end - start, 2)}', 'yellow'))
+    print(colored(f'Time to add rijbaan breedte to ac events: {round(end - start, 2)}', 'yellow'))
 
 
     # gebruik RelationProcessor om kandidaten voor relaties alvast op te lijsten op de asset zelf
@@ -152,7 +152,9 @@ if __name__ == '__main__':
     offset_count = sum(1 for e in listEventDataAC if not e.needs_offset)
     end = time.time()
     print(colored(f'Time to offset points using offset of a related asset: {round(end - start, 2)}', 'yellow'))
+
     print(colored(f'Number of event data objects with an offset geometry: {offset_count}', 'green'))
+    print(colored(f'Number of event data objects using rijbaan data to offset: {ogp.use_rijbaan_count}', 'blue'))
 
 
     # gebruik MappingTableProcessor om de events om te zetten naar OTL conforme objecten adhv de mapping tabel in Excel
@@ -191,4 +193,4 @@ if __name__ == '__main__':
 
     # gebruik OTLMOW om de OTL conforme objecten weg te schrijven naar een export bestand
     exporter = FileExporter(settings=settings_manager.settings)
-    exporter.create_file_from_assets(list_of_objects=lijst_otl_objecten, filepath=Path('DAVIE_export_file_20221003_2.json'))
+    exporter.create_file_from_assets(list_of_objects=lijst_otl_objecten, filepath=Path('DAVIE_export_file_20221010.json'))

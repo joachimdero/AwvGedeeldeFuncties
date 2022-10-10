@@ -7,9 +7,13 @@ from shapely.geometry.base import BaseGeometry
 from UploadAfschermendeConstructies.EventDataAC import EventDataAC
 from UploadAfschermendeConstructies.EventRijbaan import EventRijbaan
 from UploadAfschermendeConstructies.OffsetParameters import OffsetParameters
+from UploadAfschermendeConstructies.RijbaanMappingTableProcessor import RijbaanMappingTableProcessor
 
 
 class OffsetGeometryProcessor:
+    def __init__(self):
+        self.use_rijbaan_count = 0
+
     def create_offset_geometry_from_eventdataAC(self, eventData: EventDataAC, round_precision: int = -1) -> BaseGeometry:
         params = self.get_offset_params_from_eventdataAC(eventData)
         input_geom = shapely.wkt.loads(eventData.wktLineStringZ)
@@ -38,9 +42,15 @@ class OffsetGeometryProcessor:
         return geometry.parallel_offset(distance=offset, side=side, join_style=2)
 
     def get_offset_params_from_eventdataAC(self, eventData: EventDataAC):
-        return OffsetParameters(
-            zijde=self.determine_zijde(eventData),
-            offset=self.determine_offset(eventData))
+        if eventData.breedte_rijbaan != -1:
+            self.use_rijbaan_count += 1
+            return OffsetParameters(
+                zijde=self.determine_zijde(eventData),
+                offset=eventData.breedte_rijbaan / 2000.0)
+        else:
+            return OffsetParameters(
+                zijde=self.determine_zijde(eventData),
+                offset=self.determine_offset(eventData))
 
     def determine_offset(self, eventData):
         if eventData.afstand_rijbaan == -1:
@@ -140,7 +150,9 @@ class OffsetGeometryProcessor:
             eventDataAC.offset_wkt = eventDataAC.offset_geometry.wkt
             eventDataAC.needs_offset = False
 
-    def add_rijstrook_info_to_event_data_ac(self, list_event_data_ac: [EventDataAC], list_rijbanen: [EventRijbaan]):
+    @staticmethod
+    def add_rijbaan_breedte_to_event_data_ac(list_event_data_ac: [EventDataAC], list_rijbanen: [EventRijbaan]):
+        rijbaan_mapping = RijbaanMappingTableProcessor('rijbanen_naar_breedte.xlsx').mapping_table
         for event_ac in list_event_data_ac:
             rijbanen = list(filter(lambda r: r.ident8 == event_ac.ident8, list_rijbanen))
             if len(rijbanen) == 0:
@@ -164,9 +176,8 @@ class OffsetGeometryProcessor:
                 if rijbaan_to_use.breedte_rijbaan is not None:
                     event_ac.breedte_rijbaan = rijbaan_to_use.breedte_rijbaan
                 else:
-                    event_ac.breedte_rijbaan = (rijbaan_to_use.aantal_rijstroken, rijbaan_to_use.wegcategorie)
+                    event_ac.breedte_rijbaan = rijbaan_mapping[(rijbaan_to_use.wegcategorie, rijbaan_to_use.aantal_rijstroken)]
 
-                print(f'event ac {event_ac.id} now has breedte_rijbaan: {event_ac.breedte_rijbaan}')
             else:
                 calc_breedte = 0.0
                 lengte = event_ac.eind.positie - event_ac.begin.positie
@@ -174,9 +185,7 @@ class OffsetGeometryProcessor:
                 for rijbaan_to_use in rijbanen_dict.values():
 
                     if rijbaan_to_use.breedte_rijbaan is None:
-                        rijbaan_to_use.breedte_rijbaan = 600  # TODO needs to come from mapping
-
-                    print(f'using rijbaan with width {rijbaan_to_use.breedte_rijbaan} and length {round(rijbaan_to_use.eind.positie - rijbaan_to_use.begin.positie, 3)}')
+                        rijbaan_to_use.breedte_rijbaan = rijbaan_mapping[(rijbaan_to_use.wegcategorie, rijbaan_to_use.aantal_rijstroken)]
 
                     if rijbaan_to_use.begin.positie <= event_ac.begin.positie:
                         calc_breedte += rijbaan_to_use.breedte_rijbaan * (rijbaan_to_use.eind.positie - event_ac.begin.positie)
@@ -188,9 +197,13 @@ class OffsetGeometryProcessor:
                         calc_breedte += rijbaan_to_use.breedte_rijbaan * (rijbaan_to_use.eind.positie - rijbaan_to_use.begin.positie)
                         used_lengte += rijbaan_to_use.eind.positie - rijbaan_to_use.begin.positie
 
+                if used_lengte == 0.0 or lengte == 0:
+                    continue
+
                 if used_lengte < lengte:
-                    calc_breedte = int(calc_breedte / used_lengte)  # TODO OK? or have a %?
+                    if used_lengte / 1.0 / lengte > 0.9 or lengte - used_lengte < 50:
+                        calc_breedte = int(calc_breedte / used_lengte)
+                        event_ac.breedte_rijbaan = calc_breedte
                 else:
                     calc_breedte = int(calc_breedte / lengte)
-                print(f'calculated result breedte_rijbaan: {calc_breedte}')
-                pass
+                    event_ac.breedte_rijbaan = calc_breedte
