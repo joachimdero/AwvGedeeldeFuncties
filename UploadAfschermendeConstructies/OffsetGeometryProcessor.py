@@ -3,6 +3,7 @@ import shapely.ops
 from shapely.wkt import loads
 from shapely.geometry import LineString, Point
 from shapely.geometry.base import BaseGeometry
+from termcolor import colored
 
 from UploadAfschermendeConstructies.EventDataAC import EventDataAC
 from UploadAfschermendeConstructies.EventRijbaan import EventRijbaan
@@ -32,13 +33,15 @@ class OffsetGeometryProcessor:
                     new_shape = shapely.ops.transform(lambda x, y: (x, y, 0), shape)
                     new_wkt = new_shape.wkt
                     geom = shapely.wkt.loads(new_wkt)
+                    return geom
             except Exception as e:
                 print(e)
                 eventData.needs_offset = True
 
-        return geom
+        return None
 
-    def apply_offset(self, geometry, offset, side):
+    @staticmethod
+    def apply_offset(geometry, offset, side):
         return geometry.parallel_offset(distance=offset, side=side, join_style=2)
 
     def get_offset_params_from_eventdataAC(self, eventData: EventDataAC):
@@ -46,7 +49,7 @@ class OffsetGeometryProcessor:
             self.use_rijbaan_count += 1
             return OffsetParameters(
                 zijde=self.determine_zijde(eventData),
-                offset=eventData.breedte_rijbaan / 2000.0)
+                offset=eventData.breedte_rijbaan / 200.0)
         else:
             return OffsetParameters(
                 zijde=self.determine_zijde(eventData),
@@ -83,7 +86,6 @@ class OffsetGeometryProcessor:
                   f'is_zijde_rijbaan_L={is_zijde_rijbaan_L})')
 
         return eventData.afstand_rijbaan
-
 
     def determine_zijde(self, eventData):
         wegnr = eventData.ident8[-1]
@@ -173,10 +175,15 @@ class OffsetGeometryProcessor:
 
             if len(rijbanen_dict.values()) == 1:
                 rijbaan_to_use = list(rijbanen_dict.values())[0]
-                if rijbaan_to_use.breedte_rijbaan is not None:
+                if rijbaan_to_use.wegcategorie is not None and rijbaan_to_use.aantal_rijstroken is not None:
+                    try:
+                        event_ac.breedte_rijbaan = rijbaan_mapping[(rijbaan_to_use.wegcategorie,
+                                                                    rijbaan_to_use.aantal_rijstroken)]
+                    except KeyError:
+                        print(colored(f'no mapping for {rijbaan_to_use.wegcategorie},{rijbaan_to_use.aantal_rijstroken}', 'red'))
+                        rijbaan_to_use.breedte_rijbaan = 300
+                elif rijbaan_to_use.breedte_rijbaan is not None:
                     event_ac.breedte_rijbaan = rijbaan_to_use.breedte_rijbaan
-                else:
-                    event_ac.breedte_rijbaan = rijbaan_mapping[(rijbaan_to_use.wegcategorie, rijbaan_to_use.aantal_rijstroken)]
 
             else:
                 calc_breedte = 0.0
@@ -184,8 +191,13 @@ class OffsetGeometryProcessor:
                 used_lengte = 0.0
                 for rijbaan_to_use in rijbanen_dict.values():
 
-                    if rijbaan_to_use.breedte_rijbaan is None:
-                        rijbaan_to_use.breedte_rijbaan = rijbaan_mapping[(rijbaan_to_use.wegcategorie, rijbaan_to_use.aantal_rijstroken)]
+                    if rijbaan_to_use.wegcategorie is not None and rijbaan_to_use.aantal_rijstroken is not None:
+                        try:
+                            rijbaan_to_use.breedte_rijbaan = rijbaan_mapping[(rijbaan_to_use.wegcategorie,
+                                                                              rijbaan_to_use.aantal_rijstroken)]
+                        except KeyError:
+                            print(colored(f'no mapping for {rijbaan_to_use.wegcategorie},{rijbaan_to_use.aantal_rijstroken}', 'red'))
+                            rijbaan_to_use.breedte_rijbaan = 300
 
                     if rijbaan_to_use.begin.positie <= event_ac.begin.positie:
                         calc_breedte += rijbaan_to_use.breedte_rijbaan * (rijbaan_to_use.eind.positie - event_ac.begin.positie)

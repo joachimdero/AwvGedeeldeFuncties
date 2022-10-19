@@ -17,7 +17,9 @@ class RijbaanMappingTableProcessor:
         wb = load_workbook(filename=file_path)
         sheet = wb['Sheet1']
 
-        cells = sheet['A2': 'C41']
+        cells = sheet['A2': 'C50']
 
         for c1, c2, c3 in cells:
+            if c1.value is None:
+                c1.value = ''
             self.mapping_table[(c1.value.strip(), c2.value)] = c3.value
