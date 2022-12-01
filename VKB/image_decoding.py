@@ -1,0 +1,12 @@
+# importing base64 module
+import base64
+
+if __name__ == '__main__':
+    # open file with base64 string data
+    encoded_data = 'eNqdVVlvKzUUfkfiPwwvrE7x8e4GIU2StrfQjW65XEWq0nTamy5pSaZNezG/lUVIbK8ICYkHju1JMkk7QIkzGcfnO5/Pd44X6Q73WtmofzZIDuUSc2+/BdQx6za320mrP8qH/V6eAAM0MOrQlq6t76WbO8CPGhYHOXUcR1dBJrVk9Tq/Tj7pX50dceDsU0d9I1C8ZXw7brU1zi6DXBYsSTcdMEqpE/7HE7mXy520l/fvsg4aFAiVHF52u1ejZC0bZ6O8074eXnTS0zwbJqf97PIk6b3OehcddZQO8nE2vMkGnYatTf/UmtkgH95edXx4o6jKS8KAC8yRR3QmcS+d35yhMk3Lgan4lQ4kdefu2BkcfDPuDnN37cBnQaPBdwCbYtLd+DeOO69fOIZm/0yaG/dzd3zZvR0XA+C+FkYzI3WrJlIKNSE01FKuWI2ttKhtKdakaeMbDM3GWSBQ3/uUuh7+Tg0szHofaB/KBh5M92G2kgfDRxZUEw+g1MXKWewxHfJQhOpDpwsterBne/DneUCMauDAKk2sCH1GlSCgg88k/eAaw+yk65iSuhBSJmHB0RhpCTf/QLJx279wYLQiWBnzBBEPzlIgQkJBJBVRulgdnkqGXL7o3mVo1cYSLDJ7gksGf8GpIDTyAuWccP6Ia/RQq+E/agSxdkpFZOhFMhUDo4YTsJEM2Z4im+4Uj5ZEahAFI4Q8Rb6YakG5JSoK5QxTVJAFoki32x+cJTNOLRV4TjnlLASzSfFj06Wvp/N14AVO/keceAoHZgGogrDJhgxLT+BjZsvPL8WdhSUYHRnuafp/HLmz+tkz4vnjaqHaIxhOyu3FIB+t+wb15sbq7vbWfp2zOrNAFH5YXYrQk6ZOCRVK2xIO6qAYEdZaLeqSWQIeyJCsDBGUGM45AEL8rNaCmoeoiGCirqQIJGqBhFZaWAzA6jouOeJZ5CNfBIR5K12FLUSaRVcupI8N91pVyFWIkm6ho25E03KWS9kTOqBZRZ5n9RAyqlxIoVC8GP5XAFcqcNGFgDnEaGRYDmWDjq5aLFo0GIKxcsrDtBKAW5jXiBeRZzUK5iCokSo7lwwKeMNrf29hsIoYK8Aoj5S41NU8FNOPByWXCNWWSGs4knl3jjrnoWGlI5MuL4MnkTNSySgRFIRmFfPPQpV4rAKe01I8FgVl9X4jCWOEsJU5rIKUCmCjBiOqalcBmJVf8djjrApR2vIzAK/TcvXdHrgP3eAun54wHI+S5kZjIz1oh/fKgQOlAZSZWdvr+xGz1fRGzCAe5hPjq3a6681b2+u7kRHviu5x7yQ7PXvdP7+4vBpc33w1HOW3d+P7hzdpo9laWV17sf7Z5xubW9s7X+zu7R8ctl9++YoCw02p8Hr84Zefa0vJx+999Pv7H/y6TI6+/+7Hv/7489t3fnr3N/c3pBD4lB=='
+    # decode base64 string data
+    decoded_data = base64.b64decode((encoded_data))
+    # write the decoded data back to original format in  file
+    img_file = open('image.svg', 'wb')
+    img_file.write(decoded_data)
+    img_file.close()
