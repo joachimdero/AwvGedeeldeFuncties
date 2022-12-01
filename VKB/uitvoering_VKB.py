@@ -1,5 +1,6 @@
 import platform
 import time
+from pathlib import Path
 
 from termcolor import colored
 
@@ -8,6 +9,7 @@ from VKB.FSConnector import FSConnector
 from VKB.JsonToVkbFeatureProcessor import JsonToVkbFeatureProcessor
 from VKB.OTLMOW_Helpers.RequesterFactory import RequesterFactory
 from VKB.SettingsManager import SettingsManager
+from VKB.VkbFeatureToOTLProcessor import VkbFeatureToOTLProcessor
 
 if __name__ == '__main__':
     if platform.system() == 'Linux':
@@ -30,8 +32,12 @@ if __name__ == '__main__':
     print(colored(f'Number of lines (verkeersborden) from Feature server: {len(raw_output)}', 'green'))
     print(colored(f'Time to get input from feature server: {round(end - start, 2)}', 'yellow'))
 
-    processor = JsonToVkbFeatureProcessor()
-    features = processor.process_json_object_to_vkb_features(raw_output)
+    to_feature_processor = JsonToVkbFeatureProcessor()
+    features = to_feature_processor.process_json_object_to_vkb_features(raw_output)
+
+    to_otl_processor = VkbFeatureToOTLProcessor()
+    file_path = Path('vkb.xlsx')
+    to_otl_processor.process_to_otl(features, file_path)
 
     borden = []
     for f in features:

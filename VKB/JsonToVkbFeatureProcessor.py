@@ -123,4 +123,4 @@ class JsonToVkbFeatureProcessor:
     @staticmethod
     def FSInputToWktPoint(FSInput) -> str:
         s = ' '.join(list(map(str, FSInput)))
-        return f'POINT ({s})'
+        return f'POINT Z ({s} 0)'

@@ -12,5 +12,6 @@ class VkbSteun:
     diameter: int = -1
     kleur_key: int = -1
     sokkel_key: int = -1
+    type_key: int = -1
 
 
