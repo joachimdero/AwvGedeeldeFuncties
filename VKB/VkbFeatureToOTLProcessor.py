@@ -1,3 +1,4 @@
+import math
 from pathlib import Path
 
 from otlmow_converter.OtlmowConverter import OtlmowConverter
@@ -78,6 +79,7 @@ class VkbFeatureToOTLProcessor:
                 feature_objects.append(create_relation(source=bord, target=folie, relation=Bevestiging))
 
                 # TODO verkeersteken
+                # hoortbij leggen voor onderborden op basis van hoogte
                 teken = VerkeersbordVerkeersteken()
                 teken.assetId.identificator = f'{feature.id}_verkeersteken_{f_bord.id}'
                 if f_bord.bord_code[0] == 'G':
@@ -86,14 +88,13 @@ class VkbFeatureToOTLProcessor:
                 feature_objects.append(create_relation(source=bord, target=teken, relation=HoortBij))
 
                 # TODO verkeersbordconcept
-                # niet dubbel aanmaken indien onderbord: hoort bij een bestaand concept
                 concept = VerkeersbordConcept()
                 concept.assetId.identificator = f'{feature.id}_concept_{f_bord.id}'
                 try:
                     if f_bord.bord_code[0] in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'M'] and \
                             f_bord.bord_code not in ['FtsRt', 'E9a-GVIId', 'Gxx']:
 
-                        concept.verkeersbordCode = f_bord.bord_code  # TODO aanvullen keuzelijsten
+                        concept.verkeersbordCode = f_bord.bord_code
                 except ValueError as exc:
                     print(exc)
                 # concept.verkeersbordCategorie  # TODO aanvullen keuzelijsten
@@ -133,6 +134,8 @@ class VkbFeatureToOTLProcessor:
         if f_bord.vorm == 'rh':  # rechthoek
             bord.afmeting.vierhoekig.breedte.waarde = f_bord.breedte
             bord.afmeting.vierhoekig.hoogte.waarde = f_bord.hoogte
+
+            bord.grootteorde = VkbFeatureToOTLProcessor.return_grootte_orde(f_bord.breedte * f_bord.hoogte)
         elif f_bord.vorm == 'rt':
             if f_bord.breedte != f_bord.hoogte:
                 raise ValueError(f_bord)
@@ -145,18 +148,24 @@ class VkbFeatureToOTLProcessor:
             if f_bord.breedte not in [150, 400, 700, 900]:  # TODO 150 niet in SB
                 raise ValueError(f_bord)
             bord.afmeting.achthoekig.zijde.waarde = f_bord.breedte
+            bord.grootteorde = VkbFeatureToOTLProcessor.return_grootte_orde(
+                2 + 2 * math.sqrt(2) * f_bord.breedte * f_bord.breedte)
         elif f_bord.vorm in ['dh', 'odh']:  # driehoek of omgekeerde driehoek
             if f_bord.breedte != f_bord.hoogte:
                 raise ValueError(f_bord)
             if f_bord.breedte not in [400, 700, 900, 1100]:
                 raise ValueError(f_bord)
             bord.afmeting.driehoekig.zijde.waarde = f_bord.breedte
+            bord.grootteorde = VkbFeatureToOTLProcessor.return_grootte_orde(
+                math.sqrt(3) / 4 * f_bord.breedte * f_bord.breedte)
         elif f_bord.vorm == 'ro':  # rond
             if f_bord.breedte != f_bord.hoogte:
                 raise ValueError(f_bord)
             if f_bord.breedte not in [250, 400, 600, 700, 900, 1100]:  # TODO 250, 600 niet in SB
                 raise ValueError(f_bord)
             bord.afmeting.rond.diameter.waarde = f_bord.breedte
+            bord.grootteorde = VkbFeatureToOTLProcessor.return_grootte_orde(
+                math.pi / 4 * f_bord.breedte * f_bord.breedte)
         elif f_bord.vorm in ['wwl', 'wwr']:  # wegwijzer
             valid_dimension = False
 
@@ -186,3 +195,12 @@ class VkbFeatureToOTLProcessor:
         elif breedte == 800 and hoogte in [1500, 1750, 2000, 2250, 2500, 2750, 3000]:
             valid_dimension = True
         return valid_dimension
+
+    @staticmethod
+    def return_grootte_orde(size: float):
+        if size <= 1000000:
+            return 'klein'
+        elif size > 2000000:
+            return 'groot'
+        else:
+            return 'middelgroot'

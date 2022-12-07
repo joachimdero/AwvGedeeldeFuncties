@@ -2,6 +2,7 @@ import concurrent.futures
 
 import shapely
 import shapely.wkt
+from otlmow_converter import RelationCreator
 from otlmow_model.Classes.Onderdeel.Bevestiging import Bevestiging
 from otlmow_model.Classes.Onderdeel.Eindstuk import Eindstuk
 from otlmow_model.Classes.Onderdeel.Geleideconstructie import Geleideconstructie
