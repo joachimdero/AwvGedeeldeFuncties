@@ -32,8 +32,11 @@ if __name__ == '__main__':
     print(colored(f'Number of lines (verkeersborden) from Feature server: {len(raw_output)}', 'green'))
     print(colored(f'Time to get input from feature server: {round(end - start, 2)}', 'yellow'))
 
+    start = time.time()
     to_feature_processor = JsonToVkbFeatureProcessor()
     features = to_feature_processor.process_json_object_to_vkb_features(raw_output)
+    end = time.time()
+    print(colored(f'Processed to vkb features: {len(features)}', 'green'))
 
     to_otl_processor = VkbFeatureToOTLProcessor()
     file_path = Path('vkb.xlsx')

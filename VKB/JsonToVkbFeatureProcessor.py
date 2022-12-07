@@ -33,6 +33,10 @@ class JsonToVkbFeatureProcessor:
     def process_json_object(self, dict_list: dict) -> VkbFeature:
         vkb_feature = VkbFeature()
         vkb_feature.id = dict_list['properties']['id']
+
+        #if vkb_feature.id != 1000007:
+        #    return None
+
         if 'externalId' in dict_list['properties']:
             vkb_feature.external_id = dict_list['properties']['externalId']
         vkb_feature.wktPoint = self.FSInputToWktPoint(dict_list['geometry']['coordinates'])
@@ -58,14 +62,20 @@ class JsonToVkbFeatureProcessor:
                 if 'clientId' in bord_dict:
                     bord.client_id = bord_dict['clientId']
                 bord.bord_code = bord_dict['code']
+                bord.parameters = []
+                if len(bord_dict['parameters']) > 0:
+                    bord.parameters.extend(bord_dict['parameters'])
 
+                bord.folie_type = bord_dict['folieType']
                 bord.x = bord_dict['x']
                 bord.y = bord_dict['y']
                 bord.breedte = bord_dict['breedte']
                 bord.hoogte = bord_dict['hoogte']
                 bord.vorm = bord_dict['vorm']
+                bord.folie = bord_dict['folieType']
 
-                bord.plaatsing_datum = datetime.strptime(bord_dict['datumPlaatsing'], '%d/%m/%Y')
+                if 'datumPlaasting' in bord_dict and bord_dict['datumPlaasting'] != '01/01/1950':
+                    bord.plaatsing_datum = datetime.strptime(bord_dict['datumPlaatsing'], '%d/%m/%Y')
 
                 if 'bevestigingsProfielen' not in bord_dict:
                     print( vkb_feature.id)
@@ -75,6 +85,7 @@ class JsonToVkbFeatureProcessor:
                     bevestiging = VkbBevestiging()
                     vkb_feature.bevestigingen.append(bevestiging)
                     bevestiging.id = beugel_dict['id']
+                    bevestiging.bord_id = bord.id
                     steun_ids = set()
                     for x in beugel_dict['bevestigingen']:
                         if 'ophangingId' in x:
