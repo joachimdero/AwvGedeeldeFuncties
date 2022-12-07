@@ -3,6 +3,7 @@ import platform
 import time
 from pathlib import Path
 
+from otlmow_converter import RelationCreator
 from otlmow_converter.AssetFactory import AssetFactory
 from otlmow_converter.FileExporter import FileExporter
 from otlmow_model.Classes.ImplementatieElement.RelatieObject import RelatieObject
@@ -12,7 +13,6 @@ from UploadAfschermendeConstructies.FSConnector import FSConnector
 from UploadAfschermendeConstructies.JsonToEventDataACProcessor import JsonToEventDataACProcessor
 from UploadAfschermendeConstructies.MappingTableProcessor import MappingTableProcessor
 from UploadAfschermendeConstructies.OTLMOW_Helpers.AgentCollection import AgentCollection
-from UploadAfschermendeConstructies.OTLMOW_Helpers.RelationCreator import RelationCreator
 from UploadAfschermendeConstructies.OTLMOW_Helpers.RequesterFactory import RequesterFactory
 from UploadAfschermendeConstructies.OffsetGeometryProcessor import OffsetGeometryProcessor
 from UploadAfschermendeConstructies.RelationProcessor import RelationProcessor
@@ -48,8 +48,8 @@ def from_eventDataAC_create_asset_and_betrokkene_relation(event_data_ac):
 
                 # indien de Agent gevonden is: leg de relatie tussen asset en Agent rol berekende-beheerder
                 if agent is not None:
-                    districtrelatie = RelationCreator.create_betrokkenerelation(bron=created_otl_object,
-                                                                                             doel=agent)
+                    districtrelatie = RelationCreator.create_betrokkenerelation(source=created_otl_object,
+                                                                                target=agent)
                     districtrelatie.rol = 'berekende-beheerder'
                     lijst_otl_objecten.append(districtrelatie)
 
@@ -193,4 +193,4 @@ if __name__ == '__main__':
 
     # gebruik OTLMOW om de OTL conforme objecten weg te schrijven naar een export bestand
     exporter = FileExporter(settings=settings_manager.settings)
-    exporter.create_file_from_assets(list_of_objects=lijst_otl_objecten, filepath=Path('DAVIE_export_file_20221010.json'))
+    exporter.create_file_from_assets(list_of_objects=lijst_otl_objecten, filepath=Path('DAVIE_export_file_20221205.json'))

@@ -14,8 +14,6 @@ from otlmow_model.Classes.Onderdeel.SluitAanOp import SluitAanOp
 from rtree import index
 from shapely.geometry import Point, LineString
 
-from UploadAfschermendeConstructies.OTLMOW_Helpers.RelationCreator import RelationCreator
-
 
 class RelationProcessor:
     def __init__(self):

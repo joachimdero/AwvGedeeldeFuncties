@@ -36,7 +36,7 @@ if __name__ == '__main__':
 
     start = time.time()
     importer = FileImporter(settings=settings_manager.settings)
-    lijst_otl_objecten = importer.create_assets_from_file(filepath=Path('DAVIE_export_file_20221019.json'))
+    lijst_otl_objecten = importer.create_assets_from_file(filepath=Path('DAVIE_export_file_20221205.json'))
     end = time.time()
     print(colored(f'Time to load otl {len(lijst_otl_objecten)} assets: {round(end - start, 2)}', 'yellow'))
 
@@ -65,4 +65,4 @@ if __name__ == '__main__':
     # gebruik OTLMOW om de OTL conforme objecten weg te schrijven naar een export bestand
     exporter = FileExporter(settings=settings_manager.settings)
     exporter.create_file_from_assets(list_of_objects=lijst_otl_objecten,
-                                     filepath=Path('DAVIE_export_file_20221019_2.csv'))
+                                     filepath=Path('DAVIE_export_file_20221205_2.json'))
