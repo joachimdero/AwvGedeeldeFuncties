@@ -2,7 +2,6 @@ import concurrent.futures
 
 import shapely
 import shapely.wkt
-from otlmow_converter import RelationCreator
 from otlmow_model.Classes.Onderdeel.Bevestiging import Bevestiging
 from otlmow_model.Classes.Onderdeel.Eindstuk import Eindstuk
 from otlmow_model.Classes.Onderdeel.Geleideconstructie import Geleideconstructie
@@ -12,6 +11,7 @@ from otlmow_model.Classes.Onderdeel.NietGetestBeginstuk import NietGetestBeginst
 from otlmow_model.Classes.Onderdeel.Obstakelbeveiliger import Obstakelbeveiliger
 from otlmow_model.Classes.Onderdeel.Overgangsconstructie import Overgangsconstructie
 from otlmow_model.Classes.Onderdeel.SluitAanOp import SluitAanOp
+from otlmow_model.Helpers import RelationCreator
 from rtree import index
 from shapely.geometry import Point, LineString
 
@@ -120,16 +120,16 @@ class RelationProcessor:
             candidate = self.assets[candidate_index.id]
             if candidate.assetId.identificator == otl_asset.assetId.identificator:
                 continue
-            canditate_geom = candidate.geom
+            candidate_geom = candidate.geom
 
-            intersected_geometry = otl_asset.geom.intersection(canditate_geom)
+            intersected_geometry = otl_asset.geom.intersection(candidate_geom)
             if intersected_geometry is None:
                 continue
 
             # doorsnee = punt => nakijken of het begin- of eindpunt is, zo ja: SluitAanOp
             if isinstance(intersected_geometry, Point):
-                candidate_first_point = canditate_geom.coords[0]
-                last_candidate = canditate_geom.coords[-1]
+                candidate_first_point = candidate_geom.coords[0]
+                last_candidate = candidate_geom.coords[-1]
                 otl_asset_first_point = otl_asset.geom.coords[0]
                 otl_asset_last_point = otl_asset.geom.coords[-1]
 
@@ -152,7 +152,8 @@ class RelationProcessor:
                     continue
                 self.new_relations.append(relatie)
 
-    def clean_double_relations(self, new_relations):
+    @staticmethod
+    def clean_double_relations(new_relations):
         for relation in new_relations:
             if relation.bronAssetId.identificator < relation.doelAssetId.identificator:
                 relation.relation_id = relation.bronAssetId.identificator + relation.doelAssetId.identificator + relation.typeURI
@@ -165,9 +166,9 @@ class RelationProcessor:
         try:
             relation_params = self.relation_mapping[(asset1.typeURI, asset2.typeURI, intersected_geometry)]
             if relation_params[0] == 1:
-                return RelationCreator.create_relation(asset1, asset2, relation_params[2])
+                return RelationCreator.create_relation(source=asset1, target=asset2, relation_type=relation_params[2])
             else:
-                return RelationCreator.create_relation(asset2, asset1, relation_params[2])
+                return RelationCreator.create_relation(source=asset2, target=asset1, relation_type=relation_params[2])
         except KeyError:
             pass
 

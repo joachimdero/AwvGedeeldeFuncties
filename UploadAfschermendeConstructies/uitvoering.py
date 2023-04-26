@@ -1,4 +1,5 @@
 import concurrent.futures
+import json
 import platform
 import time
 from pathlib import Path
@@ -72,12 +73,16 @@ if __name__ == '__main__':
 
     # haal x aantal afschermende constructies uit de feature server
     fs_c = FSConnector(requester)
-    start = time.time()
-    print(colored(f'Connecting to Feature server...', 'green'))
-    raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies", lines=50000)  # beperkt tot X aantal lijnen
-    end = time.time()
-    print(colored(f'Number of lines (afschermendeconstructies) from Feature server: {len(raw_output)}', 'green'))
-    print(colored(f'Time to get input from feature server: {round(end - start, 2)}', 'yellow'))
+    # start = time.time()
+    # print(colored(f'Connecting to Feature server...', 'green'))
+    # raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies", lines=50000)  # beperkt tot X aantal lijnen
+    # end = time.time()
+    # print(colored(f'Number of lines (afschermendeconstructies) from Feature server: {len(raw_output)}', 'green'))
+    # print(colored(f'Time to get input from feature server: {round(end - start, 2)}', 'yellow'))
+    raw_output = []
+    with open('AC.json') as f:
+        raw_output = f.readlines()
+    # raw_output = raw_output[0:2000]
 
     processor = JsonToEventDataACProcessor()
 
@@ -85,20 +90,25 @@ if __name__ == '__main__':
     start = time.time()
     listEventDataAC = processor.process_json_to_list_event_data_ac(raw_output)
     end = time.time()
-    print(colored(f'Time to process feature server lines to Python dataclass objects: {round(end - start, 2)}', 'yellow'))
+    print(
+        colored(f'Time to process feature server lines to Python dataclass objects: {round(end - start, 2)}', 'yellow'))
 
-    #filter_ids = ['8797', '8796', '8798']
-    #listEventDataAC = list(filter(lambda x: x.id in filter_ids, listEventDataAC))
+    # filter_ids = ['8797', '8796', '8798']
+    # listEventDataAC = list(filter(lambda x: x.id in filter_ids, listEventDataAC))
 
     print(colored(f'Number of event data objects: {len(listEventDataAC)}', 'green'))
 
     # haal x aantal rijbanen uit de feature server
-    start = time.time()
-    print(colored(f'Connecting to Feature server...', 'green'))
-    raw_output_rijbanen = fs_c.get_raw_lines(layer="rijbanen", lines=50000)  # beperkt tot X aantal lijnen
-    end = time.time()
-    print(colored(f'Number of lines (rijbanen) from Feature server: {len(raw_output_rijbanen)}', 'green'))
-    print(colored(f'Time to get input from feature server: {round(end - start, 2)}', 'yellow'))
+    # start = time.time()
+    # print(colored(f'Connecting to Feature server...', 'green'))
+    # raw_output_rijbanen = fs_c.get_raw_lines(layer="rijbanen", lines=50000)  # beperkt tot X aantal lijnen
+    # end = time.time()
+    # print(colored(f'Number of lines (rijbanen) from Feature server: {len(raw_output_rijbanen)}', 'green'))
+    # print(colored(f'Time to get input from feature server: {round(end - start, 2)}', 'yellow'))
+    raw_output_rijbanen = []
+    with open('rijbanen.json') as f:
+        raw_output_rijbanen = f.readlines()
+    # raw_output_rijbanen = raw_output_rijbanen[0:2000]
 
     # verwerk de input van de feature server tot een lijst van EventDataAC objecten
     start = time.time()
@@ -114,7 +124,6 @@ if __name__ == '__main__':
     ogp.add_rijbaan_breedte_to_event_data_ac(listEventDataAC, list_rijbanen)
     end = time.time()
     print(colored(f'Time to add rijbaan breedte to ac events: {round(end - start, 2)}', 'yellow'))
-
 
     # gebruik RelationProcessor om kandidaten voor relaties alvast op te lijsten op de asset zelf
     start = time.time()
@@ -156,7 +165,6 @@ if __name__ == '__main__':
     print(colored(f'Number of event data objects with an offset geometry: {offset_count}', 'green'))
     print(colored(f'Number of event data objects using rijbaan data to offset: {ogp.use_rijbaan_count}', 'blue'))
 
-
     # gebruik MappingTableProcessor om de events om te zetten naar OTL conforme objecten adhv de mapping tabel in Excel
     # vul zoveel mogelijk data in, inclusief attributen
     start = time.time()
@@ -185,6 +193,8 @@ if __name__ == '__main__':
     # opkuis: tijdelijk attribuut eventDataAC op OTL conform object weghalen
     for otl_object in lijst_otl_objecten:
         if hasattr(otl_object, 'eventDataAC'):
+            otl_object.bestekPostNummer = [f'begin:{otl_object.eventDataAC.begin.positie}',
+                                           f'eind:{otl_object.eventDataAC.eind.positie}']
             delattr(otl_object, 'eventDataAC')
 
     print(colored(f'Number of OTL compliant object (assets + relations): {len(lijst_otl_objecten)}', 'green'))
@@ -193,4 +203,5 @@ if __name__ == '__main__':
 
     # gebruik OTLMOW om de OTL conforme objecten weg te schrijven naar een export bestand
     exporter = FileExporter(settings=settings_manager.settings)
-    exporter.create_file_from_assets(list_of_objects=lijst_otl_objecten, filepath=Path('DAVIE_export_file_20221205.json'))
+    exporter.create_file_from_assets(list_of_objects=lijst_otl_objecten,
+                                     filepath=Path('DAVIE_export_file_20221205.json'))

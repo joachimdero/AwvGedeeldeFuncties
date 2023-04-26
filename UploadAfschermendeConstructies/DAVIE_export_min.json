@@ -1,0 +1,135 @@
+[
+    {
+        "assetId": {
+            "identificator": "9179_-_e3453d77-45f6-4821-9087-c944cb232e54-cHVybDpBZ2VudA",
+            "toegekendDoor": "OTLMOW"
+        },
+        "bronAssetId": {
+            "identificator": "9179",
+            "toegekendDoor": "UploadAfschermendeConstructies"
+        },
+        "doelAssetId": {
+            "identificator": "e3453d77-45f6-4821-9087-c944cb232e54-cHVybDpBZ2VudA",
+            "toegekendDoor": "AWV"
+        },
+        "rol": "berekende-beheerder",
+        "typeURI": "https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#HeeftBetrokkene"
+    },
+    {
+        "assetId": {
+            "identificator": "9179",
+            "toegekendDoor": "UploadAfschermendeConstructies"
+        },
+        "bestekPostNummer": [
+            "begin:0.439",
+            "eind:0.441"
+        ],
+        "datumOprichtingObject": "2013-05-10",
+        "geometry": "LINESTRING Z (155562.183 211752.276 0, 155562.244 211750.283 0)",
+        "materiaal": "in-situ-beton",
+        "typeURI": "https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#Eindstuk"
+    },
+    {
+        "assetId": {
+            "identificator": "9178_-_9179",
+            "toegekendDoor": "OTLMOW"
+        },
+        "bron": {
+            "typeURI": "https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#Geleideconstructie"
+        },
+        "bronAssetId": {
+            "identificator": "9178",
+            "toegekendDoor": "UploadAfschermendeConstructies"
+        },
+        "doel": {
+            "typeURI": "https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#Eindstuk"
+        },
+        "doelAssetId": {
+            "identificator": "9179",
+            "toegekendDoor": "UploadAfschermendeConstructies"
+        },
+        "typeURI": "https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#SluitAanOp"
+    },
+    {
+        "assetId": {
+            "identificator": "9178_-_e3453d77-45f6-4821-9087-c944cb232e54-cHVybDpBZ2VudA",
+            "toegekendDoor": "OTLMOW"
+        },
+        "bronAssetId": {
+            "identificator": "9178",
+            "toegekendDoor": "UploadAfschermendeConstructies"
+        },
+        "doelAssetId": {
+            "identificator": "e3453d77-45f6-4821-9087-c944cb232e54-cHVybDpBZ2VudA",
+            "toegekendDoor": "AWV"
+        },
+        "rol": "berekende-beheerder",
+        "typeURI": "https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#HeeftBetrokkene"
+    },
+    {
+        "assetId": {
+            "identificator": "9178",
+            "toegekendDoor": "UploadAfschermendeConstructies"
+        },
+        "bestekPostNummer": [
+            "begin:0.359",
+            "eind:0.439"
+        ],
+        "datumOprichtingObject": "2013-05-10",
+        "geometry": "LINESTRING Z (155564.047 211831.522 0, 155562.962 211825.97 0, 155561.361 211813.629 0, 155560.599 211803.56 0, 155561.141 211785.99 0, 155561.718 211767.316 0, 155562.183 211752.276 0)",
+        "materiaal": "in-situ-beton",
+        "notitie": "brug:Ja",
+        "typeURI": "https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#Geleideconstructie"
+    },
+    {
+        "assetId": {
+            "identificator": "9177_-_e3453d77-45f6-4821-9087-c944cb232e54-cHVybDpBZ2VudA",
+            "toegekendDoor": "OTLMOW"
+        },
+        "bronAssetId": {
+            "identificator": "9177",
+            "toegekendDoor": "UploadAfschermendeConstructies"
+        },
+        "doelAssetId": {
+            "identificator": "e3453d77-45f6-4821-9087-c944cb232e54-cHVybDpBZ2VudA",
+            "toegekendDoor": "AWV"
+        },
+        "rol": "berekende-beheerder",
+        "typeURI": "https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#HeeftBetrokkene"
+    },
+    {
+        "assetId": {
+            "identificator": "9177",
+            "toegekendDoor": "UploadAfschermendeConstructies"
+        },
+        "bestekPostNummer": [
+            "begin:0.356",
+            "eind:0.359"
+        ],
+        "datumOprichtingObject": "2013-05-10",
+        "geometry": "LINESTRING Z (155564.628 211834.497 0, 155564.047 211831.522 0)",
+        "materiaal": "in-situ-beton",
+        "typeURI": "https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#Eindstuk"
+    },
+    {
+        "assetId": {
+            "identificator": "9178_-_9177",
+            "toegekendDoor": "OTLMOW"
+        },
+        "bron": {
+            "typeURI": "https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#Geleideconstructie"
+        },
+        "bronAssetId": {
+            "identificator": "9178",
+            "toegekendDoor": "UploadAfschermendeConstructies"
+        },
+        "doel": {
+            "typeURI": "https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#Eindstuk"
+        },
+        "doelAssetId": {
+            "identificator": "9177",
+            "toegekendDoor": "UploadAfschermendeConstructies"
+        },
+        "typeURI": "https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#SluitAanOp"
+    }
+]
