@@ -1,4 +1,4 @@
-import concurrent
+import concurrent.futures
 import logging
 import platform
 import time
@@ -6,8 +6,6 @@ from pathlib import Path
 
 from otlmow_converter.FileExporter import FileExporter
 from otlmow_converter.FileImporter import FileImporter
-from otlmow_model.BaseClasses.OTLObject import OTLObject
-from otlmow_model.Classes.ImplementatieElement.AIMObject import AIMObject
 from otlmow_model.Classes.ImplementatieElement.RelatieObject import RelatieObject
 from otlmow_model.Classes.Onderdeel.Eindstuk import Eindstuk
 from otlmow_model.Classes.Onderdeel.NietConformBegin import NietConformBegin
@@ -15,7 +13,6 @@ from otlmow_model.Classes.Onderdeel.SluitAanOp import SluitAanOp
 from termcolor import colored
 
 from UploadAfschermendeConstructies.OTLMOW_Helpers.RequesterFactory import RequesterFactory
-from UploadAfschermendeConstructies.RelationProcessor import RelationProcessor
 from UploadAfschermendeConstructies.SettingsManager import SettingsManager
 
 
@@ -50,6 +47,8 @@ class BeginstukProcessor:
                 eindstuk_begin = float(el.split(':')[1])
             elif el.startswith('eind'):
                 eindstuk_einde = float(el.split(':')[1])
+            elif el.startswith('ident8'):
+                eindstuk_ident8 = el.split(':')[1]
 
         for el in bron.bestekPostNummer:
             if el.startswith('begin'):
@@ -57,16 +56,19 @@ class BeginstukProcessor:
             elif el.startswith('eind'):
                 bron_einde = float(el.split(':')[1])
 
-        if abs(bron_einde - eindstuk_begin) <= 0.005:
-            # eindstuk okee
-            return
-        if abs(eindstuk_einde - bron_begin) <= 0.005:
-            # fix eindstuk
-            # TODO bron en doel wisselen
+        if abs(bron_einde - eindstuk_begin) <= 0.005 and eindstuk_ident8.endswith('2'):
             d = eindstuk.create_dict_from_asset()
-
-            # eindstuk.relaties[0].doel.typeURI = NietConformBegin.typeURI
-            # eindstuk.relaties[0].doel, eindstuk.relaties[0].bron = eindstuk.relaties[0].bron, eindstuk.relaties[0].doel
+            del d['bestekPostNummer']
+            del d['typeURI']
+            if hasattr(d, 'productidentificatiecode'):
+                del d['productidentificatiecode']
+            nieuwe_asset = NietConformBegin.from_dict(d)
+            self.objects_to_delete.append(eindstuk)
+            self.new_objects.append(nieuwe_asset)
+            return
+        if abs(eindstuk_einde - bron_begin) <= 0.005 and eindstuk_ident8.endswith('1'):
+            # fix eindstuk
+            d = eindstuk.create_dict_from_asset()
 
             eindstuk.relaties[0].bronAssetId, eindstuk.relaties[0].doelAssetId = eindstuk.relaties[0].doelAssetId, eindstuk.relaties[0].bronAssetId
 
@@ -124,7 +126,7 @@ if __name__ == '__main__':
 
     start = time.time()
     importer = FileImporter(settings=settings_manager.settings)
-    lijst_otl_objecten = importer.create_assets_from_file(filepath=Path('DAVIE_export_file_20230426_2.json'))
+    lijst_otl_objecten = importer.create_assets_from_file(filepath=Path('DAVIE_export_file_20230428_2.json'))
     end = time.time()
     print(colored(f'Time to load otl {len(lijst_otl_objecten)} assets: {round(end - start, 2)}', 'yellow'))
 
@@ -153,4 +155,4 @@ if __name__ == '__main__':
     # gebruik OTLMOW om de OTL conforme objecten weg te schrijven naar een export bestand
     exporter = FileExporter(settings=settings_manager.settings)
     exporter.create_file_from_assets(list_of_objects=lijst_otl_objecten,
-                                     filepath=Path('DAVIE_export_file_20230426_3.json'))
+                                     filepath=Path('DAVIE_export_file_20230428_3.json'))

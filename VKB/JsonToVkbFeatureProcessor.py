@@ -30,20 +30,28 @@ class JsonToVkbFeatureProcessor:
 
         return return_list
 
+    def process_json_object_and_add_to_list(self, dict_list: dict, features: list) -> None:
+        features.append(self.process_json_object(dict_list))
+
     def process_json_object(self, dict_list: dict) -> VkbFeature:
         vkb_feature = VkbFeature()
         vkb_feature.id = dict_list['properties']['id']
 
-        #if vkb_feature.id != 1000007:
-        #    return None
+        # if vkb_feature.id != 1001003:
+        #     return None
 
         if 'externalId' in dict_list['properties']:
             vkb_feature.external_id = dict_list['properties']['externalId']
         vkb_feature.wktPoint = self.FSInputToWktPoint(dict_list['geometry']['coordinates'])
+        vkb_feature.coords = dict_list['geometry']['coordinates']
         vkb_feature.beheerder_key = dict_list['properties']['beheerder']['key']
+        if 'wegenregisterCode' in dict_list['properties']['beheerder']:
+            vkb_feature.beheerder_code = dict_list['properties']['beheerder']['wegenregisterCode']
+        vkb_feature.beheerder_naam = dict_list['properties']['beheerder']['naam']
         vkb_feature.borden = []
         vkb_feature.bevestigingen = []
         vkb_feature.steunen = []
+        vkb_feature.wegsegment_ids = []
 
         for aanzicht in dict_list['properties']['aanzichten']:
             aanzicht_hoek = round(aanzicht['hoek'] * 180.0 / math.pi, 1)
@@ -51,6 +59,7 @@ class JsonToVkbFeatureProcessor:
                 aanzicht_hoek += 360.0
             if aanzicht_hoek > 360.0:
                 aanzicht_hoek = aanzicht_hoek % 360.0
+            vkb_feature.wegsegment_ids.append(aanzicht['wegsegmentid'])
 
             for bord_dict in aanzicht['borden']:
                 bord = VkbBord()
@@ -66,13 +75,13 @@ class JsonToVkbFeatureProcessor:
                 if len(bord_dict['parameters']) > 0:
                     bord.parameters.extend(bord_dict['parameters'])
 
-                bord.folie_type = bord_dict['folieType']
+                if 'folieType' in bord_dict:
+                    bord.folie_type = bord_dict['folieType']
                 bord.x = bord_dict['x']
                 bord.y = bord_dict['y']
                 bord.breedte = bord_dict['breedte']
                 bord.hoogte = bord_dict['hoogte']
                 bord.vorm = bord_dict['vorm']
-                bord.folie = bord_dict['folieType']
 
                 if 'datumPlaasting' in bord_dict and bord_dict['datumPlaasting'] != '01/01/1950':
                     bord.plaatsing_datum = datetime.strptime(bord_dict['datumPlaatsing'], '%d/%m/%Y')

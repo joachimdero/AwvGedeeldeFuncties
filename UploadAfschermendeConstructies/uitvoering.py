@@ -1,13 +1,11 @@
 import concurrent.futures
-import json
 import platform
 import time
 from pathlib import Path
 
-from otlmow_converter import RelationCreator
-from otlmow_converter.AssetFactory import AssetFactory
 from otlmow_converter.FileExporter import FileExporter
 from otlmow_model.Classes.ImplementatieElement.RelatieObject import RelatieObject
+from otlmow_model.Helpers import RelationCreator
 from termcolor import colored
 
 from UploadAfschermendeConstructies.FSConnector import FSConnector
@@ -49,9 +47,9 @@ def from_eventDataAC_create_asset_and_betrokkene_relation(event_data_ac):
 
                 # indien de Agent gevonden is: leg de relatie tussen asset en Agent rol berekende-beheerder
                 if agent is not None:
+                    agent.assetId = agent.agentId
                     districtrelatie = RelationCreator.create_betrokkenerelation(source=created_otl_object,
-                                                                                target=agent)
-                    districtrelatie.rol = 'berekende-beheerder'
+                                                                                target=agent, rol='berekende-beheerder')
                     lijst_otl_objecten.append(districtrelatie)
 
             lijst_otl_objecten.append(created_otl_object)
@@ -194,7 +192,8 @@ if __name__ == '__main__':
     for otl_object in lijst_otl_objecten:
         if hasattr(otl_object, 'eventDataAC'):
             otl_object.bestekPostNummer = [f'begin:{otl_object.eventDataAC.begin.positie}',
-                                           f'eind:{otl_object.eventDataAC.eind.positie}']
+                                           f'eind:{otl_object.eventDataAC.eind.positie}',
+                                           f'ident8:{otl_object.eventDataAC.ident8}']
             delattr(otl_object, 'eventDataAC')
 
     print(colored(f'Number of OTL compliant object (assets + relations): {len(lijst_otl_objecten)}', 'green'))
@@ -204,4 +203,4 @@ if __name__ == '__main__':
     # gebruik OTLMOW om de OTL conforme objecten weg te schrijven naar een export bestand
     exporter = FileExporter(settings=settings_manager.settings)
     exporter.create_file_from_assets(list_of_objects=lijst_otl_objecten,
-                                     filepath=Path('DAVIE_export_file_20221205.json'))
+                                     filepath=Path('DAVIE_export_file_20230428.json'))

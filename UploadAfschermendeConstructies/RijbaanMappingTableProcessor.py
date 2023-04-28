@@ -1,10 +1,4 @@
-from datetime import datetime
-
 from openpyxl import load_workbook
-from otlmow_converter.AssetFactory import AssetFactory
-from otlmow_model.Classes.Abstracten.SchokindexVoertuigkering import SchokindexVoertuigkering
-
-from UploadAfschermendeConstructies.EventDataAC import EventDataAC
 
 
 class RijbaanMappingTableProcessor:
