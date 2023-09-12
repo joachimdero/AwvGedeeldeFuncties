@@ -53,6 +53,7 @@ class MappingTableProcessor:
 
         for instance in instance_list:
             instance.assetId.toegekendDoor = 'UploadAfschermendeConstructies'
+            instance.toestand = 'in-gebruik'
 
             if instance.typeURI == 'https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#SchampkantStd':
                 if resultaat_mapping[5] == 'beton':
