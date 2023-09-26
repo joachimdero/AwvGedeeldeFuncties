@@ -19,12 +19,16 @@ if __name__ == '__main__':
 
     # df = pd.read_json('demofile.json')
 
-    with open('demofile.json') as json_file:
-        data = json.load(json_file)
-    df = pd.json_normalize(data)
+    with open('AC.json') as json_file:
+        raw_output = json_file.readlines()
+        dict_list = []
+        for el in raw_output:
+            dict_list.append(json.loads(el.replace('\n', '')))
+    df = pd.json_normalize(dict_list)
 
     pd.set_option('display.max_rows', None)
     print(df.dtypes)
+    df.to_csv('analyse_pandas_AC.csv', sep='\t')
 
     df_grouped = df.groupby(['properties.type', 'properties.materiaal', 'properties.product', 'properties.fabrikant'], dropna=False).size()
     df_grouped.to_csv('analyse_afschermende_constructies.csv', sep='\t')
