@@ -39,6 +39,9 @@ class JsonToEventDataACProcessor:
             eventDataAC.gebied = dict_list["properties"]["gebied"]
         eventDataAC.schokindex = dict_list["properties"]["schokindex"]
         eventDataAC.id = dict_list["properties"]["id"]
+        eventDataAC.werkingsbreedte = dict_list["properties"]["werkingsbreedte"]
+        eventDataAC.kerend_vermogen = dict_list["properties"]["kerendvermogen"]
+        eventDataAC.voertuig_overhelling = dict_list["properties"]["voertuigoverhelling"]
 
         eventDataAC.zijde_rijbaan = dict_list["properties"]["zijderijbaan"]
         afstand_rijbaan = dict_list["properties"]["afstandrijbaan"]

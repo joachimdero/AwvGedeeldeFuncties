@@ -1,7 +1,10 @@
 from datetime import datetime
 
 from openpyxl import load_workbook
+from otlmow_model.Classes.Abstracten.EigenschappenVoertuigkering import EigenschappenVoertuigkering
 from otlmow_model.Classes.Abstracten.SchokindexVoertuigkering import SchokindexVoertuigkering
+from otlmow_model.Classes.Onderdeel.Geleideconstructie import Geleideconstructie
+from otlmow_model.Classes.Onderdeel.Motorvangplank import Motorvangplank
 from otlmow_model.Helpers.AssetCreator import dynamic_create_instance_from_ns_and_name
 
 from UploadAfschermendeConstructies.EventDataAC import EventDataAC
@@ -17,10 +20,11 @@ class MappingTableProcessor:
         wb = load_workbook(filename=file_path)
         sheet = wb['mapping']
 
-        cells = sheet['A2': 'H153']
+        cells = sheet['A2': 'J153']
 
-        for c1, c2, c3, c4, c5, c6, c7, c8 in cells:
-            self.mapping_table.append([c1.value, c2.value, c3.value, c4.value, c5.value, c6.value, c7.value, c8.value])
+        for c1, c2, c3, c4, c5, c6, c7, c8, c9, c10 in cells:
+            self.mapping_table.append([c1.value, c2.value, c3.value, c4.value, c5.value, c6.value, c7.value,
+                                       c8.value, c9.value, c10.value])
 
     def create_otl_objects_from_eventDataAC(self, eventDataAC: EventDataAC) -> []:
         resultaat_mapping = self.find_mapping_record_based_on_product(eventDataAC.product)
@@ -55,6 +59,8 @@ class MappingTableProcessor:
             instance.assetId.toegekendDoor = 'UploadAfschermendeConstructies'
             instance.toestand = 'in-gebruik'
 
+
+
             if instance.typeURI == 'https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#SchampkantStd':
                 if resultaat_mapping[5] == 'beton':
                     instance.soort = 'betonnen schampkant'
@@ -68,6 +74,8 @@ class MappingTableProcessor:
 
                 if resultaat_mapping[7] is not None and str(resultaat_mapping[7]) != 'None':
                     instance.productidentificatiecode.productidentificatiecode = resultaat_mapping[7]
+                if resultaat_mapping[9] is not None and str(resultaat_mapping[9]) != 'None':
+                    instance.productnaam = resultaat_mapping[7]
 
             MappingTableProcessor.fill_instance(instance=instance, eventDataAC=eventDataAC)
 
@@ -90,9 +98,30 @@ class MappingTableProcessor:
         d = datetime.date(dt)
         instance.datumOprichtingObject = d
 
-        if eventDataAC.schokindex != '' and eventDataAC.schokindex is not None and isinstance(instance,
-                                                                                              SchokindexVoertuigkering):
-            instance.schokindex = str.lower(eventDataAC.schokindex)
+
+
+        if eventDataAC.schokindex != '' and eventDataAC.schokindex is not None:
+            if isinstance(instance, SchokindexVoertuigkering):
+                instance.schokindex = str.lower(eventDataAC.schokindex)
+            elif isinstance(instance, Motorvangplank):
+                pass
+                # TODO value 'A' is not valid (should be 'level-1' or 'level-2')
+                # instance.schokindexMvp = str.lower(eventDataAC.schokindex)
+
+        if eventDataAC.werkingsbreedte != '' and eventDataAC.werkingsbreedte is not None:
+            if isinstance(instance,Geleideconstructie):
+                instance.werkingsbreedte = eventDataAC.werkingsbreedte
+            elif isinstance(instance, Motorvangplank):
+                wb = int(eventDataAC.werkingsbreedte[1:])
+                instance.werkingsbreedteMvpwd.waarde = wb
+
+        if eventDataAC.kerend_vermogen != '' and eventDataAC.kerend_vermogen is not None and \
+                isinstance(instance, EigenschappenVoertuigkering):
+            instance.kerendVermogen = eventDataAC.kerend_vermogen
+
+        if eventDataAC.voertuig_overhelling != '' and eventDataAC.voertuig_overhelling is not None and \
+                isinstance(instance, EigenschappenVoertuigkering):
+            instance.voertuigOverhelling = eventDataAC.voertuig_overhelling.replace('VI', 'vIn')
 
     @staticmethod
     def get_class_name(otl_type):

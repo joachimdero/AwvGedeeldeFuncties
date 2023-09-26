@@ -203,4 +203,4 @@ if __name__ == '__main__':
     # gebruik OTLMOW om de OTL conforme objecten weg te schrijven naar een export bestand
     exporter = FileExporter(settings=settings_manager.settings)
     exporter.create_file_from_assets(list_of_objects=lijst_otl_objecten,
-                                     filepath=Path('DAVIE_export_file_20230428.json'))
+                                     filepath=Path('DAVIE_export_file_20230926.json'))
