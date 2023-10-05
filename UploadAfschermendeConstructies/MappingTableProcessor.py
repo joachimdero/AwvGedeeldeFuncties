@@ -59,8 +59,6 @@ class MappingTableProcessor:
             instance.assetId.toegekendDoor = 'UploadAfschermendeConstructies'
             instance.toestand = 'in-gebruik'
 
-
-
             if instance.typeURI == 'https://wegenenverkeer.data.vlaanderen.be/ns/onderdeel#SchampkantStd':
                 if resultaat_mapping[5] == 'beton':
                     instance.soort = 'betonnen schampkant'
@@ -75,7 +73,7 @@ class MappingTableProcessor:
                 if resultaat_mapping[7] is not None and str(resultaat_mapping[7]) != 'None':
                     instance.productidentificatiecode.productidentificatiecode = resultaat_mapping[7]
                 if resultaat_mapping[9] is not None and str(resultaat_mapping[9]) != 'None':
-                    instance.productnaam = resultaat_mapping[7]
+                    instance.productnaam = resultaat_mapping[9]
 
             MappingTableProcessor.fill_instance(instance=instance, eventDataAC=eventDataAC)
 
