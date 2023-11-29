@@ -11,6 +11,23 @@ class AgentCollection:
         self.requester = requester
         self.cache = {}
 
+    def get_agent_by_uuid(self, uuid: str = ''):
+        if uuid in self.cache:
+            return self.cache[uuid]
+
+        url = f"eminfra/core/api/otl/agents/{uuid}"
+        response = self.requester.get(url)
+        data = response.content.decode("utf-8")
+        agent_obj = json.loads(data)
+
+        agent = Agent()
+        agent.agentId.identificator = agent_obj['@id'].replace('https://data.awvvlaanderen.be/id/asset/', '')
+        agent.agentId.toegekendDoor = 'AWV'
+        agent.naam = agent_obj['purl:Agent.naam']
+
+        self.cache[uuid] = agent
+        return agent
+
     def get_agent_by_full_name(self, full_name: str = ''):
         if full_name in self.cache:
             return self.cache[full_name]

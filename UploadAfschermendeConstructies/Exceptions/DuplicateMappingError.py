@@ -1,0 +1,2 @@
+class DuplicateMappingError(Exception):
+    pass

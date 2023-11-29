@@ -1,30 +1,41 @@
 import json
+import platform
 
 import pandas as pd
 
 from FSConnector import FSConnector
+from UploadAfschermendeConstructies.OTLMOW_Helpers.RequesterFactory import RequesterFactory
+from UploadAfschermendeConstructies.SettingsManager import SettingsManager
 
 if __name__ == '__main__':
-    # fs_c = FSConnector()
-    # cert_path = r'C:\resources\datamanager_eminfra_prd.awv.vlaanderen.be.crt'
-    # key_path = r'C:\resources\datamanager_eminfra_prd.awv.vlaanderen.be.key'
-    # raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies",
-    #                                 cert_path=cert_path,
-    #                                 key_path=key_path)
+    # if platform.system() == 'Linux':
+    #     OTLMOW_settings_path = '/home/davidlinux/Documents/AWV/resources/settings_OTLMOW.json'
+    #     this_settings_path = 'settings_OTLMOW_linux.json'
+    # else:
+    #     OTLMOW_settings_path = 'C:\\resources\\settings_OTLMOW.json'
+    #     this_settings_path = 'C:\\resources\\settings_AWVGedeeldeFuncties.json'
     #
-    # f = open("demofile.json", "w")
-    # f.write('[' + ',\n'.join(raw_output) + ']')
-    # f.close()
+    # # een aantal classes uit OTLMOW library gebruiken
+    # settings_manager = SettingsManager(settings_path=this_settings_path)
+    # requester = RequesterFactory.create_requester(settings=settings_manager.settings, auth_type='cert', env='prd')
     #
+    # fs_c = FSConnector(requester)
+    #
+    # raw_output = fs_c.get_raw_lines(layer="afschermendeconstructies")
+    #
+    # with open("AC.json", "w") as f:
+    #     f.write('[' + ',\n'.join(raw_output) + ']')
 
-    # df = pd.read_json('demofile.json')
+    # with open('AC.json') as json_file:
+    #     raw_output = json_file.readlines()
+    #     dict_list = []
+    #     for el in raw_output:
+    #         dict_list.append(json.loads(el.replace('\n', '')))
+    # df = pd.json_normalize(dict_list)
 
     with open('AC.json') as json_file:
-        raw_output = json_file.readlines()
-        dict_list = []
-        for el in raw_output:
-            dict_list.append(json.loads(el.replace('\n', '')))
-    df = pd.json_normalize(dict_list)
+        data = json.load(json_file)
+    df = pd.json_normalize(data)
 
     pd.set_option('display.max_rows', None)
     print(df.dtypes)

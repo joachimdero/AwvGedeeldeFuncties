@@ -1,4 +1,5 @@
 import json
+from typing import Union
 
 from UploadAfschermendeConstructies.EventRijbaan import EventRijbaan
 from UploadAfschermendeConstructies.EventDataAC import EventDataAC
@@ -50,6 +51,9 @@ class JsonToEventDataACProcessor:
 
         return eventDataAC
 
+    def process_json_file_to_list_event_data_ac(self, json_data: Union[list, dict]) -> [EventDataAC]:
+        return [self.process_json_object_or_list_ac(el) for el in json_data]
+
     def process_json_to_list_event_data_ac(self, jsonList) -> [EventDataAC]:
         returnlist = []
 
@@ -87,10 +91,7 @@ class JsonToEventDataACProcessor:
         if not is_list:
             return self.process_json_to_event_rijbaan(dict_list)
 
-        l = []
-        for obj in dict_list:
-            l.append(self.process_json_to_event_rijbaan(obj))
-        return l
+        return [self.process_json_to_event_rijbaan(obj) for obj in dict_list]
 
     def process_json_to_event_rijbaan(self, dict_list):
         event_rijbaan = EventRijbaan()

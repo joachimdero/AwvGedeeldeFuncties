@@ -8,6 +8,8 @@ from otlmow_model.Classes.Onderdeel.Motorvangplank import Motorvangplank
 from otlmow_model.Helpers.AssetCreator import dynamic_create_instance_from_ns_and_name
 
 from UploadAfschermendeConstructies.EventDataAC import EventDataAC
+from UploadAfschermendeConstructies.Exceptions.DuplicateMappingError import DuplicateMappingError
+from UploadAfschermendeConstructies.Exceptions.NoMappingRecordFound import NoMappingRecordFound
 
 
 class MappingTableProcessor:
@@ -137,10 +139,8 @@ class MappingTableProcessor:
         elif len(resultaten) == 0:
             if product.strip() != product:
                 return self.find_mapping_record_based_on_product(product.strip())
-            raise NotImplementedError('could not find a mapping record')
+            raise NoMappingRecordFound('could not find a mapping record')
 
         return resultaten[0]
 
 
-class DuplicateMappingError(Exception):
-    pass

@@ -5,7 +5,7 @@ class FSConnector:
     def __init__(self, requester):
         self.requester = requester
 
-    def get_raw_lines(self, layer, lines: int = -1) -> object:
+    def get_raw_lines(self, layer, lines: int = -1) -> [str]:
 
         url = f'geolatte-nosqlfs/cert/api/databases/featureserver/{layer}/query'
         if lines > -1:

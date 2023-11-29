@@ -1,4 +1,5 @@
 import concurrent.futures
+import json
 import platform
 import time
 from pathlib import Path
@@ -8,6 +9,7 @@ from otlmow_model.Classes.ImplementatieElement.RelatieObject import RelatieObjec
 from otlmow_model.Helpers import RelationCreator
 from termcolor import colored
 
+from UploadAfschermendeConstructies.Exceptions.NoMappingRecordFound import NoMappingRecordFound
 from UploadAfschermendeConstructies.FSConnector import FSConnector
 from UploadAfschermendeConstructies.JsonToEventDataACProcessor import JsonToEventDataACProcessor
 from UploadAfschermendeConstructies.MappingTableProcessor import MappingTableProcessor
@@ -16,6 +18,36 @@ from UploadAfschermendeConstructies.OTLMOW_Helpers.RequesterFactory import Reque
 from UploadAfschermendeConstructies.OffsetGeometryProcessor import OffsetGeometryProcessor
 from UploadAfschermendeConstructies.RelationProcessor import RelationProcessor
 from UploadAfschermendeConstructies.SettingsManager import SettingsManager
+
+agent_mapping = {
+    'AWV_112': '4da75061-c08c-49f4-9808-fd7dc32038c8',
+    'AWV_114': '445786bd-30a9-48d3-8401-c2d88b3db36a',
+    'AWV_121': 'e3453d77-45f6-4821-9087-c944cb232e54',
+    'AWV_123': '97684361-4b4b-4f56-b9fa-ba18b91c2f05',
+    'AWV_125': 'c04fa312-55f9-4698-a463-0946d00daebf',
+    'AWV_211': '4135d43a-6c7f-4e68-ae62-e379afb75244',
+    'AWV_212': '54e3e789-a590-4f7a-bb31-daf4f48f822a',
+    'AWV_213': '11efae3b-dc9b-451b-a79d-c2282cc2e71a',
+    'AWV_214': '3c3cbc6b-28c5-4469-9cde-699d319b9938',
+    'AWV_311': 'f514b0d6-8117-44c9-bcfb-5152ca7b9356',
+    'AWV_312': '03b34e67-1629-44c9-9564-371ae3d689f4',
+    'AWV_313': 'd4135cc3-e327-42fd-a0fb-498514c74935',
+    'AWV_315': '74e94ca2-7721-451d-8ba0-e94fa808a725',
+    'AWV_316': '8990d41d-c072-4175-a224-9963d5bd511d',
+    'AWV_411': '942aaaf3-b3cc-49f6-be6e-0da91e0967e1',
+    'AWV_412': '0eeceb64-2e85-4c34-ae94-7e6a542ff781',
+    'AWV_413': '1e5d1ab3-9994-4eb2-a6e3-5a5bccbbec0f',
+    'AWV_414': '6b17aa4e-0fce-4377-b20f-48cb4c220667',
+    'AWV_415': '72b71416-3c22-482e-b532-4e476e354129',
+    'AWV_717': '8b1f527d-ddd3-43cc-85c6-1e1e3d46bcd0',
+    'AWV_718': '422c0b96-8329-4c68-ab5f-c6527252386a',
+    'AWV_719': 'cab151d8-d822-48ad-9185-5a403eecb10b',
+    'AWV_720': 'aef92058-acef-4ce2-8af9-9908da8beaba',
+    'AWV_EW_AN': 'e1b13de8-9faf-4b53-b516-e26a85d9ae17',
+    'AWV_EW_LB': '665df1af-3833-497f-a5a2-56ad0f96b637',
+    'AWV_EW_OV': 'c105ad17-e1c1-430e-a0a9-0b04d95d81b7',
+    'AWV_EW_VB': '397cd2c9-34b8-4a06-b03a-9b81357970b6',
+    'AWV_EW_WV': 'b49fc845-fa4c-43ca-a7c0-a9508e4ee38b'}
 
 
 def print_overview_assets(lijst_otl_objecten):
@@ -29,7 +61,7 @@ def print_overview_assets(lijst_otl_objecten):
         print(colored(f'created {str(v)} assets of type {k}', 'blue'))
 
 
-def from_eventDataAC_create_asset_and_betrokkene_relation(event_data_ac):
+def from_eventDataAC_create_asset_and_betrokkene_relation(event_data_ac, no_mapping_records_file):
     try:
         created_otl_objects = mtp.create_otl_objects_from_eventDataAC(event_data_ac)
         if len(created_otl_objects) == 0:
@@ -43,18 +75,26 @@ def from_eventDataAC_create_asset_and_betrokkene_relation(event_data_ac):
             if 'Agentschap Wegen en Verkeer' in event_data_ac.gebied:
                 agent_name = event_data_ac.gebied[-6:]
                 agent_name = agent_name[0:3] + "_" + agent_name[-3:]
-                agent = AgentCollection(requester=requester).get_agent_by_fulltextsearch_name(agent_name)
+                try:
+                    agent_uuid = agent_mapping[agent_name]
+                    agent = AgentCollection(requester=requester).get_agent_by_uuid(agent_uuid)
+                except KeyError:
+                    agent = AgentCollection(requester=requester).get_agent_by_fulltextsearch_name(agent_name)
 
                 # indien de Agent gevonden is: leg de relatie tussen asset en Agent rol berekende-beheerder
                 if agent is not None:
                     agent.assetId = agent.agentId
-                    districtrelatie = RelationCreator.create_betrokkenerelation(source=created_otl_object,
-                                                                                target=agent, rol='berekende-beheerder')
+                    districtrelatie = RelationCreator.create_betrokkenerelation(
+                        source=created_otl_object, target=agent, rol='berekende-beheerder')
                     lijst_otl_objecten.append(districtrelatie)
 
             lijst_otl_objecten.append(created_otl_object)
-    except Exception as e:
+    except NoMappingRecordFound as e:
+        no_mapping_records_file.write(f'{event_data_ac.id};{event_data_ac.product};{event_data_ac.materiaal}\n')
         print(f'{e} => id:{event_data_ac.id} product:{event_data_ac.product} materiaal:{event_data_ac.materiaal}')
+    except Exception as e:
+        print(e)
+        pass
 
 
 if __name__ == '__main__':
@@ -77,16 +117,20 @@ if __name__ == '__main__':
     # end = time.time()
     # print(colored(f'Number of lines (afschermendeconstructies) from Feature server: {len(raw_output)}', 'green'))
     # print(colored(f'Time to get input from feature server: {round(end - start, 2)}', 'yellow'))
-    raw_output = []
-    with open('AC.json') as f:
-        raw_output = f.readlines()
-    # raw_output = raw_output[0:2000]
+    #
+    # # write to AC.json
+    # with open("AC.json", "w") as f:
+    #     f.write('[' + ',\n'.join(raw_output) + ']')
+
+    with open('AC.json') as json_file:
+        data = json.load(json_file)
+    # data = data[0:200]
 
     processor = JsonToEventDataACProcessor()
 
     # verwerk de input van de feature server tot een lijst van EventDataAC objecten
     start = time.time()
-    listEventDataAC = processor.process_json_to_list_event_data_ac(raw_output)
+    listEventDataAC = processor.process_json_file_to_list_event_data_ac(data)
     end = time.time()
     print(
         colored(f'Time to process feature server lines to Python dataclass objects: {round(end - start, 2)}', 'yellow'))
@@ -103,14 +147,18 @@ if __name__ == '__main__':
     # end = time.time()
     # print(colored(f'Number of lines (rijbanen) from Feature server: {len(raw_output_rijbanen)}', 'green'))
     # print(colored(f'Time to get input from feature server: {round(end - start, 2)}', 'yellow'))
-    raw_output_rijbanen = []
-    with open('rijbanen.json') as f:
-        raw_output_rijbanen = f.readlines()
-    # raw_output_rijbanen = raw_output_rijbanen[0:2000]
+    #
+    # # write to rijbanen.json
+    # with open("rijbanen.json", "w") as f:
+    #     f.write('[' + ',\n'.join(raw_output_rijbanen) + ']')
 
     # verwerk de input van de feature server tot een lijst van EventDataAC objecten
     start = time.time()
-    list_rijbanen = processor.process_json_to_list_event_rijbaan(raw_output_rijbanen)
+    with open('rijbanen.json') as json_file:
+        rijbanen_json = json.load(json_file)
+
+    list_rijbanen = processor.process_json_object_or_list_rb(rijbanen_json, is_list=True)
+
     end = time.time()
     print(
         colored(f'Time to process feature server lines to Python dataclass objects: {round(end - start, 2)}', 'yellow'))
@@ -174,9 +222,11 @@ if __name__ == '__main__':
     # using multithreading
     start = time.time()
     executor = concurrent.futures.ThreadPoolExecutor()
-    futures = [executor.submit(from_eventDataAC_create_asset_and_betrokkene_relation, event_data_ac=eventDataAC)
-               for eventDataAC in listEventDataAC]
-    concurrent.futures.wait(futures)
+    with open('output/missing_mapping_records_20231129.csv', 'w') as no_mapping_records_file:
+        no_mapping_records_file.write('id;product;materiaal\n')
+        futures = [executor.submit(from_eventDataAC_create_asset_and_betrokkene_relation, event_data_ac=eventDataAC,
+                                   no_mapping_records_file=no_mapping_records_file) for eventDataAC in listEventDataAC]
+        concurrent.futures.wait(futures)
 
     end = time.time()
     print(colored(f'Time to create OTL compliant assets and betrokkene relations: {round(end - start, 2)}', 'yellow'))
@@ -203,4 +253,4 @@ if __name__ == '__main__':
     # gebruik OTLMOW om de OTL conforme objecten weg te schrijven naar een export bestand
     exporter = FileExporter(settings=settings_manager.settings)
     exporter.create_file_from_assets(list_of_objects=lijst_otl_objecten,
-                                     filepath=Path('DAVIE_export_file_20230926.json'))
+                                     filepath=Path('DAVIE_export_file_20231129.json'))
