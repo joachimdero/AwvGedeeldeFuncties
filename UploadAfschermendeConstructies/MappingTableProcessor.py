@@ -22,7 +22,7 @@ class MappingTableProcessor:
         wb = load_workbook(filename=file_path)
         sheet = wb['mapping']
 
-        cells = sheet['A2': 'J153']
+        cells = sheet['A2': 'J178']
 
         for c1, c2, c3, c4, c5, c6, c7, c8, c9, c10 in cells:
             self.mapping_table.append([c1.value, c2.value, c3.value, c4.value, c5.value, c6.value, c7.value,

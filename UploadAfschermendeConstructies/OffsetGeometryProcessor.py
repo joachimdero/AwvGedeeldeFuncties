@@ -42,7 +42,12 @@ class OffsetGeometryProcessor:
 
     @staticmethod
     def apply_offset(geometry, offset, side):
-        return geometry.parallel_offset(distance=offset, side=side, join_style=2)
+        if geometry.length < offset:
+            geometry.parallel_offset(distance=offset/3, side=side, join_style=2)
+            geometry.parallel_offset(distance=offset / 3, side=side, join_style=2)
+            return geometry.parallel_offset(distance=offset/3, side=side, join_style=2)
+        else:
+            return geometry.parallel_offset(distance=offset, side=side, join_style=2)
 
     def get_offset_params_from_eventdataAC(self, eventData: EventDataAC):
         if eventData.breedte_rijbaan != -1:
@@ -61,10 +66,10 @@ class OffsetGeometryProcessor:
         wegtype = eventData.ident8[0]
 
         is_hoofdweg = ((wegtype in ['A', 'B'] or eventData.ident8.startswith('R00')) and eventData.ident8[4:7] == '000')
-        is_af_oprit_hoofdweg = ((wegtype == 'A' or eventData.ident8.startswith('R00')) and eventData.ident8[4:7] != '000')
+        is_af_oprit_hoofdweg = ((wegtype in ['A', 'B'] or eventData.ident8.startswith('R00')) and eventData.ident8[4:7] != '000')
         is_n_weg = (wegtype == 'N' or wegtype == 'T' or (eventData.ident8.startswith('R') and not eventData.ident8.startswith('R00')))
         is_zijde_rijbaan_R = (eventData.zijde_rijbaan == 'R')
-        is_zijde_rijbaan_L = (eventData.zijde_rijbaan == 'L')
+        is_zijde_rijbaan_L = (eventData.zijde_rijbaan == 'L' or eventData.zijde_rijbaan == 'M')
 
         if not is_hoofdweg and not is_af_oprit_hoofdweg and not is_n_weg:
             pass
@@ -103,7 +108,8 @@ class OffsetGeometryProcessor:
         }
 
         if eventData.zijde_rijbaan == 'M':
-            raise NotImplementedError('zijde rijbaan == M ==> object wordt niet gemapt')
+            is_zijde_rijbaan_L = True
+            is_zijde_rijbaan_R = False
 
         try:
             return mappingtabel[(is_zijde_rijbaan_R, is_zijde_rijbaan_L, is_wegnr_1, is_wegnr_2)]

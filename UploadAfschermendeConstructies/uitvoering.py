@@ -85,7 +85,7 @@ def from_eventDataAC_create_asset_and_betrokkene_relation(event_data_ac, no_mapp
                 if agent is not None:
                     agent.assetId = agent.agentId
                     districtrelatie = RelationCreator.create_betrokkenerelation(
-                        source=created_otl_object, target=agent, rol='berekende-beheerder')
+                        source=created_otl_object, target=agent, rol='beheerder')
                     lijst_otl_objecten.append(districtrelatie)
 
             lijst_otl_objecten.append(created_otl_object)
@@ -93,7 +93,7 @@ def from_eventDataAC_create_asset_and_betrokkene_relation(event_data_ac, no_mapp
         no_mapping_records_file.write(f'{event_data_ac.id};{event_data_ac.product};{event_data_ac.materiaal}\n')
         print(f'{e} => id:{event_data_ac.id} product:{event_data_ac.product} materiaal:{event_data_ac.materiaal}')
     except Exception as e:
-        print(e)
+        print(f'{e} => id:{event_data_ac.id}')
         pass
 
 
@@ -124,7 +124,7 @@ if __name__ == '__main__':
 
     with open('AC.json') as json_file:
         data = json.load(json_file)
-    # data = data[0:200]
+    # data = filter(lambda x: x['properties']['id'] in ['50518', '50366'], data)
 
     processor = JsonToEventDataACProcessor()
 
@@ -158,6 +158,7 @@ if __name__ == '__main__':
         rijbanen_json = json.load(json_file)
 
     list_rijbanen = processor.process_json_object_or_list_rb(rijbanen_json, is_list=True)
+    # list_rijbanen = list_rijbanen[0:200]
 
     end = time.time()
     print(
@@ -191,7 +192,8 @@ if __name__ == '__main__':
             offset_geometry = ogp.create_offset_geometry_from_eventdataAC(eventDataAC, round_precision=3)
             eventDataAC.offset_wkt = offset_geometry.wkt
             eventDataAC.offset_geometry = offset_geometry
-        except:
+        except Exception as e:
+            print(e)
             offset_gefaald_teller += 1
     print(colored(f'Aantal gefaalde offsets: {offset_gefaald_teller}', 'red'))
     end = time.time()
@@ -222,7 +224,7 @@ if __name__ == '__main__':
     # using multithreading
     start = time.time()
     executor = concurrent.futures.ThreadPoolExecutor()
-    with open('output/missing_mapping_records_20231129.csv', 'w') as no_mapping_records_file:
+    with open('output/missing_mapping_records_20231207.csv', 'w') as no_mapping_records_file:
         no_mapping_records_file.write('id;product;materiaal\n')
         futures = [executor.submit(from_eventDataAC_create_asset_and_betrokkene_relation, event_data_ac=eventDataAC,
                                    no_mapping_records_file=no_mapping_records_file) for eventDataAC in listEventDataAC]
@@ -253,4 +255,4 @@ if __name__ == '__main__':
     # gebruik OTLMOW om de OTL conforme objecten weg te schrijven naar een export bestand
     exporter = FileExporter(settings=settings_manager.settings)
     exporter.create_file_from_assets(list_of_objects=lijst_otl_objecten,
-                                     filepath=Path('DAVIE_export_file_20231129.json'))
+                                     filepath=Path('DAVIE_export_file_20231207.json'))
