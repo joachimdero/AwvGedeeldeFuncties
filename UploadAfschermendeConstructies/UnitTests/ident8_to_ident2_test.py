@@ -6,6 +6,8 @@ class IdentConverter:
     def convert(cls, ident8: str) -> str | None:
         if not isinstance(ident8, str) or len(ident8) != 8:
             return None
+        if not ident8[0].isalpha() or not ident8[1:4].isdigit():
+            return None
         number = ident8[1:4].lstrip('0')
         if ident8[4] == '9':
             return f'{ident8[0]}{number}{chr(96 + int(ident8[5:7]))}'
@@ -27,6 +29,9 @@ class IdentConverter:
         (None, None),  # Empty input
         (12345, None),  # Non-string input
         ('1234567', None),  # String not length 8
+        ('12345678', None),  # First character not letter
+        ('R12A4567', None),  # Number has alphanumeric characters
+
     ]
 )
 def test_ident_converter(input_value, expected_output):
