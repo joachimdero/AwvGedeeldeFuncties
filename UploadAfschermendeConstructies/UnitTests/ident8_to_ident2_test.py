@@ -34,5 +34,4 @@ class IdentConverter:
     ]
 )
 def test_ident_converter(input_value, expected_output):
-    result = IdentConverter.convert(input_value)
-    assert result == expected_output
+    assert IdentConverter.convert(input_value) == expected_output
